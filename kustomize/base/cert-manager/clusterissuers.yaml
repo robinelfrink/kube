@@ -1,0 +1,23 @@
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: clusterissuers
+spec:
+  interval: 1h
+  releaseName: cluserissuers
+  targetNamespace: kube-cert-manager
+  install:
+    createNamespace: true
+  chart:
+    spec:
+      chart: charts/cluster-issuers
+      version: 1.0.0
+      sourceRef:
+        kind: GitRepository
+        name: kube
+      interval: 1h
+  valuesFrom:
+    - kind: Secret
+      name: config
+      valuesKey: admin-email
+      targetPath: adminEmail

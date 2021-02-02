@@ -22,6 +22,7 @@ metadata:
   name: config
   namespace: mykube
 stringData:
+  admin-email: admin@example.com
   nfs-server: 10.1.1.2
   nfs-path: /nfs/export
 ```
