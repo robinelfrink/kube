@@ -23,8 +23,12 @@ metadata:
   namespace: mykube
 stringData:
   admin-email: admin@example.com
-  nfs-server: 10.1.1.2
-  nfs-path: /nfs/export
+  nfs:
+    enables: true
+    values:
+      nfs:
+        server: 10.1.1.2
+        path: /nfs/export
 ```
 
 ## Create a `GitRepository`

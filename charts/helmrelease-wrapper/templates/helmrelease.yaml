@@ -1,0 +1,11 @@
+{{- $config := .Values.config | fromYaml -}}
+{{- if and $config.enabled (kindIs "map" $config.values) -}}
+{{- $configspec := dict "values" $config.values -}}
+{{- $spec := merge $configspec .Values.spec -}}
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: {{ .Values.name }}
+spec:
+  {{- $spec | toYaml | nindent 2 }}
+{{- end -}}
