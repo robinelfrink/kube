@@ -16,6 +16,8 @@ spec:
         kind: GitRepository
         name: kube
       interval: 1h
+  dependsOn:
+    - name: cert-manager
   valuesFrom:
     - kind: Secret
       name: config
