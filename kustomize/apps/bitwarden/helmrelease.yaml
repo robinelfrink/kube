@@ -33,6 +33,12 @@ spec:
             kind: GitRepository
             name: bitwarden
           interval: 1h
+      values:
+        deployment:
+          image:
+            repository: bitwardenrs/server
+            tag: 1.18.0
+            pullPolicy: IfNotPresent
   valuesFrom:
     - kind: Secret
       name: config
