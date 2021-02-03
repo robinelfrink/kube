@@ -23,12 +23,32 @@ metadata:
   namespace: mykube
 stringData:
   admin-email: admin@example.com
-  nfs:
+  nfs: |
     enables: true
     values:
       nfs:
         server: 10.1.1.2
         path: /nfs/export
+  bitwarden: |
+    - name: bitwarden
+      namespace: bitwarden
+      values:
+        bitwarden:
+          signups_allowed: false
+          server_admin_email: admin@example.com
+          domain: https://bitwarden.example.com
+        ingress:
+          annotations:
+            kubernetes.io/ingress.class: nginx
+            cert-manager.io/cluster-issuer: letsencrypt-staging
+          paths:
+            - '/'
+          hosts:
+            - bitwarden.example.com
+          tls:
+            - hosts:
+                - bitwarden.example.com
+              secretName: bitwarden-tls-secret
 ```
 
 ## Create a `GitRepository`
