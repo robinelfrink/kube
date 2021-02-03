@@ -1,10 +1,10 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
-  name: bitwarden-wrapper
+  name: bitwardenrs-wrapper
 spec:
   interval: 1h
-  releaseName: bitwarden-wrapper
+  releaseName: bitwardenrs-wrapper
   chart:
     spec:
       chart: charts/helmrelease-wrapper
@@ -21,8 +21,8 @@ spec:
     name: bitwarden
     spec:
       interval: 1h
-      releaseName: unnamed-bitwarden
-      targetNamespace: unnamed-bitwarden
+      releaseName: unnamed-bitwardenrs
+      targetNamespace: unnamed-bitwardenrs
       install:
         createNamespace: true
       chart:
@@ -31,7 +31,7 @@ spec:
           version: 0.2.0
           sourceRef:
             kind: GitRepository
-            name: bitwarden
+            name: bitwardenrs
           interval: 1h
       values:
         deployment:
@@ -42,5 +42,5 @@ spec:
   valuesFrom:
     - kind: Secret
       name: config
-      valuesKey: bitwarden
+      valuesKey: bitwardenrs
       targetPath: config

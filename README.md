@@ -30,14 +30,14 @@ stringData:
       nfs:
         server: 10.1.1.2
         path: /nfs/export
-  bitwarden: |
-    - name: bitwarden
-      namespace: bitwarden
+  bitwardenrs: |
+    - name: bitwardenrs
+      namespace: bitwardenrs
       values:
         bitwarden:
           signups_allowed: false
           server_admin_email: admin@example.com
-          domain: https://bitwarden.example.com
+          domain: https://bitwardenrs.example.com
         ingress:
           annotations:
             kubernetes.io/ingress.class: nginx
@@ -45,10 +45,10 @@ stringData:
           paths:
             - '/'
           hosts:
-            - bitwarden.example.com
+            - bitwardenrs.example.com
           tls:
             - hosts:
-                - bitwarden.example.com
+                - bitwardenrs.example.com
               secretName: bitwarden-tls-secret
 ```
 
