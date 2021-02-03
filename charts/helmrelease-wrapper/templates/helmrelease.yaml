@@ -1,5 +1,5 @@
 {{- $config := .Values.config | fromYaml -}}
-{{- if and $config.enabled (kindIs "map" $config.values) -}}
+{{- if and (kindIs "map" $config) $config.enabled -}}
 {{- $configspec := dict "values" $config.values -}}
 {{- $spec := merge $configspec .Values.spec -}}
 apiVersion: helm.toolkit.fluxcd.io/v2beta1

@@ -1,0 +1,16 @@
+{{- $config := printf "items:\n%s" (indent 2 .Values.config) | fromYaml -}}
+{{- if kindIs "slice" $config.items -}}
+{{- range $config.items -}}
+{{- $configspec := dict "values" .values -}}
+{{- $releasename := dict "releaseName" .name -}}
+{{- $releasenamespace := dict "targetNamespace" .namespace -}}
+{{- $spec := merge $configspec $releasename $releasenamespace $.Values.spec -}}
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: {{ .namespace }}-{{ .name }}
+spec:
+  {{- $spec | toYaml | nindent 2 }}
+{{- end -}}
+{{- end -}}
