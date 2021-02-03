@@ -1,6 +1,7 @@
 # My Kubernetes
 
-My Kubernetes setup. Useless for you, but free to use.
+My Kubernetes setup. This is probably useless for you, but free to use
+anything you find here.
 
 Requirements: [flux](https://toolkit.fluxcd.io/).
 
