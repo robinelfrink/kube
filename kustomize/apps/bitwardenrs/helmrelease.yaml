@@ -33,14 +33,35 @@ spec:
             kind: GitRepository
             name: bitwardenrs
           interval: 1h
-      values:
-        deployment:
-          image:
-            repository: bitwardenrs/server
-            tag: 1.18.0
-            pullPolicy: IfNotPresent
+    defaults:
+      issuer: letsencrypt-staging
+    template:
+      bitwarden:
+        signups_allowed: false
+        domain: https://{ host }
+      deployment:
+        image:
+          repository: bitwardenrs/server
+          tag: 1.18.0
+          pullPolicy: IfNotPresent
+      ingress:
+        annotations:
+          kubernetes.io/ingress.class: nginx
+          cert-manager.io/cluster-issuer: "{ issuer }"
+        paths:
+          - '/'
+        hosts:
+          - "{ host }"
+        tls:
+          - hosts:
+            - "{ host }"
+            secretName: bitwarden-tls-secret
   valuesFrom:
     - kind: Secret
       name: config
       valuesKey: bitwardenrs
       targetPath: config
+    - kind: Secret
+      name: config
+      valuesKey: admin-email
+      targetPath: template.bitwarden.server_admin_email

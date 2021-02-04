@@ -1,3 +1,4 @@
 spec: {}
-enabled: false
+template: {}
+defaults: {}
 config: ''

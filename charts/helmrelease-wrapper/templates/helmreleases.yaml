@@ -1,10 +1,29 @@
-{{- $config := printf "items:\n%s" (indent 2 .Values.config) | fromYaml -}}
-{{- if kindIs "slice" $config.items -}}
-{{- range $config.items -}}
-{{- $configspec := dict "values" .values -}}
+{{- $configitems := printf "items:\n%s" (indent 2 .Values.config) | fromYaml -}}
+{{- if kindIs "slice" $configitems.items -}}
+
+{{- range $configitems.items -}}
+{{- $config := . -}}
+{{/*
+  Replace vars in $.Values.template with values from $config.
+*/}}
+{{- range keys . -}}
+{{- if kindIs "string" (get $config .) -}}
+{{- $_ := set $.Values "template" ((regexReplaceAll (printf "{ %s }" .) ($.Values.template | toYaml) (get $config .)) | fromYaml) -}}
+{{- end -}}
+{{- end -}}
+
+{{/*
+  Replace vars in $.Values.template with values from $.Values.defaults
+  */}}
+{{- range keys $.Values.defaults -}}
+{{- $_ := set $.Values "template" ((regexReplaceAll (printf "{ %s }" .) ($.Values.template | toYaml) (get $.Values.defaults .)) | fromYaml) -}}
+{{- end -}}
+
+{{- $values := dict "values" (get $config "values") -}}
+{{- $template := dict "values" $.Values.template -}}
 {{- $releasename := dict "releaseName" .name -}}
 {{- $releasenamespace := dict "targetNamespace" .namespace -}}
-{{- $spec := merge $configspec $releasename $releasenamespace $.Values.spec -}}
+{{- $spec := merge $values $template $releasename $releasenamespace $.Values.spec -}}
 ---
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease

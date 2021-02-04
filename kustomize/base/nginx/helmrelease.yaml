@@ -17,11 +17,12 @@ spec:
         name: ingress-nginx
       interval: 1h
   values:
-    controller:
-      config:
-        use-proxy-protocol: "true"
-      service:
-        type: NodePort
-        nodePorts:
-          http: 30080
-          https: 30443
+    template:
+      controller:
+        config:
+          use-proxy-protocol: "true"
+        service:
+          type: NodePort
+          nodePorts:
+            http: 30080
+            https: 30443

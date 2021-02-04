@@ -29,10 +29,13 @@ spec:
             kind: GitRepository
             name: nfs-subdir-external-provisioner
           interval: 1h
-      values:
-        storageClass:
-          defaultClass: true
-          accessModes: ReadWriteMany
+    template:
+      nfs:
+        server: "{ server }"
+        path: "{ path }"
+      storageClass:
+        defaultClass: true
+        accessModes: ReadWriteMany
   valuesFrom:
     - kind: Secret
       name: config

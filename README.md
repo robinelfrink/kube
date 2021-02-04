@@ -25,31 +25,14 @@ metadata:
 stringData:
   admin-email: admin@example.com
   nfs: |
-    enables: true
-    values:
-      nfs:
-        server: 10.1.1.2
-        path: /nfs/export
+    enabled: true
+    server: 10.1.1.2
+    path: /nfs/export
   bitwardenrs: |
     - name: bitwardenrs
       namespace: bitwardenrs
-      values:
-        bitwarden:
-          signups_allowed: false
-          server_admin_email: admin@example.com
-          domain: https://bitwardenrs.example.com
-        ingress:
-          annotations:
-            kubernetes.io/ingress.class: nginx
-            cert-manager.io/cluster-issuer: letsencrypt-staging
-          paths:
-            - '/'
-          hosts:
-            - bitwardenrs.example.com
-          tls:
-            - hosts:
-                - bitwardenrs.example.com
-              secretName: bitwarden-tls-secret
+      host: https://bitwardenrs.example.com
+      issuer: letsencrypt-staging
 ```
 
 ## Create a `GitRepository`
