@@ -8,7 +8,7 @@
 */}}
 {{- range keys . -}}
 {{- if kindIs "string" (get $config .) -}}
-{{- $_ := set $.Values "template" ((regexReplaceAll (printf "{ %s }" .) ($.Values.template | toYaml) (get $config .)) | fromYaml) -}}
+{{- $_ := set $.Values "template" ((regexReplaceAll (printf "{ %s }" .) ($.Values.template | toYaml) (get $config . | toString)) | fromYaml) -}}
 {{- end -}}
 {{- end -}}
 
@@ -16,7 +16,7 @@
   Replace vars in $.Values.template with values from $.Values.defaults
   */}}
 {{- range keys $.Values.defaults -}}
-{{- $_ := set $.Values "template" ((regexReplaceAll (printf "{ %s }" .) ($.Values.template | toYaml) (get $.Values.defaults .)) | fromYaml) -}}
+{{- $_ := set $.Values "template" ((regexReplaceAll (printf "{ %s }" .) ($.Values.template | toYaml) (get $.Values.defaults . | toString)) | fromYaml) -}}
 {{- end -}}
 
 {{- $values := dict "values" (get $config "values") -}}

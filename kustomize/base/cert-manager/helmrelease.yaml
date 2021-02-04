@@ -17,9 +17,8 @@ spec:
         name: cert-manager
       interval: 1h
   values:
-    template:
-      installCRDs: true
-      extraArgs:
-        - --enable-certificate-owner-ref=true
-      prometheus:
-        enabled: false
+    installCRDs: true
+    extraArgs:
+      - --enable-certificate-owner-ref=true
+    prometheus:
+      enabled: false

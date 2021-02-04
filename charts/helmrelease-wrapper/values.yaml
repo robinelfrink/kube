@@ -1,4 +1,51 @@
+optional: false
+
 spec: {}
+
+# Example:
+# spec:
+#   chart:
+#     spec:
+#       chart: deploy/helm
+#       interval: 1h
+#       sourceRef:
+#         kind: GitRepository
+#         name: nfs-subdir-external-provisioner
+#       version: 3.0.0
+#   install:
+#     createNamespace: true
+#   interval: 1h
+#   releaseName: nfs-subdir-external-provisioner
+#   targetNamespace: kube-nfs
+
+
 template: {}
+
+# Example:
+#
+# template:
+#   nfs:
+#     path: "{ path }"
+#     server: "{ server }"
+#   storageClass:
+#     accessModes: "{ accessMode }"
+#     defaultClass: true
+
+
 defaults: {}
-config: ''
+
+# Example:
+#
+# defaults:
+#   accessMode: ReadWriteMany
+
+
+config: ""
+
+# Example:
+#
+# config: |
+#   enabled: true
+#   server: 10.4.2.2
+#   path: /nfs/share
+
