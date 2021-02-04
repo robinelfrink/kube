@@ -1,7 +1,6 @@
 {{- $configitem := printf "item:\n%s" (indent 2 .Values.config) | fromYaml -}}
 {{- if kindIs "map" $configitem.item -}}
 {{- $config:= $configitem.item -}}
-
 {{- if or (not .Values.optional) (default $config.enabled false) -}}
 
 {{/*

@@ -40,7 +40,7 @@ defaults: {}
 #   accessMode: ReadWriteMany
 
 
-config: ""
+config: "{}"
 
 # Example:
 #
