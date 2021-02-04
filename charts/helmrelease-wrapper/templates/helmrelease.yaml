@@ -1,6 +1,8 @@
-{{- $config := .Values.config | fromYaml -}}
-{{- $install := not .Values.optional -}}
-{{- if and (kindIs "map" $config) (or $config.enabled (not .Values.optional)) -}}
+{{- $configitem := printf "item:\n%s" (indent 2 .Values.config) | fromYaml -}}
+{{- if kindIs "map" $configitem.item -}}
+{{- $config:= $configitem.item -}}
+
+{{- if or (not .Values.optional) (default $config.enabled false) -}}
 
 {{/*
   Replace vars in $.Values.template with values from $config.
@@ -27,4 +29,5 @@ metadata:
   name: {{ .Values.name }}
 spec:
   {{- $spec | toYaml | nindent 2 }}
+{{- end -}}
 {{- end -}}
