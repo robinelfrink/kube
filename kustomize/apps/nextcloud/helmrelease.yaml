@@ -60,3 +60,4 @@ spec:
       name: config
       valuesKey: nextcloud
       targetPath: config
+      optional: true

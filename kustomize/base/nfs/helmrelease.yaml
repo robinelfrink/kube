@@ -44,3 +44,4 @@ spec:
       name: config
       valuesKey: nfs
       targetPath: config
+      optional: true

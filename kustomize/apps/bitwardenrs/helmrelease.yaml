@@ -61,6 +61,7 @@ spec:
       name: config
       valuesKey: bitwardenrs
       targetPath: config
+      optional: true
     - kind: Secret
       name: config
       valuesKey: admin-email
