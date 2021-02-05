@@ -23,7 +23,7 @@
 {{- $template := dict "values" $.Values.template -}}
 {{- $releasename := dict "releaseName" .name -}}
 {{- $releasenamespace := dict "targetNamespace" .namespace -}}
-{{- $spec := merge $values $template $releasename $releasenamespace $.Values.spec -}}
+{{- $spec := merge $values $template $releasename $releasenamespace $.Values.spec }}
 ---
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease

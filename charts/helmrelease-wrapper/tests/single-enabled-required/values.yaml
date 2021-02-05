@@ -1,0 +1,24 @@
+config: |
+  enabled: true
+  key: value
+name: release-name-wrapper
+spec:
+  chart:
+    spec:
+      chart: deploy/helm
+      interval: 1h
+      sourceRef:
+        kind: HelmRepository
+        name: helm-repository
+      version: 1.0.0
+  install:
+    createNamespace: true
+  interval: 1h
+  releaseName: release-name
+  targetNamespace: target-namespace
+template:
+  deploy:
+    key: '{ key }'
+    default: '{ default }'
+defaults:
+  default: default-value
