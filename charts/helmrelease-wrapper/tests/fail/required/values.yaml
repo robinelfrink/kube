@@ -12,9 +12,11 @@ spec:
   install:
     createNamespace: true
   interval: 1h
+required: true
 template:
   deploy:
     key: '{ var:key }'
     default: '{ var:default }'
+    missing: '{ var:missing }'
 defaults:
   default: default-value

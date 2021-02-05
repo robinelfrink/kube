@@ -3,11 +3,11 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
-  name: release-name-wrapper
+  name: namespace-one-name-one
 spec:
   chart:
     spec:
-      chart: deploy/helm
+      chart: charts/helm
       interval: 1h
       sourceRef:
         kind: HelmRepository
@@ -16,9 +16,9 @@ spec:
   install:
     createNamespace: true
   interval: 1h
-  releaseName: release-name
-  targetNamespace: target-namespace
+  releaseName: name-one
+  targetNamespace: namespace-one
   values:
     deploy:
       default: default-value
-      key: value
+      key: value-one

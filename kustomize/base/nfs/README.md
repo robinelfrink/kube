@@ -7,8 +7,13 @@
 
 ## Variables
 
-| name       | required | default       | description
-|------------|----------|---------------|-------------
-| server     | yes      |               | NFS server address or hostname
-| path       | yes      |               | NFS export path
-| accessMode | no       | ReadWriteMany | Storage class access mode
+| name             | required | default       | description
+|------------------|----------|---------------|-------------
+| server           | yes      |               | NFS server address or hostname
+| path             | yes      |               | NFS export path
+| storageClassName | yes      |               | StorageClass name
+| mountOptions     | no       | ""            | Mount options
+| accessMode       | no       | ReadWriteMany | Storage class access mode
+| default          | no       | false         | This is the default storage class
+| reclaimPolicy    | no       | Delete        | Reclaim policy
+| archiveOnDelete  | no       | true          | Archive volumes on delete

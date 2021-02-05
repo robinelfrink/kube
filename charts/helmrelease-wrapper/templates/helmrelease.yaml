@@ -1,12 +1,23 @@
-{{- $configitem := printf "item:\n%s" (indent 2 .Values.config) | fromYaml -}}
-{{- if kindIs "map" $configitem.item -}}
-{{- $config:= $configitem.item -}}
-{{- if or (not .Values.optional) (default $config.enabled false) -}}
+{{- $configitems := printf "items:\n%s" (indent 2 .Values.config) | fromYaml -}}
+{{- if not (kindIs "slice" $configitems.items) -}}
+{{- fail "Expecting a list for 'config'" -}}
+{{- else if and (empty $configitems.items) .Values.required -}}
+{{- fail "Require at least one item in 'config'" -}}
+{{- end -}}
+
+{{- range $configitems.items -}}
+{{- $config := . -}}
+
+{{- if not (hasKey $config "name") -}}
+{{- fail "Missing chart name" -}}
+{{- else if not (hasKey $config "namespace") -}}
+{{- fail "Missing chart namespace" -}}
+{{- end -}}
 
 {{/*
   Replace vars in $.Values.template with values from $config.
 */}}
-{{- range keys $config -}}
+{{- range keys . -}}
 {{- if kindIs "string" (get $config .) -}}
 {{- $_ := set $.Values "template" ((regexReplaceAll (printf "{ var:%s }" .) ($.Values.template | toYaml) (get $config . | toString)) | fromYaml) -}}
 {{- end -}}
@@ -24,18 +35,20 @@
 */}}
 {{- $missing := regexFindAll "{ var:[a-zA-Z0-9-_]+ }" ($.Values.template | toYaml) -1 | uniq -}}
 {{- if $missing -}}
-{{- $error := printf "Missing required variable '%s'." (regexReplaceAll "{ var:([a-zA-Z0-9-_]+) }" (first $missing) "${1}") -}}
+{{- $error := printf "Missing required variable '%s' for %s/%s." (regexReplaceAll "{ var:([a-zA-Z0-9-_]+) }" (first $missing) "${1}") .name .namespace  -}}
 {{- fail $error -}}
 {{- end -}}
 
 {{- $values := dict "values" (get $config "values") -}}
 {{- $template := dict "values" $.Values.template -}}
-{{- $spec := merge $values $template $.Values.spec -}}
+{{- $releasename := dict "releaseName" .name -}}
+{{- $releasenamespace := dict "targetNamespace" .namespace -}}
+{{- $spec := merge $values $template $releasename $releasenamespace $.Values.spec }}
+---
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
-  name: {{ .Values.name }}
+  name: {{ .namespace }}-{{ .name }}
 spec:
   {{- $spec | toYaml | nindent 2 }}
-{{- end -}}
 {{- end -}}

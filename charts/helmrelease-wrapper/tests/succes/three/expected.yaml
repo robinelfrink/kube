@@ -1,5 +1,5 @@
 ---
-# Source: helmrelease-wrapper/templates/helmreleases.yaml
+# Source: helmrelease-wrapper/templates/helmrelease.yaml
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
@@ -23,7 +23,7 @@ spec:
       default: default-value
       key: value-one
 ---
-# Source: helmrelease-wrapper/templates/helmreleases.yaml
+# Source: helmrelease-wrapper/templates/helmrelease.yaml
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
@@ -47,7 +47,7 @@ spec:
       default: default-value
       key: value-one
 ---
-# Source: helmrelease-wrapper/templates/helmreleases.yaml
+# Source: helmrelease-wrapper/templates/helmrelease.yaml
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:

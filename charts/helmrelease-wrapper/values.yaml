@@ -1,4 +1,4 @@
-optional: false
+required: false
 
 spec: {}
 
@@ -40,7 +40,7 @@ defaults: {}
 #   accessMode: ReadWriteMany
 
 
-config: "{}"
+config: "[]"
 
 # Example:
 #

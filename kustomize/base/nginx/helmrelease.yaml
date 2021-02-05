@@ -7,18 +7,15 @@ spec:
   chart:
     spec:
       chart: charts/helmrelease-wrapper
-      version: 1.3.0
+      version: 1.4.0
       sourceRef:
         kind: GitRepository
         name: kube
       interval: 1h
   values:
-    optional: false
     name: ingress-nginx
     spec:
       interval: 1h
-      releaseName: ingress-nginx
-      targetNamespace: kube-nginx
       install:
         createNamespace: true
       chart:
@@ -38,6 +35,9 @@ spec:
           nodePorts:
             http: "{ var:httpNodePort }"
             https: "{ var:httpsNodePort }"
+    config: |
+      - name: ingress-nginx
+        namespace: kube-nginx
     defaults:
       httpNodePort: 30080
       httpsNodePort: 30443
