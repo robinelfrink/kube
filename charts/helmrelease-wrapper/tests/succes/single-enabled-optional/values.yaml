@@ -1,12 +1,11 @@
 config: |
-  - name: name-one
-    namespace: namespace-one
-    key: value-one
+  enabled: true
+  key: value
 name: release-name-wrapper
 spec:
   chart:
     spec:
-      chart: charts/helm
+      chart: deploy/helm
       interval: 1h
       sourceRef:
         kind: HelmRepository
@@ -15,9 +14,12 @@ spec:
   install:
     createNamespace: true
   interval: 1h
+  releaseName: release-name
+  targetNamespace: target-namespace
 template:
   deploy:
-    key: '{ key }'
-    default: '{ default }'
+    key: '{ var:key }'
+    default: '{ var:default }'
 defaults:
   default: default-value
+optional: true

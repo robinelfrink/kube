@@ -36,8 +36,8 @@ spec:
         service:
           type: NodePort
           nodePorts:
-            http: "{ httpNodePort }"
-            https: "{ httpsNodePort }"
+            http: "{ var:httpNodePort }"
+            https: "{ var:httpsNodePort }"
     defaults:
       httpNodePort: 30080
       httpsNodePort: 30443

@@ -32,11 +32,11 @@ spec:
           interval: 1h
     template:
       nfs:
-        server: "{ server }"
-        path: "{ path }"
+        server: "{ var:server }"
+        path: "{ var:path }"
       storageClass:
         defaultClass: true
-        accessModes: "{ accessMode }"
+        accessModes: "{ var:accessMode }"
     defaults:
       accessMode: ReadWriteMany
   valuesFrom:
