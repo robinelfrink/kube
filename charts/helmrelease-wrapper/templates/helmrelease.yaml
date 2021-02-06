@@ -15,29 +15,19 @@
 {{- end -}}
 
 {{/*
-  Replace vars in $.Values.template with values from $config.
+  Replace vars from $config.
 */}}
-{{- range keys . -}}
-{{- if kindIs "string" (get $config .) -}}
-{{- $_ := set $.Values "template" ((regexReplaceAll (printf "{ var:%s }" .) ($.Values.template | toYaml) (get $config . | toString)) | fromYaml) -}}
-{{- end -}}
-{{- end -}}
+{{- $_ := set $.Values "template" (include "replace-vars" (dict "template" $.Values.template "vars" $config) | fromYaml) -}}
 
 {{/*
-  Replace vars in $.Values.template with values from $.Values.defaults
+  Replace vars from $.Values.defaults
 */}}
-{{- range keys $.Values.defaults -}}
-{{- $_ := set $.Values "template" ((regexReplaceAll (printf "{ var:%s }" .) ($.Values.template | toYaml) (get $.Values.defaults . | toString)) | fromYaml) -}}
-{{- end -}}
+{{- $_ := set $.Values "template" (include "replace-vars" (dict "template" $.Values.template "vars" $.Values.defaults) | fromYaml) -}}
 
 {{/*
   Check for missing replaces vars
 */}}
-{{- $missing := regexFindAll "{ var:[a-zA-Z0-9-_]+ }" ($.Values.template | toYaml) -1 | uniq -}}
-{{- if $missing -}}
-{{- $error := printf "Missing required variable '%s' for %s/%s." (regexReplaceAll "{ var:([a-zA-Z0-9-_]+) }" (first $missing) "${1}") .name .namespace  -}}
-{{- fail $error -}}
-{{- end -}}
+{{- include "missing-vars" (dict "template" $.Values.template) -}}
 
 {{- $values := dict "values" (get $config "values") -}}
 {{- $template := dict "values" $.Values.template -}}
