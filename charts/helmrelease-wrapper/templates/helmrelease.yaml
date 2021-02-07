@@ -5,8 +5,7 @@
 {{- fail "Require at least one item in 'config'" -}}
 {{- end -}}
 
-{{- range $configitems.items -}}
-{{- $config := . -}}
+{{- range $config := $configitems.items -}}
 
 {{- if not (hasKey $config "name") -}}
 {{- fail "Missing chart name" -}}
@@ -14,23 +13,24 @@
 {{- fail "Missing chart namespace" -}}
 {{- end -}}
 
+{{- $template := dict "values" $.Values.template -}}
+
 {{/*
   Replace vars from $config.
 */}}
-{{- $_ := set $.Values "template" (include "replace-vars" (dict "template" $.Values.template "vars" $config) | fromYaml) -}}
+{{- $_ := set $template "values" (include "replace-vars" (dict "template" $template.values "vars" $config) | fromYaml) -}}
 
 {{/*
   Replace vars from $.Values.defaults.
 */}}
-{{- $_ := set $.Values "template" (include "replace-vars" (dict "template" $.Values.template "vars" $.Values.defaults) | fromYaml) -}}
+{{- $_ := set $template "values" (include "replace-vars" (dict "template" $template.values "vars" $.Values.defaults) | fromYaml) -}}
 
 {{/*
   Check for missing replaces vars
 */}}
-{{- include "missing-vars" (dict "template" $.Values.template) -}}
+{{- include "missing-vars" (dict "template" $template.values) -}}
 
 {{- $values := dict "values" (get $config "values") -}}
-{{- $template := dict "values" $.Values.template -}}
 {{- $releasename := dict "releaseName" .name -}}
 {{- $releasenamespace := dict "targetNamespace" .namespace -}}
 {{- $spec := merge $values $template $releasename $releasenamespace $.Values.spec }}
