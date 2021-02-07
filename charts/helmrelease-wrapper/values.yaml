@@ -48,4 +48,3 @@ config: "[]"
 #   enabled: true
 #   server: 10.4.2.2
 #   path: /nfs/share
-
