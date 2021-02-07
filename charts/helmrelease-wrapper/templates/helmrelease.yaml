@@ -20,7 +20,7 @@
 {{- $_ := set $.Values "template" (include "replace-vars" (dict "template" $.Values.template "vars" $config) | fromYaml) -}}
 
 {{/*
-  Replace vars from $.Values.defaults
+  Replace vars from $.Values.defaults.
 */}}
 {{- $_ := set $.Values "template" (include "replace-vars" (dict "template" $.Values.template "vars" $.Values.defaults) | fromYaml) -}}
 
