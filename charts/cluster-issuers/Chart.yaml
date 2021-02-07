@@ -4,3 +4,4 @@ description: LetsEncrypt ClusterIssuers for cert-manager
 type: application
 version: 1.0.0
 appVersion: "1.0.0"
+icon: https://raw.githubusercontent.com/jetstack/cert-manager/master/logo/logo.svg
