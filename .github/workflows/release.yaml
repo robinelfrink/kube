@@ -1,0 +1,44 @@
+name: Release new version
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+
+  release:
+
+    runs-on: ubuntu-latest
+    steps:
+
+    - name: Checkout
+      uses: actions/checkout@v2
+      with:
+        fetch-depth: "0"
+
+    - name: List changes
+      id: changes
+      run: |
+        git fetch --tags --force
+        echo "::set-output name=changes::$(git log $(git describe --tags --abbrev=0)..${GITHUB_SHA} --pretty=format:'- %h %s')"
+
+    - name: Update version
+      id: update-version
+      uses: codacy/git-version@2.5.2
+      with:
+        prefix: "v"
+        release-branch: main
+
+    - name: Create release
+      uses: actions/create-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        tag_name: ${{ steps.update-version.outputs.version }}
+        release_name: Release ${{ steps.update-version.outputs.version }}
+        body: |
+          Changes in this release:
+          ${{ steps.changes.outputs.changes }}
+        draft: false
+        prerelease: false
