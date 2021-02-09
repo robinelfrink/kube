@@ -42,6 +42,9 @@ defaults: {}
 
 config: "[]"
 
+# Either a dict to create one HelmRelease object, or a list to
+# create multiple objects.
+#
 # Example:
 #
 # config: |

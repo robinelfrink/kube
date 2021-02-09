@@ -59,7 +59,66 @@ tests:
     asserts:
       - failedTemplate:
           errorMessage: "Require at least one item in 'config'"
-  # One item in config
+  # One item in config, as a dict
+  - it: should pass
+    set:
+      config: |
+        name: helmrelease-name
+        namespace: helmrelease-namespace
+        key: value
+      spec:
+        chart:
+          spec:
+            chart: charts/helm
+            interval: 1h
+            sourceRef:
+              kind: HelmRepository
+              name: helm-repository
+            version: 1.2.3
+        install:
+          createNamespace: true
+        interval: 1h
+      template:
+        deploy:
+          key: '{ var:key }'
+          default: '{ var:default }'
+      defaults:
+        default: default-value
+    release:
+      name: helmrelease-wrapper-name
+      namespace: helmrelease-wrapper-namespace
+    asserts:
+      - hasDocuments:
+          count: 1
+      - isAPIVersion:
+          of: helm.toolkit.fluxcd.io/v2beta1
+      - isKind:
+          of: HelmRelease
+      - equal:
+          path: metadata
+          value:
+            name: helmrelease-namespace-helmrelease-name
+      - equal:
+          path: spec
+          value:
+            chart:
+              spec:
+                chart: charts/helm
+                interval: 1h
+                sourceRef:
+                  kind: HelmRepository
+                  name: helm-repository
+                version: 1.2.3
+            install:
+              createNamespace: true
+            interval: 1h
+            releaseName: helmrelease-name
+            targetNamespace: helmrelease-namespace
+            values:
+              deploy:
+                default: default-value
+                key: value
+  # One item in config, as a list
   - it: should pass
     set:
       config: |
