@@ -1,6 +1,6 @@
-suite: helmrelease
+suite: namespace
 templates:
-  - helmrelease.yaml
+  - namespace.yaml
 tests:
   # No items in config, required=false.
   - it: should pass
@@ -85,31 +85,13 @@ tests:
       - hasDocuments:
           count: 1
       - isAPIVersion:
-          of: helm.toolkit.fluxcd.io/v2beta1
+          of: v1
       - isKind:
-          of: HelmRelease
+          of: Namespace
       - equal:
           path: metadata
           value:
-            name: helmrelease-namespace-helmrelease-name
-      - equal:
-          path: spec
-          value:
-            chart:
-              spec:
-                chart: charts/helm
-                interval: 1h
-                sourceRef:
-                  kind: HelmRepository
-                  name: helm-repository
-                version: 1.2.3
-            interval: 1h
-            releaseName: helmrelease-name
-            targetNamespace: helmrelease-namespace
-            values:
-              deploy:
-                default: default-value
-                key: value
+            name: helmrelease-namespace
   # One item in config, as a list
   - it: should pass
     set:
@@ -140,31 +122,13 @@ tests:
       - hasDocuments:
           count: 1
       - isAPIVersion:
-          of: helm.toolkit.fluxcd.io/v2beta1
+          of: v1
       - isKind:
-          of: HelmRelease
+          of: Namespace
       - equal:
           path: metadata
           value:
-            name: helmrelease-namespace-helmrelease-name
-      - equal:
-          path: spec
-          value:
-            chart:
-              spec:
-                chart: charts/helm
-                interval: 1h
-                sourceRef:
-                  kind: HelmRepository
-                  name: helm-repository
-                version: 1.2.3
-            interval: 1h
-            releaseName: helmrelease-name
-            targetNamespace: helmrelease-namespace
-            values:
-              deploy:
-                default: default-value
-                key: value
+            name: helmrelease-namespace
   # Three items in config
   - it: should pass
     set:
@@ -201,60 +165,11 @@ tests:
       - hasDocuments:
           count: 3
       - isAPIVersion:
-          of: helm.toolkit.fluxcd.io/v2beta1
+          of: v1
       - isKind:
-          of: HelmRelease
+          of: Namespace
       - documentIndex: 1
         equal:
           path: metadata
           value:
-            name: helmrelease-namespace-two-helmrelease-name-two
-      - documentIndex: 1
-        equal:
-          path: spec
-          value:
-            chart:
-              spec:
-                chart: charts/helm
-                interval: 1h
-                sourceRef:
-                  kind: HelmRepository
-                  name: helm-repository
-                version: 1.2.3
-            interval: 1h
-            releaseName: helmrelease-name-two
-            targetNamespace: helmrelease-namespace-two
-            values:
-              deploy:
-                default: default-value
-                key: value-two
-  # Missing variable
-  - it: should fail
-    set:
-      config: |
-        - name: helmrelease-name
-          namespace: helmrelease-namespace
-          key: value
-      spec:
-        chart:
-          spec:
-            chart: charts/helm
-            interval: 1h
-            sourceRef:
-              kind: HelmRepository
-              name: helm-repository
-            version: 1.2.3
-        interval: 1h
-      template:
-        deploy:
-          key: '{ var:key }'
-          default: '{ var:default }'
-          missing: '{ var:missing }'
-      defaults:
-        default: default-value
-    release:
-      name: helmrelease-wrapper-name
-      namespace: helmrelease-wrapper-namespace
-    asserts:
-      - failedTemplate:
-          errorMessage: "Missing required variable 'missing' for %!s(<nil>)/%!s(<nil>)."
+            name: helmrelease-namespace-two
