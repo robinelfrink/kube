@@ -89,9 +89,8 @@ tests:
       - isKind:
           of: HelmRelease
       - equal:
-          path: metadata
-          value:
-            name: helmrelease-namespace-helmrelease-name
+          path: metadata.name
+          value: helmrelease-namespace-helmrelease-name
       - equal:
           path: spec
           value:
@@ -144,9 +143,8 @@ tests:
       - isKind:
           of: HelmRelease
       - equal:
-          path: metadata
-          value:
-            name: helmrelease-namespace-helmrelease-name
+          path: metadata.name
+          value: helmrelease-namespace-helmrelease-name
       - equal:
           path: spec
           value:
@@ -206,9 +204,8 @@ tests:
           of: HelmRelease
       - documentIndex: 1
         equal:
-          path: metadata
-          value:
-            name: helmrelease-namespace-two-helmrelease-name-two
+          path: metadata.name
+          value: helmrelease-namespace-two-helmrelease-name-two
       - documentIndex: 1
         equal:
           path: spec

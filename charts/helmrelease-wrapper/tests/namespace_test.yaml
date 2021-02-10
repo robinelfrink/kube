@@ -89,9 +89,8 @@ tests:
       - isKind:
           of: Namespace
       - equal:
-          path: metadata
-          value:
-            name: helmrelease-namespace
+          path: metadata.name
+          value: helmrelease-namespace
   # One item in config, as a list
   - it: should pass
     set:
@@ -126,9 +125,8 @@ tests:
       - isKind:
           of: Namespace
       - equal:
-          path: metadata
-          value:
-            name: helmrelease-namespace
+          path: metadata.name
+          value: helmrelease-namespace
   # Three items in config
   - it: should pass
     set:
@@ -170,6 +168,5 @@ tests:
           of: Namespace
       - documentIndex: 1
         equal:
-          path: metadata
-          value:
-            name: helmrelease-namespace-two
+          path: metadata.name
+          value: helmrelease-namespace-two
