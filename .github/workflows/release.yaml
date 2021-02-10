@@ -21,7 +21,7 @@ jobs:
       id: changes
       run: |
         git fetch --tags --force
-        CHANGES="$(git log $(git describe --tags --abbrev=0)..${GITHUB_SHA} --pretty=format:'- %h %s')"
+        CHANGES="$(git log --reverse $(git describe --tags --abbrev=0)..${GITHUB_SHA} --pretty=format:'- %h %s')"
         CHANGES="${CHANGES//'%'/'%25'}"
         CHANGES="${CHANGES//$'\n'/'%0A'}"
         CHANGES="${CHANGES//$'\r'/'%0D'}"
