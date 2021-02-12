@@ -6,4 +6,4 @@ spec:
   interval: 1h
   url: https://github.com/kubernetes-sigs/nfs-subdir-external-provisioner
   ref:
-    tag: v4.0.0-rc1
+    tag: nfs-subdir-external-provisioner-4.0.1
