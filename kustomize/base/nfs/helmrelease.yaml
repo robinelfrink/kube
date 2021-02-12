@@ -22,8 +22,8 @@ spec:
         createNamespace: true
       chart:
         spec:
-          chart: deploy/helm
-          version: 3.0.0
+          chart: charts/nfs-subdir-external-provisioner
+          version: 4.0.1
           sourceRef:
             kind: GitRepository
             name: nfs-subdir-external-provisioner
@@ -36,14 +36,14 @@ spec:
       storageClass:
         create: true
         name: "{ var:storageClassName }"
-        defaultClass: "{ var:default }"
+        defaultClass: "{ var:defaultClass }"
         accessModes: "{ var:accessMode }"
         reclaimPolicy: "{ var:reclaimPolicy }"
         archiveOnDelete: "{ var:archiveOnDelete }"
     defaults:
       mountOptions: ""
       accessMode: ReadWriteMany
-      default: false
+      defaultClass: false
       reclaimPolicy: Delete
       archiveOnDelete: true
     required: true
