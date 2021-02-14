@@ -6,6 +6,7 @@ spec:
   interval: 1h
   releaseName: cluserissuers
   targetNamespace: kube-cert-manager
+  storageNamespace: kube-cert-manager
   install:
     createNamespace: true
   chart:

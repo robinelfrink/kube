@@ -105,6 +105,7 @@ tests:
             interval: 1h
             releaseName: helmrelease-name
             targetNamespace: helmrelease-namespace
+            storageNamespace: helmrelease-namespace
             values:
               deploy:
                 default: default-value
@@ -159,6 +160,7 @@ tests:
             interval: 1h
             releaseName: helmrelease-name
             targetNamespace: helmrelease-namespace
+            storageNamespace: helmrelease-namespace
             values:
               deploy:
                 default: default-value
@@ -221,6 +223,7 @@ tests:
             interval: 1h
             releaseName: helmrelease-name-two
             targetNamespace: helmrelease-namespace-two
+            storageNamespace: helmrelease-namespace-two
             values:
               deploy:
                 default: default-value
