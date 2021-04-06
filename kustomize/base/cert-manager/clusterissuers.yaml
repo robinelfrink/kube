@@ -8,7 +8,8 @@ spec:
   targetNamespace: kube-cert-manager
   storageNamespace: kube-cert-manager
   install:
-    createNamespace: true
+    remediation:
+      retries: 10
   chart:
     spec:
       chart: charts/cluster-issuers
