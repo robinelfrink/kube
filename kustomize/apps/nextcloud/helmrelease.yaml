@@ -34,6 +34,7 @@ spec:
           interval: 1h
     defaults:
       issuer: letsencrypt-staging
+      curlInsecure: false
     template:
       ingress:
         enabled: true
@@ -50,6 +51,7 @@ spec:
         password: "{ var:password }"
       cronjob:
         enabled: true
+        curlInsecure: "{ var:curlInsecure }"
       persistence:
         enabled: true
         accessMode: ReadWriteOnce
