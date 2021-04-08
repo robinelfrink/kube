@@ -1,12 +1,13 @@
 ---
-# Flux version: v0.11.0
+# Flux version: v0.12.0
 # Components: source-controller,kustomize-controller,helm-controller
 apiVersion: v1
 kind: Namespace
 metadata:
   labels:
     app.kubernetes.io/instance: kube-flux
-    app.kubernetes.io/version: v0.11.0
+    app.kubernetes.io/part-of: flux
+    app.kubernetes.io/version: v0.12.0
   name: kube-flux
 ---
 apiVersion: apiextensions.k8s.io/v1
@@ -17,7 +18,8 @@ metadata:
   creationTimestamp: null
   labels:
     app.kubernetes.io/instance: kube-flux
-    app.kubernetes.io/version: v0.11.0
+    app.kubernetes.io/part-of: flux
+    app.kubernetes.io/version: v0.12.0
   name: buckets.source.toolkit.fluxcd.io
 spec:
   group: source.toolkit.fluxcd.io
@@ -204,7 +206,8 @@ metadata:
   creationTimestamp: null
   labels:
     app.kubernetes.io/instance: kube-flux
-    app.kubernetes.io/version: v0.11.0
+    app.kubernetes.io/part-of: flux
+    app.kubernetes.io/version: v0.12.0
   name: gitrepositories.source.toolkit.fluxcd.io
 spec:
   group: source.toolkit.fluxcd.io
@@ -257,6 +260,9 @@ spec:
               interval:
                 description: The interval at which to check for repository updates.
                 type: string
+              recurseSubmodules:
+                description: When enabled, after the clone is created, initializes all submodules within, using their default settings. This option is available only when using the 'go-git' GitImplementation.
+                type: boolean
               ref:
                 description: The Git reference to checkout and monitor for changes, defaults to master branch.
                 properties:
@@ -419,7 +425,8 @@ metadata:
   creationTimestamp: null
   labels:
     app.kubernetes.io/instance: kube-flux
-    app.kubernetes.io/version: v0.11.0
+    app.kubernetes.io/part-of: flux
+    app.kubernetes.io/version: v0.12.0
   name: helmcharts.source.toolkit.fluxcd.io
 spec:
   group: source.toolkit.fluxcd.io
@@ -610,7 +617,8 @@ metadata:
   creationTimestamp: null
   labels:
     app.kubernetes.io/instance: kube-flux
-    app.kubernetes.io/version: v0.11.0
+    app.kubernetes.io/part-of: flux
+    app.kubernetes.io/version: v0.12.0
   name: helmreleases.helm.toolkit.fluxcd.io
 spec:
   group: helm.toolkit.fluxcd.io
@@ -1125,7 +1133,8 @@ metadata:
   creationTimestamp: null
   labels:
     app.kubernetes.io/instance: kube-flux
-    app.kubernetes.io/version: v0.11.0
+    app.kubernetes.io/part-of: flux
+    app.kubernetes.io/version: v0.12.0
   name: helmrepositories.source.toolkit.fluxcd.io
 spec:
   group: source.toolkit.fluxcd.io
@@ -1292,7 +1301,8 @@ metadata:
   creationTimestamp: null
   labels:
     app.kubernetes.io/instance: kube-flux
-    app.kubernetes.io/version: v0.11.0
+    app.kubernetes.io/part-of: flux
+    app.kubernetes.io/version: v0.12.0
   name: kustomizations.kustomize.toolkit.fluxcd.io
 spec:
   group: kustomize.toolkit.fluxcd.io
@@ -1685,7 +1695,8 @@ kind: ServiceAccount
 metadata:
   labels:
     app.kubernetes.io/instance: kube-flux
-    app.kubernetes.io/version: v0.11.0
+    app.kubernetes.io/part-of: flux
+    app.kubernetes.io/version: v0.12.0
   name: helm-controller
   namespace: kube-flux
 ---
@@ -1694,7 +1705,8 @@ kind: ServiceAccount
 metadata:
   labels:
     app.kubernetes.io/instance: kube-flux
-    app.kubernetes.io/version: v0.11.0
+    app.kubernetes.io/part-of: flux
+    app.kubernetes.io/version: v0.12.0
   name: kustomize-controller
   namespace: kube-flux
 ---
@@ -1703,7 +1715,8 @@ kind: ServiceAccount
 metadata:
   labels:
     app.kubernetes.io/instance: kube-flux
-    app.kubernetes.io/version: v0.11.0
+    app.kubernetes.io/part-of: flux
+    app.kubernetes.io/version: v0.12.0
   name: source-controller
   namespace: kube-flux
 ---
@@ -1712,7 +1725,8 @@ kind: ClusterRole
 metadata:
   labels:
     app.kubernetes.io/instance: kube-flux
-    app.kubernetes.io/version: v0.11.0
+    app.kubernetes.io/part-of: flux
+    app.kubernetes.io/version: v0.12.0
   name: crd-controller-kube-flux
 rules:
 - apiGroups:
@@ -1791,7 +1805,8 @@ kind: ClusterRoleBinding
 metadata:
   labels:
     app.kubernetes.io/instance: kube-flux
-    app.kubernetes.io/version: v0.11.0
+    app.kubernetes.io/part-of: flux
+    app.kubernetes.io/version: v0.12.0
   name: cluster-reconciler-kube-flux
 roleRef:
   apiGroup: rbac.authorization.k8s.io
@@ -1810,7 +1825,8 @@ kind: ClusterRoleBinding
 metadata:
   labels:
     app.kubernetes.io/instance: kube-flux
-    app.kubernetes.io/version: v0.11.0
+    app.kubernetes.io/part-of: flux
+    app.kubernetes.io/version: v0.12.0
   name: crd-controller-kube-flux
 roleRef:
   apiGroup: rbac.authorization.k8s.io
@@ -1841,7 +1857,8 @@ kind: Service
 metadata:
   labels:
     app.kubernetes.io/instance: kube-flux
-    app.kubernetes.io/version: v0.11.0
+    app.kubernetes.io/part-of: flux
+    app.kubernetes.io/version: v0.12.0
     control-plane: controller
   name: source-controller
   namespace: kube-flux
@@ -1860,7 +1877,8 @@ kind: Deployment
 metadata:
   labels:
     app.kubernetes.io/instance: kube-flux
-    app.kubernetes.io/version: v0.11.0
+    app.kubernetes.io/part-of: flux
+    app.kubernetes.io/version: v0.12.0
     control-plane: controller
   name: helm-controller
   namespace: kube-flux
@@ -1935,7 +1953,8 @@ kind: Deployment
 metadata:
   labels:
     app.kubernetes.io/instance: kube-flux
-    app.kubernetes.io/version: v0.11.0
+    app.kubernetes.io/part-of: flux
+    app.kubernetes.io/version: v0.12.0
     control-plane: controller
   name: kustomize-controller
   namespace: kube-flux
@@ -1964,7 +1983,7 @@ spec:
           valueFrom:
             fieldRef:
               fieldPath: metadata.namespace
-        image: ghcr.io/fluxcd/kustomize-controller:v0.10.0
+        image: ghcr.io/fluxcd/kustomize-controller:v0.11.0
         imagePullPolicy: IfNotPresent
         livenessProbe:
           httpGet:
@@ -2012,7 +2031,8 @@ kind: Deployment
 metadata:
   labels:
     app.kubernetes.io/instance: kube-flux
-    app.kubernetes.io/version: v0.11.0
+    app.kubernetes.io/part-of: flux
+    app.kubernetes.io/version: v0.12.0
     control-plane: controller
   name: source-controller
   namespace: kube-flux
@@ -2045,7 +2065,7 @@ spec:
           valueFrom:
             fieldRef:
               fieldPath: metadata.namespace
-        image: ghcr.io/fluxcd/source-controller:v0.10.0
+        image: ghcr.io/fluxcd/source-controller:v0.11.0
         imagePullPolicy: IfNotPresent
         livenessProbe:
           httpGet:
@@ -2098,7 +2118,8 @@ kind: NetworkPolicy
 metadata:
   labels:
     app.kubernetes.io/instance: kube-flux
-    app.kubernetes.io/version: v0.11.0
+    app.kubernetes.io/part-of: flux
+    app.kubernetes.io/version: v0.12.0
   name: allow-scraping
   namespace: kube-flux
 spec:
@@ -2117,7 +2138,8 @@ kind: NetworkPolicy
 metadata:
   labels:
     app.kubernetes.io/instance: kube-flux
-    app.kubernetes.io/version: v0.11.0
+    app.kubernetes.io/part-of: flux
+    app.kubernetes.io/version: v0.12.0
   name: allow-webhooks
   namespace: kube-flux
 spec:
@@ -2135,7 +2157,8 @@ kind: NetworkPolicy
 metadata:
   labels:
     app.kubernetes.io/instance: kube-flux
-    app.kubernetes.io/version: v0.11.0
+    app.kubernetes.io/part-of: flux
+    app.kubernetes.io/version: v0.12.0
   name: deny-ingress
   namespace: kube-flux
 spec:
