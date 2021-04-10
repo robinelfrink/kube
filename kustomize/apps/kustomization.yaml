@@ -3,5 +3,6 @@ kind: Kustomization
 resources:
   - bitwardenrs
   - home-assistant
+  - mosquitto
   - nextcloud
   - zigbee2mqtt

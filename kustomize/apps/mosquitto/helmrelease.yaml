@@ -1,0 +1,40 @@
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: mosquitto-wrapper
+spec:
+  interval: 1h
+  releaseName: mosquitto-wrapper
+  chart:
+    spec:
+      chart: charts/helmrelease-wrapper
+      sourceRef:
+        kind: GitRepository
+        name: kube
+      interval: 1h
+  dependsOn:
+    - name: nfs-subdir-external-provisioner-wrapper
+    - name: cert-manager
+    - name: clusterissuers
+  values:
+    name: mosquitto
+    spec:
+      interval: 1h
+      releaseName: unnamed-mosquitto
+      targetNamespace: unnamed-mosquitto
+      install:
+        createNamespace: true
+      chart:
+        spec:
+          chart: mosquitto
+          version: 2.2.0
+          sourceRef:
+            kind: HelmRepository
+            name: mosquitto
+          interval: 1h
+  valuesFrom:
+    - kind: Secret
+      name: config
+      valuesKey: mosquitto
+      targetPath: config
+      optional: true
