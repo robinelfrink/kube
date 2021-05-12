@@ -1,9 +1,9 @@
-# bitwaren_rs
+# vaultwarden
 
 ## Source
 
-* [Code](https://github.com/dani-garcia/bitwarden_rs)
-* [Helm chart](https://github.com/Skeen/helm-bitwarden_rs/tree/master/charts/bitwarden)
+* [Code](https://github.com/dani-garcia/vaultwarden)
+* [Helm chart](https://github.com/gissilabs/charts/tree/master/vaultwarden)
 
 ## Variables
 

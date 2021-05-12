@@ -1,10 +1,10 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
-  name: bitwardenrs-wrapper
+  name: vaultwarden-wrapper
 spec:
   interval: 1h
-  releaseName: bitwardenrs-wrapper
+  releaseName: vaultwarden-wrapper
   chart:
     spec:
       chart: charts/helmrelease-wrapper
@@ -17,51 +17,51 @@ spec:
     - name: cert-manager
     - name: clusterissuers
   values:
-    name: bitwarden
+    name: vaultwarden
     spec:
       interval: 1h
-      releaseName: unnamed-bitwardenrs
-      targetNamespace: unnamed-bitwardenrs
+      releaseName: unnamed-vaultwarden
+      targetNamespace: unnamed-vaultwarden
       install:
         createNamespace: true
       chart:
         spec:
-          chart: charts/bitwarden
-          version: 0.2.0
+          chart: vaultwarden
+          version: 0.3.0
           sourceRef:
-            kind: GitRepository
-            name: bitwardenrs
+            kind: HelmRepository
+            name: vaultwarden
           interval: 1h
     defaults:
       issuer: letsencrypt-staging
     template:
-      bitwarden:
-        signups_allowed: false
+      database:
+        type: sqlite
+        wal: false
+      vaultwarden:
         domain: "https://{ var:host }"
-      deployment:
-        image:
-          repository: bitwardenrs/server
-          tag: 1.19.0
-          pullPolicy: IfNotPresent
+        allowSignups: false
       ingress:
+        enabled: true
+        host: "{ var:host }"
         annotations:
           kubernetes.io/ingress.class: nginx
           cert-manager.io/cluster-issuer: "{ var:issuer }"
-        paths:
-          - '/'
-        hosts:
-          - "{ var:host }"
         tls:
-          - hosts:
+          - secretName: vaultwarden-tls-secret
+            hosts:
             - "{ var:host }"
-            secretName: bitwarden-tls-secret
+      persistence:
+        enabled: true
+        size: 1Gi
+        accessMode: ReadWriteOnce
+      image:
+        pullPolicy: IfNotPresent
+        repository: vaultwarden/server
+        tag: "1.21.0"
   valuesFrom:
     - kind: Secret
       name: config
-      valuesKey: bitwardenrs
+      valuesKey: vaultwarden
       targetPath: config
       optional: true
-    - kind: Secret
-      name: config
-      valuesKey: admin-email
-      targetPath: template.bitwarden.server_admin_email
