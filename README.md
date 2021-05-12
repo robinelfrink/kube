@@ -31,10 +31,10 @@ stringData:
     enabled: true
     server: 10.1.1.2
     path: /nfs/export
-  bitwardenrs: |
-    - name: bitwardenrs
-      namespace: bitwardenrs
-      host: https://bitwardenrs.example.com
+  vaultwarden: |
+    - name: vaultwarden
+      namespace: vaultwarden
+      host: https://vaultwarden.example.com
       issuer: letsencrypt-staging
 ```
 
