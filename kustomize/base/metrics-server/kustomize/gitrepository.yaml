@@ -6,4 +6,4 @@ spec:
   interval: 1h
   url: https://github.com/kubernetes-sigs/metrics-server
   ref:
-    tag: v0.4.2
+    tag: v0.5.0
