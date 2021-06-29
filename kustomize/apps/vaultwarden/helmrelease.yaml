@@ -58,7 +58,7 @@ spec:
       image:
         pullPolicy: IfNotPresent
         repository: vaultwarden/server
-        tag: "1.21.0"
+        tag: "1.22.0"
   valuesFrom:
     - kind: Secret
       name: config
