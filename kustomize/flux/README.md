@@ -7,6 +7,6 @@ flux --namespace kube-flux \
     --network-policy false \
     --toleration-keys node-role.kubernetes.io/master \
     --export \
-    --version v0.16.2 \
+    --version v0.17.0 \
     > flux.yaml
 ```
