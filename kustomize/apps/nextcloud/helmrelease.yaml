@@ -56,6 +56,9 @@ spec:
         enabled: true
         accessMode: ReadWriteOnce
         size: 8Gi
+      tolerations:
+        - key: node-role.kubernetes.io/master
+          effect: NoSchedule
   valuesFrom:
     - kind: Secret
       name: config

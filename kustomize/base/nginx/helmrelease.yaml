@@ -29,6 +29,17 @@ spec:
       controller:
         config:
           use-proxy-protocol: "true"
+        tolerations:
+          - key: node-role.kubernetes.io/master
+            effect: NoSchedule
+        admissionWebhooks:
+          tolerations:
+            - key: node-role.kubernetes.io/master
+              effect: NoSchedule
+          patch:
+            tolerations:
+              - key: node-role.kubernetes.io/master
+                effect: NoSchedule
         service:
           type: NodePort
           nodePorts:

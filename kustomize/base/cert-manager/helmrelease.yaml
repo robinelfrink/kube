@@ -22,3 +22,14 @@ spec:
       - --enable-certificate-owner-ref=true
     prometheus:
       enabled: false
+    tolerations:
+      - key: node-role.kubernetes.io/master
+        effect: NoSchedule
+    webhook:
+      tolerations:
+        - key: node-role.kubernetes.io/master
+          effect: NoSchedule
+    cainjector:
+      tolerations:
+        - key: node-role.kubernetes.io/master
+          effect: NoSchedule

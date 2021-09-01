@@ -59,6 +59,9 @@ spec:
         pullPolicy: IfNotPresent
         repository: vaultwarden/server
         tag: "1.22.2"
+      tolerations:
+        - key: node-role.kubernetes.io/master
+          effect: NoSchedule
   valuesFrom:
     - kind: Secret
       name: config
