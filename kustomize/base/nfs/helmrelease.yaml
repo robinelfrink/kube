@@ -40,6 +40,9 @@ spec:
         accessModes: "{ var:accessMode }"
         reclaimPolicy: "{ var:reclaimPolicy }"
         archiveOnDelete: "{ var:archiveOnDelete }"
+      tolerations:
+        - key: node-role.kubernetes.io/master
+          effect: NoSchedule
     defaults:
       mountOptions: ""
       accessMode: ReadWriteMany
