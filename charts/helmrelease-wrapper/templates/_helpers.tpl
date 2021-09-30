@@ -22,3 +22,21 @@
 {{- fail $error -}}
 {{- end -}}
 {{- end -}}
+
+{{/*
+  Parse config
+*/}}
+{{- define "config" -}}
+{{- $configitems := printf "items:\n%s" (indent 2 (default "[]" .Values.config)) | fromYaml -}}
+{{- if empty $configitems.items -}}
+  {{- if .Values.required -}}
+  {{- fail "Require at least one item in 'config'" -}}
+  {{- end -}}
+{{- else if kindIs "map" $configitems.items -}}
+  {{- $_ := set $configitems "items" (list $configitems.items) -}}
+{{- end -}}
+{{- if not (kindIs "slice" $configitems.items) -}}
+{{- fail "Expecting a list or a dict for 'config'" -}}
+{{- end -}}
+{{ $configitems | toYaml }}
+{{- end -}}

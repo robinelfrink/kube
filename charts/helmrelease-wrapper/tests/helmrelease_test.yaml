@@ -5,7 +5,6 @@ tests:
   # No items in config, required=false.
   - it: should pass
     set:
-      config: "[]"
       spec:
         chart:
           spec:
@@ -31,7 +30,6 @@ tests:
   # No items in config, required=true
   - it: should fail
     set:
-      config: "[]"
       spec:
         chart:
           spec:
