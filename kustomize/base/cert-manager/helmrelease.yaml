@@ -33,3 +33,7 @@ spec:
       tolerations:
         - key: node-role.kubernetes.io/master
           effect: NoSchedule
+    startupapicheck:
+      tolerations:
+        - key: node-role.kubernetes.io/master
+          effect: NoSchedule
