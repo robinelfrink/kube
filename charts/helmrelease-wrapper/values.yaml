@@ -49,3 +49,14 @@ defaults: {}
 #   enabled: true
 #   server: 10.4.2.2
 #   path: /nfs/share
+
+# configKey: thekey
+#
+# Subkey in `config:` to parse config from.
+#
+# Example:
+#
+# config: |
+#   thekey:
+#     enabled: true
+# configKey: thekey

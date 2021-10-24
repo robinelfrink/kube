@@ -22,5 +22,5 @@ spec:
   valuesFrom:
     - kind: Secret
       name: config
-      valuesKey: admin-email
+      valuesKey: adminEmail
       targetPath: adminEmail

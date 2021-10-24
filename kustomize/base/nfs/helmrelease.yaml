@@ -14,6 +14,7 @@ spec:
       interval: 1h
   values:
     name: nfs-subdir-external-provisioner
+    configKey: nfs
     spec:
       interval: 1h
       releaseName: nfs-subdir-external-provisioner
@@ -53,6 +54,5 @@ spec:
   valuesFrom:
     - kind: Secret
       name: config
-      valuesKey: nfs
+      valuesKey: config
       targetPath: config
-      optional: true

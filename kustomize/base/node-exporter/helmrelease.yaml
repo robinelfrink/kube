@@ -4,10 +4,6 @@ metadata:
   name: node-exporter
 spec:
   interval: 1h
-  releaseName: node-exporter
-  targetNamespace: kube-node-exporter
-  install:
-    createNamespace: true
   chart:
     spec:
       chart: prometheus-node-exporter
@@ -16,4 +12,8 @@ spec:
         kind: HelmRepository
         name: node-exporter
       interval: 1h
+  releaseName: node-exporter
+  targetNamespace: kube-node-exporter
+  install:
+    createNamespace: true
   values: {}

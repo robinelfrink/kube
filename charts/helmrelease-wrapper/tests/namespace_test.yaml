@@ -129,15 +129,17 @@ tests:
   - it: should pass
     set:
       config: |
-        - name: helmrelease-name-one
-          namespace: helmrelease-namespace-one
-          key: value-one
-        - name: helmrelease-name-two
-          namespace: helmrelease-namespace-two
-          key: value-two
-        - name: helmrelease-name-three
-          namespace: helmrelease-namespace-three
-          key: value-three
+        thekey:
+          - name: helmrelease-name-one
+            namespace: helmrelease-namespace-one
+            key: value-one
+          - name: helmrelease-name-two
+            namespace: helmrelease-namespace-two
+            key: value-two
+          - name: helmrelease-name-three
+            namespace: helmrelease-namespace-three
+            key: value-three
+      configKey: thekey
       spec:
         chart:
           spec:

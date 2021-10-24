@@ -1,53 +1,38 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
-  name: ingress-nginx-wrapper
+  name: ingress-nginx
 spec:
   interval: 1h
   chart:
     spec:
-      chart: charts/helmrelease-wrapper
+      chart: ingress-nginx
+      version: 4.0.6
       sourceRef:
-        kind: GitRepository
-        name: kube
+        kind: HelmRepository
+        name: ingress-nginx
       interval: 1h
+  releaseName: ingress-nginx
+  targetNamespace: kube-nginx
+  install:
+    createNamespace: true
   values:
-    name: ingress-nginx
-    spec:
-      interval: 1h
-      install:
-        createNamespace: true
-      chart:
-        spec:
-          chart: ingress-nginx
-          version: 4.0.6
-          sourceRef:
-            kind: HelmRepository
-            name: ingress-nginx
-          interval: 1h
-    template:
-      controller:
-        config:
-          use-proxy-protocol: "true"
+    controller:
+      config:
+        use-proxy-protocol: "true"
+      tolerations:
+        - key: node-role.kubernetes.io/master
+          effect: NoSchedule
+      admissionWebhooks:
         tolerations:
           - key: node-role.kubernetes.io/master
             effect: NoSchedule
-        admissionWebhooks:
+        patch:
           tolerations:
             - key: node-role.kubernetes.io/master
               effect: NoSchedule
-          patch:
-            tolerations:
-              - key: node-role.kubernetes.io/master
-                effect: NoSchedule
-        service:
-          type: NodePort
-          nodePorts:
-            http: "{ var:httpNodePort }"
-            https: "{ var:httpsNodePort }"
-    config: |
-      - name: ingress-nginx
-        namespace: kube-nginx
-    defaults:
-      httpNodePort: 30080
-      httpsNodePort: 30443
+      service:
+        type: NodePort
+        nodePorts:
+          http: 30080
+          https: 30443

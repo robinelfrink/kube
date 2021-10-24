@@ -28,6 +28,13 @@
 */}}
 {{- define "config" -}}
 {{- $configitems := printf "items:\n%s" (indent 2 (default "[]" .Values.config)) | fromYaml -}}
+{{- if .Values.configKey -}}
+  {{- if kindIs "map" $configitems.items -}}
+    {{- if hasKey $configitems.items .Values.configKey -}}
+      {{- $_ := set $configitems "items" (get $configitems.items .Values.configKey) -}}
+    {{- end -}}
+  {{- end -}}
+{{- end -}}
 {{- if empty $configitems.items -}}
   {{- if .Values.required -}}
   {{- fail "Require at least one item in 'config'" -}}

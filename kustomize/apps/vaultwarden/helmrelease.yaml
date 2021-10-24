@@ -18,12 +18,9 @@ spec:
     - name: clusterissuers
   values:
     name: vaultwarden
+    configKey: vaultwarden
     spec:
       interval: 1h
-      releaseName: unnamed-vaultwarden
-      targetNamespace: unnamed-vaultwarden
-      install:
-        createNamespace: true
       chart:
         spec:
           chart: vaultwarden
@@ -32,6 +29,10 @@ spec:
             kind: HelmRepository
             name: vaultwarden
           interval: 1h
+      releaseName: unnamed-vaultwarden
+      targetNamespace: unnamed-vaultwarden
+      install:
+        createNamespace: true
     defaults:
       issuer: letsencrypt-staging
     template:
@@ -65,6 +66,5 @@ spec:
   valuesFrom:
     - kind: Secret
       name: config
-      valuesKey: vaultwarden
+      valuesKey: config
       targetPath: config
-      optional: true
