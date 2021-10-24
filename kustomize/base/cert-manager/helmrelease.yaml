@@ -4,10 +4,6 @@ metadata:
   name: cert-manager
 spec:
   interval: 1h
-  releaseName: cert-manager
-  targetNamespace: kube-cert-manager
-  install:
-    createNamespace: true
   chart:
     spec:
       chart: cert-manager
@@ -16,6 +12,10 @@ spec:
         kind: HelmRepository
         name: cert-manager
       interval: 1h
+  releaseName: cert-manager
+  targetNamespace: kube-cert-manager
+  install:
+    createNamespace: true
   values:
     installCRDs: true
     extraArgs:

@@ -1,12 +1,18 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
 kind: Kustomization
 metadata:
-  name: base-metrics-server
+  name: nfs
 spec:
   interval: 1h
-  path: ./kustomize/base/metrics-server/kustomize
+  path: /kustomize/base/nfs
   prune: true
   sourceRef:
     kind: GitRepository
     name: kube
   validation: client
+  postBuild:
+    substitute:
+      dummy_var: dummy
+    substituteFrom:
+      - kind: Secret
+        name: config
