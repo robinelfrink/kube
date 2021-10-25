@@ -4,7 +4,7 @@
 {{- define "replace-vars" -}}
 {{- range keys $.vars -}}
 {{- if has (kindOf (get $.vars .)) (list "map" "slice") -}}
-{{- $_ := set $ "template" ((regexReplaceAll (printf "{ var:%s }" .) ($.template | toYaml) (get $.vars . | toJson)) | fromYaml) -}}
+{{- $_ := set $ "template" ((regexReplaceAll (printf "'{ var:%s }'" .) ($.template | toYaml) (get $.vars . | toJson)) | fromYaml) -}}
 {{- else -}}
 {{- $_ := set $ "template" ((regexReplaceAll (printf "{ var:%s }" .) ($.template | toYaml) (get $.vars . | toString)) | fromYaml) -}}
 {{- end -}}
