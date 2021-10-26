@@ -2,7 +2,7 @@
 
 How I create a Talos node to put all my Kubernetes stuff on.
 
-## Deploy a Talos node
+# Deploy a Talos node
 
 Use the current favourite deployment method to install
 [a recent version of Talos](https://github.com/talos-systems/talos/releases).
@@ -105,3 +105,30 @@ $ talosctl kubeconfig ${KUBECONFIG}
 ## Save and cleanup
 
 Make sure to store `talosconfig` and controlplane.yaml` in a safe place.
+
+# Upgrade
+
+To upgrade Talos:
+
+```shell
+talosctl upgrade \
+    --preserve \
+    --image ghcr.io/talos-systems/installer:v<new-version>
+```
+
+To upgrade Kubernetes:
+```shell
+talosctl upgrade-k8s \
+    --from <current-version> \
+    --to <new-version>
+```
+
+To upgrade Kubelet:
+```shell
+talosctl patch machineconfig --patch '
+[{
+  "op": "replace",
+  "path": "/machine/kubelet/image",
+  "value": "ghcr.io/talos-systems/kubelet:v<new-version>"
+}]'
+```
