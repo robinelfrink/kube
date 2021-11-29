@@ -5,7 +5,7 @@ How I create a Talos node to put all my Kubernetes stuff on.
 # Deploy a Talos node
 
 Use the current favourite deployment method to install
-[a recent version of Talos](https://github.com/talos-systems/talos/releases).
+[a recent version of Talos](https://github.com/siderolabs/talos/releases).
 
 Wait for the machine to boot and note the assigned IP address.
 
@@ -60,7 +60,6 @@ $ cat patch.json
 ```shell
 $ talosctl gen config mykube https://192.168.1.10:6443 \
       --config-patch="$(cat patch.json | tr -d '\n')" \
-      --kubernetes-version=1.22.3 \
       --with-docs=false \
       --with-examples=false
 generating PKI and tokens
@@ -113,7 +112,7 @@ To upgrade Talos:
 ```shell
 talosctl upgrade \
     --preserve \
-    --image ghcr.io/talos-systems/installer:v<new-version>
+    --image ghcr.io/siderolabs/installer:v<new-version>
 ```
 
 To upgrade Kubernetes:
@@ -121,14 +120,4 @@ To upgrade Kubernetes:
 talosctl upgrade-k8s \
     --from <current-version> \
     --to <new-version>
-```
-
-To upgrade Kubelet:
-```shell
-talosctl patch machineconfig --patch '
-[{
-  "op": "replace",
-  "path": "/machine/kubelet/image",
-  "value": "ghcr.io/talos-systems/kubelet:v<new-version>"
-}]'
 ```
