@@ -60,7 +60,7 @@ $ cat patch.json
 ```shell
 $ talosctl gen config mykube https://192.168.1.10:6443 \
       --config-patch="$(cat patch.json | tr -d '\n')" \
-      --kubernetes-version=1.21.4 \
+      --kubernetes-version=1.22.3 \
       --with-docs=false \
       --with-examples=false
 generating PKI and tokens
