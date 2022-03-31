@@ -24,7 +24,7 @@ spec:
       chart:
         spec:
           chart: vaultwarden
-          version: 0.5.0
+          version: 0.5.1
           sourceRef:
             kind: HelmRepository
             name: vaultwarden
@@ -59,7 +59,7 @@ spec:
       image:
         pullPolicy: IfNotPresent
         repository: vaultwarden/server
-        tag: "1.23.1"
+        tag: "1.24.0"
       tolerations:
         - key: node-role.kubernetes.io/master
           effect: NoSchedule
