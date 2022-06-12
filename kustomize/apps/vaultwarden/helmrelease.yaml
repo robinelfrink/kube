@@ -16,6 +16,7 @@ spec:
     - name: nfs-subdir-external-provisioner-wrapper
     - name: cert-manager
     - name: clusterissuers
+    - name: ingress-nginx
   values:
     name: vaultwarden
     configKey: vaultwarden
