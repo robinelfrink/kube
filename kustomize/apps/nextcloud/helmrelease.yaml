@@ -1,0 +1,121 @@
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: nextcloud-wrapper
+spec:
+  interval: 1h
+  releaseName: nextcloud-wrapper
+  chart:
+    spec:
+      chart: charts/helmrelease-wrapper
+      sourceRef:
+        kind: GitRepository
+        name: kube
+      interval: 1h
+  dependsOn:
+    - name: nfs-subdir-external-provisioner-wrapper
+    - name: cert-manager
+    - name: clusterissuers
+    - name: ingress-nginx
+  values:
+    name: nextcloud
+    configKey: nextcloud
+    spec:
+      interval: 1h
+      chart:
+        spec:
+          chart: nextcloud
+          version: 3.0.3
+          sourceRef:
+            kind: HelmRepository
+            name: nextcloud
+          interval: 1h
+      releaseName: unnamed-nextcloud
+      targetNamespace: unnamed-nextcloud
+      install:
+        createNamespace: true
+    defaults:
+      issuer: letsencrypt-staging
+    template:
+      ingress:
+        enabled: true
+        annotations:
+          kubernetes.io/ingress.class: nginx
+          cert-manager.io/cluster-issuer: "{ var:issuer }"
+          nginx.ingress.kubernetes.io/proxy-body-size: 4G
+          nginx.ingress.kubernetes.io/server-snippet: |-
+            server_tokens off;
+            proxy_hide_header X-Powered-By;
+            location = /.well-known/carddav {
+              return 301 $scheme://$host/remote.php/dav;
+            }
+            location = /.well-known/caldav {
+              return 301 $scheme://$host/remote.php/dav;
+            }
+            location ^~ /.well-known {
+              return 301 $scheme://$host/index.php$uri;
+            }
+            location = /robots.txt {
+              allow all;
+              log_not_found off;
+              access_log off;
+            }
+            location ~ ^/(?:build|tests|config|lib|3rdparty|templates|data)/ {
+              deny all;
+            }
+            location ~ ^/(?:autotest|occ|issue|indie|db_|console) {
+              deny all;
+            }
+        tls:
+        - secretName: nextcloud-tls-secret
+          hosts:
+          - "{ var:host }"
+      nextcloud:
+        host: "{ var:host }"
+        username: "{ var:username }"
+        password: "{ var:password }"
+        configs:
+          local.config.php: |-
+            <?php
+            $CONFIG = [
+              'overwritehost' => '{ var:host }',
+              'overwriteprotocol' => 'https',
+              'trusted_proxies' => ['10.96.0.0/12', '10.244.0.0/16'],
+            ];
+      internalDatabase:
+        enabled: false
+      mariadb:
+        enabled: true
+        auth:
+          database: nextcloud
+          username: nextcloud
+          password: "{ var:dbpassword }"
+        primary:
+          tolerations:
+          - key: node-role.kubernetes.io/master
+            effect: NoSchedule
+          persistence:
+            enabled: true
+      cronjob:
+        enabled: true
+        image:
+          repository: nextcloud
+          tag: 16.0.3-apache
+        curlInsecure: true
+        tolerations:
+        - key: node-role.kubernetes.io/master
+          effect: NoSchedule
+      persistence:
+        enabled: true
+        annotations:
+          helm.sh/resource-policy: "keep"
+      tolerations:
+      - key: node-role.kubernetes.io/master
+        effect: NoSchedule
+      rbac:
+        enabled: true
+  valuesFrom:
+    - kind: Secret
+      name: config
+      valuesKey: config
+      targetPath: config
