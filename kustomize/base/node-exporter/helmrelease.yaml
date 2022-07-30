@@ -16,4 +16,7 @@ spec:
   targetNamespace: kube-node-exporter
   install:
     createNamespace: true
-  values: {}
+  values:
+    rbac:
+      create: true
+      pspEnabled: false
