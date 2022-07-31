@@ -42,8 +42,16 @@ stringData:
     vaultwarden:
       - name: vaultwarden
         namespace: vaultwarden
-        host: https://vaultwarden.example.com
+        host: vaultwarden.example.com
         issuer: letsencrypt-staging
+    nextcloud:
+      - name: nextcloud
+        namespace: nextcloud
+	host: nextcloud.example.com
+	issuer: letsencrypt-staging
+	username: myusername
+	password: secret
+	dbpassword: secreter
 ```
 
 ## Create a `GitRepository`
@@ -59,9 +67,23 @@ spec:
   url: https://github.com/robinelfrink/kube
 ```
 
-## Apply
+## Create a `Kustomization`
 
-```shell
-kubectl apply --namespace mykube \
-    --kustomize https://github.com/robinelfrink/kube/kustomize?ref=main
+```yaml
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+  name: kube
+  namespace: mykube
+spec:
+  interval: 1h
+  path: /kustomize
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: kube
+  postBuild:
+    substituteFrom:
+      - kind: Secret
+        name: config
 ```
