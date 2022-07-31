@@ -46,11 +46,3 @@ jobs:
           ${{ steps.changes.outputs.changes }}
         draft: false
         prerelease: false
-
-    - name: Merge back to dev branch
-      run: |
-          git fetch --all
-          git checkout dev
-          git pull
-          git merge --no-ff origin/main -m "Auto-merge back to dev"
-          git push
