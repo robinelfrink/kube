@@ -24,26 +24,23 @@
 {{- end -}}
 
 {{/*
-  Parse config
+  Parse config into per-release configuration
 */}}
-{{- define "config" -}}
-{{- $configitems := printf "items:\n%s" (indent 2 (default "[]" .Values.config)) | fromYaml -}}
+{{- define "releases" -}}
+{{- $config := printf "items:\n%s" (indent 2 (default "{}" .Values.config)) | fromYaml -}}
+{{- $releases := printf "{ releases: false }" | fromYaml -}}
 {{- if .Values.configKey -}}
-  {{- if kindIs "map" $configitems.items -}}
-    {{- if hasKey $configitems.items .Values.configKey -}}
-      {{- $_ := set $configitems "items" (get $configitems.items .Values.configKey) -}}
+  {{- if hasKey $config.items .Values.configKey -}}
+    {{- $_ := set $releases "releases" (get $config.items .Values.configKey) -}}
+    {{- if kindIs "map" $releases.releases -}}
+      {{- $_ := set $releases "releases" (list $releases.releases) -}}
     {{- end -}}
   {{- end -}}
 {{- end -}}
-{{- if empty $configitems.items -}}
+{{- if empty $releases.releases -}}
   {{- if .Values.required -}}
-  {{- fail "Require at least one item in 'config'" -}}
+    {{- fail "Require at least one item in 'config'" -}}
   {{- end -}}
-{{- else if kindIs "map" $configitems.items -}}
-  {{- $_ := set $configitems "items" (list $configitems.items) -}}
 {{- end -}}
-{{- if not (kindIs "slice" $configitems.items) -}}
-{{- fail "Expecting a list or a dict for 'config'" -}}
-{{- end -}}
-{{ $configitems | toYaml }}
+{{ $releases | toYaml }}
 {{- end -}}
