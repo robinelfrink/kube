@@ -56,10 +56,12 @@ tests:
   # One item in config, as a dict
   - it: should pass
     set:
+      configKey: thekey
       config: |
-        name: helmrelease-name
-        namespace: helmrelease-namespace
-        key: value
+        thekey:
+          name: helmrelease-name
+          namespace: helmrelease-namespace
+          key: value
       spec:
         chart:
           spec:
@@ -111,10 +113,12 @@ tests:
   # One item in config, as a list
   - it: should pass
     set:
+      configKey: thekey
       config: |
-        - name: helmrelease-name
-          namespace: helmrelease-namespace
-          key: value
+        thekey:
+          - name: helmrelease-name
+            namespace: helmrelease-namespace
+            key: value
       spec:
         chart:
           spec:
@@ -166,16 +170,18 @@ tests:
   # Three items in config
   - it: should pass
     set:
+      configKey: thekey
       config: |
-        - name: helmrelease-name-one
-          namespace: helmrelease-namespace-one
-          key: value-one
-        - name: helmrelease-name-two
-          namespace: helmrelease-namespace-two
-          key: value-two
-        - name: helmrelease-name-three
-          namespace: helmrelease-namespace-three
-          key: value-three
+        thekey:
+          - name: helmrelease-name-one
+            namespace: helmrelease-namespace-one
+            key: value-one
+          - name: helmrelease-name-two
+            namespace: helmrelease-namespace-two
+            key: value-two
+          - name: helmrelease-name-three
+            namespace: helmrelease-namespace-three
+            key: value-three
       spec:
         chart:
           spec:
@@ -229,10 +235,12 @@ tests:
   # Missing variable
   - it: should fail
     set:
+      configKey: thekey
       config: |
-        - name: helmrelease-name
-          namespace: helmrelease-namespace
-          key: value
+        thekey:
+          - name: helmrelease-name
+            namespace: helmrelease-namespace
+            key: value
       spec:
         chart:
           spec:

@@ -56,10 +56,11 @@ tests:
   # One item in config, as a dict
   - it: should pass
     set:
+      configKey: thekey
       config: |
-        name: helmrelease-name
-        namespace: helmrelease-namespace
-        key: value
+        thekey:
+          name: helmrelease-name
+          namespace: helmrelease-namespace
       spec:
         chart:
           spec:
@@ -92,10 +93,11 @@ tests:
   # One item in config, as a list
   - it: should pass
     set:
+      configKey: thekey
       config: |
-        - name: helmrelease-name
-          namespace: helmrelease-namespace
-          key: value
+        thekey:
+          - name: helmrelease-name
+            namespace: helmrelease-namespace
       spec:
         chart:
           spec:
@@ -128,6 +130,7 @@ tests:
   # Three items in config
   - it: should pass
     set:
+      configKey: thekey
       config: |
         thekey:
           - name: helmrelease-name-one
@@ -139,7 +142,6 @@ tests:
           - name: helmrelease-name-three
             namespace: helmrelease-namespace-three
             key: value-three
-      configKey: thekey
       spec:
         chart:
           spec:
