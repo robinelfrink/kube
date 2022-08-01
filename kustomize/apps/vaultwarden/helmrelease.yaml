@@ -38,6 +38,14 @@ spec:
       issuer: letsencrypt-staging
       admintoken: ""
     template:
+      service:
+        main:
+          ports:
+            http:
+              port: 8000
+            websocket:
+              enabled: true
+              port: 3012
       ingress:
         main:
           enabled: true
@@ -47,11 +55,11 @@ spec:
             - path: /
               pathType: Prefix
               service:
-                port: 80
+                port: 8000
             - path: /notifications/hub/negotiate
               pathType: Prefix
               service:
-                port: 80
+                port: 8000
             - path: /notifications/hub
               pathType: Prefix
               service:
@@ -71,7 +79,14 @@ spec:
       - key: node-role.kubernetes.io/master
         effect: NoSchedule
       env:
+        ROCKET_PORT: 8000
         ADMIN_TOKEN: "{ var:admintoken }"
+      podSecurityContext:
+        fsGroup: 65534
+      securityContext:
+        runAsUser: 65534
+        runAsGroup: 65534
+        readOnlyRootFilesystem: true
   valuesFrom:
     - kind: Secret
       name: config
