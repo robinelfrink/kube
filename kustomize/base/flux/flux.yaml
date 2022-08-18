@@ -6,12 +6,12 @@ apiVersion: v1
 kind: Namespace
 metadata:
   labels:
-    app.kubernetes.io/instance: flux-system
+    app.kubernetes.io/instance: kube-cluster
     app.kubernetes.io/part-of: flux
     app.kubernetes.io/version: v0.31.5
     pod-security.kubernetes.io/warn: restricted
     pod-security.kubernetes.io/warn-version: latest
-  name: flux-system
+  name: kube-cluster
 ---
 apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
@@ -20,7 +20,7 @@ metadata:
     controller-gen.kubebuilder.io/version: v0.7.0
   creationTimestamp: null
   labels:
-    app.kubernetes.io/instance: flux-system
+    app.kubernetes.io/instance: kube-cluster
     app.kubernetes.io/part-of: flux
     app.kubernetes.io/version: v0.31.5
   name: buckets.source.toolkit.fluxcd.io
@@ -530,7 +530,7 @@ metadata:
     controller-gen.kubebuilder.io/version: v0.7.0
   creationTimestamp: null
   labels:
-    app.kubernetes.io/instance: flux-system
+    app.kubernetes.io/instance: kube-cluster
     app.kubernetes.io/part-of: flux
     app.kubernetes.io/version: v0.31.5
   name: gitrepositories.source.toolkit.fluxcd.io
@@ -1265,7 +1265,7 @@ metadata:
     controller-gen.kubebuilder.io/version: v0.7.0
   creationTimestamp: null
   labels:
-    app.kubernetes.io/instance: flux-system
+    app.kubernetes.io/instance: kube-cluster
     app.kubernetes.io/part-of: flux
     app.kubernetes.io/version: v0.31.5
   name: helmcharts.source.toolkit.fluxcd.io
@@ -1831,7 +1831,7 @@ metadata:
     controller-gen.kubebuilder.io/version: v0.7.0
   creationTimestamp: null
   labels:
-    app.kubernetes.io/instance: flux-system
+    app.kubernetes.io/instance: kube-cluster
     app.kubernetes.io/part-of: flux
     app.kubernetes.io/version: v0.31.5
   name: helmreleases.helm.toolkit.fluxcd.io
@@ -2678,7 +2678,7 @@ metadata:
     controller-gen.kubebuilder.io/version: v0.7.0
   creationTimestamp: null
   labels:
-    app.kubernetes.io/instance: flux-system
+    app.kubernetes.io/instance: kube-cluster
     app.kubernetes.io/part-of: flux
     app.kubernetes.io/version: v0.31.5
   name: helmrepositories.source.toolkit.fluxcd.io
@@ -3166,7 +3166,7 @@ metadata:
     controller-gen.kubebuilder.io/version: v0.7.0
   creationTimestamp: null
   labels:
-    app.kubernetes.io/instance: flux-system
+    app.kubernetes.io/instance: kube-cluster
     app.kubernetes.io/part-of: flux
     app.kubernetes.io/version: v0.31.5
   name: kustomizations.kustomize.toolkit.fluxcd.io
@@ -4285,40 +4285,40 @@ apiVersion: v1
 kind: ServiceAccount
 metadata:
   labels:
-    app.kubernetes.io/instance: flux-system
+    app.kubernetes.io/instance: kube-cluster
     app.kubernetes.io/part-of: flux
     app.kubernetes.io/version: v0.31.5
   name: helm-controller
-  namespace: flux-system
+  namespace: kube-cluster
 ---
 apiVersion: v1
 kind: ServiceAccount
 metadata:
   labels:
-    app.kubernetes.io/instance: flux-system
+    app.kubernetes.io/instance: kube-cluster
     app.kubernetes.io/part-of: flux
     app.kubernetes.io/version: v0.31.5
   name: kustomize-controller
-  namespace: flux-system
+  namespace: kube-cluster
 ---
 apiVersion: v1
 kind: ServiceAccount
 metadata:
   labels:
-    app.kubernetes.io/instance: flux-system
+    app.kubernetes.io/instance: kube-cluster
     app.kubernetes.io/part-of: flux
     app.kubernetes.io/version: v0.31.5
   name: source-controller
-  namespace: flux-system
+  namespace: kube-cluster
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
   labels:
-    app.kubernetes.io/instance: flux-system
+    app.kubernetes.io/instance: kube-cluster
     app.kubernetes.io/part-of: flux
     app.kubernetes.io/version: v0.31.5
-  name: crd-controller-flux-system
+  name: crd-controller-kube-cluster
 rules:
 - apiGroups:
   - source.toolkit.fluxcd.io
@@ -4405,10 +4405,10 @@ apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
 metadata:
   labels:
-    app.kubernetes.io/instance: flux-system
+    app.kubernetes.io/instance: kube-cluster
     app.kubernetes.io/part-of: flux
     app.kubernetes.io/version: v0.31.5
-  name: cluster-reconciler-flux-system
+  name: cluster-reconciler-kube-cluster
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
@@ -4416,53 +4416,53 @@ roleRef:
 subjects:
 - kind: ServiceAccount
   name: kustomize-controller
-  namespace: flux-system
+  namespace: kube-cluster
 - kind: ServiceAccount
   name: helm-controller
-  namespace: flux-system
+  namespace: kube-cluster
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
 metadata:
   labels:
-    app.kubernetes.io/instance: flux-system
+    app.kubernetes.io/instance: kube-cluster
     app.kubernetes.io/part-of: flux
     app.kubernetes.io/version: v0.31.5
-  name: crd-controller-flux-system
+  name: crd-controller-kube-cluster
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
-  name: crd-controller-flux-system
+  name: crd-controller-kube-cluster
 subjects:
 - kind: ServiceAccount
   name: kustomize-controller
-  namespace: flux-system
+  namespace: kube-cluster
 - kind: ServiceAccount
   name: helm-controller
-  namespace: flux-system
+  namespace: kube-cluster
 - kind: ServiceAccount
   name: source-controller
-  namespace: flux-system
+  namespace: kube-cluster
 - kind: ServiceAccount
   name: notification-controller
-  namespace: flux-system
+  namespace: kube-cluster
 - kind: ServiceAccount
   name: image-reflector-controller
-  namespace: flux-system
+  namespace: kube-cluster
 - kind: ServiceAccount
   name: image-automation-controller
-  namespace: flux-system
+  namespace: kube-cluster
 ---
 apiVersion: v1
 kind: Service
 metadata:
   labels:
-    app.kubernetes.io/instance: flux-system
+    app.kubernetes.io/instance: kube-cluster
     app.kubernetes.io/part-of: flux
     app.kubernetes.io/version: v0.31.5
     control-plane: controller
   name: source-controller
-  namespace: flux-system
+  namespace: kube-cluster
 spec:
   ports:
   - name: http
@@ -4477,12 +4477,12 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    app.kubernetes.io/instance: flux-system
+    app.kubernetes.io/instance: kube-cluster
     app.kubernetes.io/part-of: flux
     app.kubernetes.io/version: v0.31.5
     control-plane: controller
   name: helm-controller
-  namespace: flux-system
+  namespace: kube-cluster
 spec:
   replicas: 1
   selector:
@@ -4562,12 +4562,12 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    app.kubernetes.io/instance: flux-system
+    app.kubernetes.io/instance: kube-cluster
     app.kubernetes.io/part-of: flux
     app.kubernetes.io/version: v0.31.5
     control-plane: controller
   name: kustomize-controller
-  namespace: flux-system
+  namespace: kube-cluster
 spec:
   replicas: 1
   selector:
@@ -4647,12 +4647,12 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    app.kubernetes.io/instance: flux-system
+    app.kubernetes.io/instance: kube-cluster
     app.kubernetes.io/part-of: flux
     app.kubernetes.io/version: v0.31.5
     control-plane: controller
   name: source-controller
-  namespace: flux-system
+  namespace: kube-cluster
 spec:
   replicas: 1
   selector:
@@ -4743,11 +4743,11 @@ apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
   labels:
-    app.kubernetes.io/instance: flux-system
+    app.kubernetes.io/instance: kube-cluster
     app.kubernetes.io/part-of: flux
     app.kubernetes.io/version: v0.31.5
   name: allow-egress
-  namespace: flux-system
+  namespace: kube-cluster
 spec:
   egress:
   - {}
@@ -4763,11 +4763,11 @@ apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
   labels:
-    app.kubernetes.io/instance: flux-system
+    app.kubernetes.io/instance: kube-cluster
     app.kubernetes.io/part-of: flux
     app.kubernetes.io/version: v0.31.5
   name: allow-scraping
-  namespace: flux-system
+  namespace: kube-cluster
 spec:
   ingress:
   - from:
@@ -4783,11 +4783,11 @@ apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
   labels:
-    app.kubernetes.io/instance: flux-system
+    app.kubernetes.io/instance: kube-cluster
     app.kubernetes.io/part-of: flux
     app.kubernetes.io/version: v0.31.5
   name: allow-webhooks
-  namespace: flux-system
+  namespace: kube-cluster
 spec:
   ingress:
   - from:
