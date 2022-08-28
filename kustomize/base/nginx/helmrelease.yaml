@@ -23,13 +23,19 @@ spec:
       tolerations:
         - key: node-role.kubernetes.io/master
           effect: NoSchedule
+        - key: node-role.kubernetes.io/control-plane
+          effect: NoSchedule
       admissionWebhooks:
         tolerations:
           - key: node-role.kubernetes.io/master
             effect: NoSchedule
+          - key: node-role.kubernetes.io/control-plane
+            effect: NoSchedule
         patch:
           tolerations:
             - key: node-role.kubernetes.io/master
+              effect: NoSchedule
+            - key: node-role.kubernetes.io/control-plane
               effect: NoSchedule
       service:
         type: NodePort
