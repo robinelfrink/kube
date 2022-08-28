@@ -172,3 +172,72 @@ tests:
         equal:
           path: metadata.name
           value: helmrelease-namespace-two
+  # One item in config, global namespace
+  - it: should pass
+    set:
+      configKey: thekey
+      config: |
+        thekey:
+          - name: helmrelease-name
+      spec:
+        chart:
+          spec:
+            chart: charts/helm
+            interval: 1h
+            sourceRef:
+              kind: HelmRepository
+              name: helm-repository
+            version: 1.2.3
+        interval: 1h
+        targetNamespace: helmrelease-global-namespace
+        install:
+          createNamespace: true
+      template:
+        deploy:
+          key: '{ var:key }'
+          default: '{ var:default }'
+      defaults:
+        default: default-value
+    release:
+      name: helmrelease-wrapper-name
+      namespace: helmrelease-wrapper-namespace
+    asserts:
+      - hasDocuments:
+          count: 0
+  # Three items in config, global namespace
+  - it: should pass
+    set:
+      configKey: thekey
+      config: |
+        thekey:
+          - name: helmrelease-name-one
+            key: value-one
+          - name: helmrelease-name-two
+            key: value-two
+          - name: helmrelease-name-three
+            key: value-three
+      spec:
+        chart:
+          spec:
+            chart: charts/helm
+            interval: 1h
+            sourceRef:
+              kind: HelmRepository
+              name: helm-repository
+            version: 1.2.3
+        interval: 1h
+        targetNamespace: helmrelease-global-namespace
+        install:
+          createNamespace: true
+      template:
+        deploy:
+          key: '{ var:key }'
+          default: '{ var:default }'
+      defaults:
+        default: default-value
+    release:
+      name: helmrelease-wrapper-name
+      namespace: helmrelease-wrapper-namespace
+    asserts:
+      - hasDocuments:
+          count: 0
