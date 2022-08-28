@@ -13,9 +13,7 @@ spec:
         name: node-exporter
       interval: 1h
   releaseName: node-exporter
-  targetNamespace: kube-node-exporter
-  install:
-    createNamespace: true
+  targetNamespace: kube-system
   values:
     rbac:
       create: true

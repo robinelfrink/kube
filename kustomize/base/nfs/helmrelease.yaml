@@ -18,9 +18,7 @@ spec:
     spec:
       interval: 1h
       releaseName: nfs-subdir-external-provisioner
-      targetNamespace: kube-nfs
-      install:
-        createNamespace: true
+      targetNamespace: kube-system
       chart:
         spec:
           chart: nfs-subdir-external-provisioner

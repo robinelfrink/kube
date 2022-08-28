@@ -13,9 +13,7 @@ spec:
         name: cert-manager
       interval: 1h
   releaseName: cert-manager
-  targetNamespace: kube-cert-manager
-  install:
-    createNamespace: true
+  targetNamespace: kube-system
   values:
     installCRDs: true
     extraArgs:
