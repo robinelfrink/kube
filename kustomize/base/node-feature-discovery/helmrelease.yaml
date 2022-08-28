@@ -1,0 +1,32 @@
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: node-feature-discovery
+spec:
+  interval: 1h
+  chart:
+    spec:
+      chart: node-feature-discovery
+      version: 0.11.2
+      sourceRef:
+        kind: HelmRepository
+        name: node-feature-discovery
+      interval: 1h
+  releaseName: node-feature-discovery
+  targetNamespace: kube-node-feature-discovery
+  install:
+    createNamespace: true
+  values:
+    worker:
+      tolerations:
+        - key: "node-role.kubernetes.io/master"
+          operator: "Equal"
+          value: ""
+          effect: "NoSchedule"
+        - key: "node-role.kubernetes.io/control-plane"
+          operator: "Equal"
+          value: ""
+          effect: "NoSchedule"
+      securityContext:
+        seccompProfile:
+          type: RuntimeDefault

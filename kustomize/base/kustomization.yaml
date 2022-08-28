@@ -8,3 +8,4 @@ resources:
   - nginx
   - cert-manager
   - node-exporter
+  - node-feature-discovery
