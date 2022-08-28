@@ -30,8 +30,6 @@ spec:
             kind: HelmRepository
             name: nextcloud
           interval: 1h
-      releaseName: unnamed-nextcloud
-      targetNamespace: unnamed-nextcloud
       install:
         createNamespace: true
     defaults:
@@ -94,6 +92,8 @@ spec:
           tolerations:
           - key: node-role.kubernetes.io/master
             effect: NoSchedule
+          - key: node-role.kubernetes.io/control-plane
+            effect: NoSchedule
           persistence:
             enabled: true
       cronjob:
@@ -105,12 +105,16 @@ spec:
         tolerations:
         - key: node-role.kubernetes.io/master
           effect: NoSchedule
+        - key: node-role.kubernetes.io/control-plane
+          effect: NoSchedule
       persistence:
         enabled: true
         annotations:
           helm.sh/resource-policy: "keep"
       tolerations:
       - key: node-role.kubernetes.io/master
+        effect: NoSchedule
+      - key: node-role.kubernetes.io/control-plane
         effect: NoSchedule
       rbac:
         enabled: true

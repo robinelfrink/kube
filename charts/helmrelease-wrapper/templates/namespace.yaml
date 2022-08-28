@@ -1,7 +1,7 @@
 {{- $releases := fromYaml (include "releases" .) -}}
 {{- if kindIs "slice" $releases.releases -}}
+{{- if not (hasKey .Values.spec "targetNamespace") -}}
 {{- range $config := $releases.releases -}}
-
 {{- if not (hasKey $config "namespace") -}}
 {{- fail "Missing chart namespace" -}}
 {{- end -}}
@@ -16,4 +16,5 @@ metadata:
     helm.sh/chart: {{ printf "%s-%s" $.Chart.Name $.Chart.Version | replace "+" "_" | trunc 63 | trimSuffix "-" }}
     app.kubernetes.io/managed-by: {{ $.Release.Service }}
 {{ end -}}
+{{- end -}}
 {{- end -}}

@@ -30,8 +30,6 @@ spec:
             kind: HelmRepository
             name: vaultwarden
           interval: 1h
-      releaseName: unnamed-vaultwarden
-      targetNamespace: unnamed-vaultwarden
       install:
         createNamespace: true
     defaults:
@@ -77,6 +75,8 @@ spec:
           retain: true
       tolerations:
       - key: node-role.kubernetes.io/master
+        effect: NoSchedule
+      - key: node-role.kubernetes.io/control-plane
         effect: NoSchedule
       env:
         ROCKET_PORT: 8000
