@@ -4499,7 +4499,7 @@ spec:
       containers:
       - args:
         - --events-addr=
-        - --watch-all-namespaces=true
+        - --watch-all-namespaces=false
         - --log-level=info
         - --log-encoding=json
         - --enable-leader-election
@@ -4554,6 +4554,8 @@ spec:
       tolerations:
       - key: node-role.kubernetes.io/master
         operator: Exists
+      - key: node-role.kubernetes.io/control-plane
+        operator: Exists
       volumes:
       - emptyDir: {}
         name: temp
@@ -4584,7 +4586,7 @@ spec:
       containers:
       - args:
         - --events-addr=
-        - --watch-all-namespaces=true
+        - --watch-all-namespaces=false
         - --log-level=info
         - --log-encoding=json
         - --enable-leader-election
@@ -4639,6 +4641,8 @@ spec:
       tolerations:
       - key: node-role.kubernetes.io/master
         operator: Exists
+      - key: node-role.kubernetes.io/control-plane
+        operator: Exists
       volumes:
       - emptyDir: {}
         name: temp
@@ -4671,7 +4675,7 @@ spec:
       containers:
       - args:
         - --events-addr=
-        - --watch-all-namespaces=true
+        - --watch-all-namespaces=false
         - --log-level=info
         - --log-encoding=json
         - --enable-leader-election
@@ -4732,6 +4736,8 @@ spec:
       terminationGracePeriodSeconds: 10
       tolerations:
       - key: node-role.kubernetes.io/master
+        operator: Exists
+      - key: node-role.kubernetes.io/control-plane
         operator: Exists
       volumes:
       - emptyDir: {}
