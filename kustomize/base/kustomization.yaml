@@ -9,3 +9,4 @@ resources:
   - cert-manager
   - node-exporter
   - node-feature-discovery
+  - qemu-guest-agent
