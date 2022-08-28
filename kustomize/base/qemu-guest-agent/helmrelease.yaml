@@ -18,9 +18,7 @@ spec:
     spec:
       interval: 1h
       releaseName: qemu-guest-agent
-      targetNamespace: kube-qemu-guest-agent
-      install:
-        createNamespace: true
+      targetNamespace: kube-system
       chart:
         spec:
           chart: qemu-guest-agent

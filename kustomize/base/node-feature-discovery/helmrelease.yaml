@@ -13,9 +13,7 @@ spec:
         name: node-feature-discovery
       interval: 1h
   releaseName: node-feature-discovery
-  targetNamespace: kube-node-feature-discovery
-  install:
-    createNamespace: true
+  targetNamespace: kube-system
   values:
     worker:
       tolerations:

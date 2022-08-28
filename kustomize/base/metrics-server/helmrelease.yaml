@@ -13,9 +13,7 @@ spec:
         name: metrics-server
       interval: 1h
   releaseName: metrics-server
-  targetNamespace: kube-metrics-server
-  install:
-    createNamespace: true
+  targetNamespace: kube-system
   values:
     args:
       - --kubelet-insecure-tls

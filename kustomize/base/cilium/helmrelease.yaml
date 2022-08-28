@@ -18,9 +18,7 @@ spec:
     spec:
       interval: 1h
       releaseName: cilium
-      targetNamespace: kube-cilium
-      install:
-        createNamespace: false
+      targetNamespace: kube-system
       chart:
         spec:
           chart: cilium

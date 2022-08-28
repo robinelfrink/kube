@@ -13,9 +13,7 @@ spec:
         name: ingress-nginx
       interval: 1h
   releaseName: ingress-nginx
-  targetNamespace: kube-nginx
-  install:
-    createNamespace: true
+  targetNamespace: kube-system
   values:
     controller:
       config:

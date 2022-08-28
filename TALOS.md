@@ -104,8 +104,7 @@ $ talosctl --context mykube kubeconfig ${KUBECONFIG}
 ```shell
 $ helm repo add cilium https://helm.cilium.io/
 $ helm install \
-      --namespace kube-cilium \
-      --create-namespace \
+      --namespace kube-system \
       --version 1.12.1 \
       --set ipam.mode=kubernetes \
       --set k8sServiceHost=192.168.1.10 \
@@ -113,8 +112,6 @@ $ helm install \
       --set operator.replicas=1 \
       --set securityContext.privileged=true \
       cilium cilium/cilium
-$ kubectl label namespace kube-cilium \
-      pod-security.kubernetes.io/enforce=privileged
 ```
 
 ## Save and cleanup

@@ -5,8 +5,8 @@ metadata:
 spec:
   interval: 1h
   releaseName: clusterissuers
-  targetNamespace: kube-cert-manager
-  storageNamespace: kube-cert-manager
+  targetNamespace: kube-system
+  storageNamespace: kube-system
   install:
     remediation:
       retries: 10
