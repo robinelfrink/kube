@@ -6,33 +6,24 @@ but free to use anything you find here.
 This is also a bit of a playground for related automation (such as
 [GitHub actions](https://github.com/features/actions)).
 
-Requirements: The
-[Flux CLI](https://fluxcd.io/docs/installation/#install-the-flux-cli)
-binary.
-
 ## Bootstrap Flux
 
+Flux and it's resources are going to live in namespace `kube-cluster`.
+
 ```shell
-flux install \
-    --namespace mykube \
-    --components source-controller,kustomize-controller,helm-controller \
-    --toleration-keys node-role.kubernetes.io/master \
-    --watch-all-namespaces false
+$ kubectl apply --kustomize \
+      https://github.com/robinelfrink/kube/kustomize/base/flux
 ```
 
 ## Create a `Secret`
-
-Note the double `namespace:`.
 
 ```yaml
 apiVersion: v1
 kind: Secret
 metadata:
   name: config
-  namespace: mykube
+  namespace: kube-cluster
 stringData:
-  namespace: mykube
-  branch: main
   adminEmail: admin@example.com
   config: |
     nfs:
@@ -61,7 +52,7 @@ apiVersion: source.toolkit.fluxcd.io/v1beta1
 kind: GitRepository
 metadata:
   name: kube
-  namespace: mykube
+  namespace: kube-cluster
 spec:
   interval: 1h
   url: https://github.com/robinelfrink/kube
@@ -74,7 +65,7 @@ apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
 kind: Kustomization
 metadata:
   name: kube
-  namespace: mykube
+  namespace: kube-cluster
 spec:
   interval: 1h
   path: /kustomize
@@ -82,8 +73,4 @@ spec:
   sourceRef:
     kind: GitRepository
     name: kube
-  postBuild:
-    substituteFrom:
-      - kind: Secret
-        name: config
 ```
