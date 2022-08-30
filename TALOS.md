@@ -17,6 +17,7 @@ Make sure to change the endpoint address and additional-sans below.
 $ talosctl gen config mykube https://192.168.1.10:6443 \
       --additional-sans mykube.local \
       --config-patch-control-plane=@<(curl --silent --location https://github.com/robinelfrink/kube/raw/main/talos/controlplane.patch) \
+      --config-patch-worker=@<(curl --silent --location https://github.com/robinelfrink/kube/raw/main/talos/worker.patch) \
       --with-docs=false \
       --with-examples=false
 generating PKI and tokens
