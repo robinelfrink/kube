@@ -37,6 +37,9 @@ spec:
         replicas: 1
       securityContext:
         privileged: true
+      hubble:
+        relay:
+          enabled: true
     defaults:
       apiPort: 6443
   valuesFrom:
