@@ -18,17 +18,22 @@ spec:
     controller:
       config:
         use-proxy-protocol: "true"
+      kind: DaemonSet
       tolerations:
         - key: node-role.kubernetes.io/master
           effect: NoSchedule
         - key: node-role.kubernetes.io/control-plane
           effect: NoSchedule
+      nodeSelector:
+        node-role.kubernetes.io/control-plane: ""
       admissionWebhooks:
         tolerations:
           - key: node-role.kubernetes.io/master
             effect: NoSchedule
           - key: node-role.kubernetes.io/control-plane
             effect: NoSchedule
+        nodeSelector:
+          node-role.kubernetes.io/control-plane: ""
         patch:
           tolerations:
             - key: node-role.kubernetes.io/master
