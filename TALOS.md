@@ -14,7 +14,7 @@ Wait for the machine to boot and note the assigned IP address.
 Make sure to change the endpoint address and additional-sans below.
 
 ```shell
-$ talosctl gen config mykube https://192.168.1.10:6443 \
+$ talosctl gen config mykube https://192.168.1.5:6443 \
       --additional-sans mykube.local \
       --config-patch-control-plane=@<(curl --silent --location https://github.com/robinelfrink/kube/raw/main/talos/controlplane.patch) \
       --config-patch-worker=@<(curl --silent --location https://github.com/robinelfrink/kube/raw/main/talos/worker.patch) \
@@ -29,12 +29,12 @@ created talosconfig
 ## Create patch-file for the node
 
 ```shell
-$ cat patch.json
+$ cat cp1.json
 [
   {
     "op": "replace",
     "path": "/machine/network/hostname",
-    "value": "mykube1"
+    "value": "cp1"
   },
   {
     "op": "replace",
@@ -45,6 +45,9 @@ $ cat patch.json
         "addresses": [
           "192.168.1.10/24"
         ],
+	"vip": {
+          "ip": "192.168.1.5"
+        },
         "routes": [
           {
             "network": "0.0.0.0/0",
@@ -65,6 +68,9 @@ $ cat patch.json
 ]
 ```
 
+For each control-plane node repeast this, with another hostname and ip address.
+For each worker node the same, but also remove the `vip` dict.
+
 Apply the patch. Again use the IP address found earlier.
 
 Change `controlplane.yaml` to `worker.yaml` if adding a worker node.
@@ -74,7 +80,7 @@ $ talosctl apply-config \
       --insecure \
       --endpoints=192.168.1.116 \
       --nodes=192.168.1.116 \
-      --config-patch=@patch.json \
+      --config-patch=@cp1.json \
       --file=controlplane.yaml
 ```
 
@@ -82,8 +88,10 @@ $ talosctl apply-config \
 
 ```shell
 $ talosctl config merge talosconfig
-$ talosctl --context mykube config endpoint 192.168.1.10
-$ talosctl --context mykube config node 192.168.1.10
+# Add addresses of all control-plane nodes
+$ talosctl --context mykube config endpoint 192.168.1.10 ...
+# Add addresses of all nodes
+$ talosctl --context mykube config node 192.168.1.10 ...
 ```
 
 ## Bootstrap etcd
@@ -108,7 +116,7 @@ $ helm install \
       --namespace kube-system \
       --version 1.12.1 \
       --set ipam.mode=kubernetes \
-      --set k8sServiceHost=192.168.1.10 \
+      --set k8sServiceHost=192.168.1.5 \
       --set k8sServicePort=6443 \
       --set operator.replicas=1 \
       --set securityContext.privileged=true \
