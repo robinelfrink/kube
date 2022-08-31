@@ -73,11 +73,6 @@ spec:
         config:
           enabled: true
           retain: true
-      tolerations:
-      - key: node-role.kubernetes.io/master
-        effect: NoSchedule
-      - key: node-role.kubernetes.io/control-plane
-        effect: NoSchedule
       env:
         ROCKET_PORT: 8000
         ADMIN_TOKEN: "{ var:admintoken }"

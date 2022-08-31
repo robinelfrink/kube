@@ -89,11 +89,6 @@ spec:
           username: nextcloud
           password: "{ var:dbpassword }"
         primary:
-          tolerations:
-          - key: node-role.kubernetes.io/master
-            effect: NoSchedule
-          - key: node-role.kubernetes.io/control-plane
-            effect: NoSchedule
           persistence:
             enabled: true
       cronjob:
@@ -102,20 +97,10 @@ spec:
           repository: nextcloud
           tag: 16.0.3-apache
         curlInsecure: true
-        tolerations:
-        - key: node-role.kubernetes.io/master
-          effect: NoSchedule
-        - key: node-role.kubernetes.io/control-plane
-          effect: NoSchedule
       persistence:
         enabled: true
         annotations:
           helm.sh/resource-policy: "keep"
-      tolerations:
-      - key: node-role.kubernetes.io/master
-        effect: NoSchedule
-      - key: node-role.kubernetes.io/control-plane
-        effect: NoSchedule
       rbac:
         enabled: true
   valuesFrom:
