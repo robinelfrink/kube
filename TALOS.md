@@ -112,7 +112,7 @@ When running a single node cluster (ie. no worker nodes) you should remove the
 control-plane taint in order to get things working:
 
 ```shell
-$ kubectl taint nodes k8s-cp1 role.kubernetes.io/control-plane:NoSchedule-
+$ kubectl taint nodes k8s-cp1 node-role.kubernetes.io/control-plane:NoSchedule-
 ```
 
 ## Install Cilium
