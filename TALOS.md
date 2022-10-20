@@ -61,6 +61,7 @@ $ cat cp1.json
     "op": "replace",
     "path": "/machine/network/nameservers",
     "value": [
+      "10.96.0.10",
       "8.8.8.8",
       "8.8.4.4"
     ]
