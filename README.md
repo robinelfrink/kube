@@ -56,6 +56,8 @@ metadata:
 spec:
   interval: 1h
   url: https://github.com/robinelfrink/kube
+  ref:
+    branch: main
 ```
 
 ## Create a `Kustomization`
