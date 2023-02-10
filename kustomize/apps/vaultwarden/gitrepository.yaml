@@ -1,7 +1,9 @@
 apiVersion: source.toolkit.fluxcd.io/v1beta1
-kind: HelmRepository
+kind: GitRepository
 metadata:
   name: vaultwarden
 spec:
   interval: 1h
-  url: https://k8s-at-home.com/charts/
+  url: https://github.com/guerzon/vaultwarden
+  ref:
+    tag: v0.5.0
