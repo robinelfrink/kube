@@ -3,7 +3,7 @@
 ## Source
 
 * [Code](https://github.com/dani-garcia/vaultwarden)
-* [Helm chart](https://github.com/k8s-at-home/charts/tree/master/charts/stable/vaultwarden)
+* [Helm chart](https://github.com/guerzon/vaultwarden)
 
 ## Variables
 

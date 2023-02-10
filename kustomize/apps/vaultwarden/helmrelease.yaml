@@ -27,7 +27,7 @@ spec:
           chart: vaultwarden
           version: 5.3.2
           sourceRef:
-            kind: HelmRepository
+            kind: GitRepository
             name: vaultwarden
           interval: 1h
       install:
@@ -36,46 +36,19 @@ spec:
       issuer: letsencrypt-staging
       admintoken: ""
     template:
-      service:
-        main:
-          ports:
-            http:
-              port: 8000
-            websocket:
-              enabled: true
-              port: 3012
+      image:
+        tag: "1.27.0"
+      domain: "https://{ var:host }"
+      adminToken: "{ var:admintoken }"
+      signupsAllowed: false
       ingress:
-        main:
-          enabled: true
-          hosts:
-          - host: "{ var:host }"
-            paths:
-            - path: /
-              pathType: Prefix
-              service:
-                port: 8000
-            - path: /notifications/hub/negotiate
-              pathType: Prefix
-              service:
-                port: 8000
-            - path: /notifications/hub
-              pathType: Prefix
-              service:
-                port: 3012
-          annotations:
-            kubernetes.io/ingress.class: nginx
-            cert-manager.io/cluster-issuer: "{ var:issuer }"
-          tls:
-          - secretName: vaultwarden-tls-secret
-            hosts:
-              - "{ var:host }"
-      persistence:
-        config:
-          enabled: true
-          retain: true
-      env:
-        ROCKET_PORT: 8000
-        ADMIN_TOKEN: "{ var:admintoken }"
+        enabled: true
+        additionalAnnotations:
+          cert-manager.io/cluster-issuer: "{ var:issuer }"
+        hostname: "{ var:host }"
+        tlsSecret: vaultwarden-tls-secret
+      storage:
+        enabled: true
       podSecurityContext:
         fsGroup: 65534
       securityContext:
