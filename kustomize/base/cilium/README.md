@@ -3,7 +3,7 @@
 ## Source
 
 * [Code](https://github.com/cilium/cilium/)
-* [Helm chart](https://github.com/cilium/cilium/tree/v1.12.3/install/kubernetes/cilium)
+* [Helm chart](https://github.com/cilium/cilium/tree/master/install/kubernetes/cilium)
 
 ## Variables
 
