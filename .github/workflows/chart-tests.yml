@@ -19,9 +19,9 @@ jobs:
 
     - name: Install and run helm unittest plugin
       run: |
-        helm plugin install https://github.com/quintush/helm-unittest >/dev/null
-        helm unittest --helm3 charts/cluster-issuers
-        helm unittest --helm3 charts/helmrelease-wrapper
+        helm plugin install --version 0.3.0 https://github.com/helm-unittest/helm-unittest >/dev/null
+        helm unittest charts/cluster-issuers
+        helm unittest charts/helmrelease-wrapper
 
     - name: Set up Python
       uses: actions/setup-python@v4
