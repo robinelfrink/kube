@@ -55,7 +55,7 @@ spec:
         enabled: true
         storageClass: "nfs-client"
       image:
-        tag: "1.27.0"
+        tag: "1.28.1"
       securityContext:
         readOnlyRootFilesystem: true
   valuesFrom:
