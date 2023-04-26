@@ -38,11 +38,11 @@ stringData:
     nextcloud:
       - name: nextcloud
         namespace: nextcloud
-	host: nextcloud.example.com
-	issuer: letsencrypt-staging
-	username: myusername
-	password: secret
-	dbpassword: secreter
+        host: nextcloud.example.com
+        issuer: letsencrypt-staging
+        username: myusername
+        password: secret
+        dbpassword: secreter
 ```
 
 ## Create a `GitRepository`
