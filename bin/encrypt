@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+
+FINGERPRINT=$(
+    gpg --list-secret-keys --with-colons $1 | \
+    sed -ne '/^sec:/,/^fpr:/ { /^fpr:/ p }' | \
+    cut -d: -f10
+)
+shift
+
+FILE=$1
+shift
+
+realpath ${FILE}
+
+sops --encrypt \
+    --encrypted-regex "^(data|stringData)$" \
+    --pgp "${FINGERPRINT}" \
+    --in-place ${FILE} \
+    $@
