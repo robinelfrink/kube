@@ -30,14 +30,10 @@ spec:
         enabled: true
     ingress:
       enabled: true
-      host: vaultwarden.example.com
       annotations:
-        cert-manager.io/cluster-issuer: selfsigned
         kubernetes.io/ingress.class: nginx
       tls:
         - secretName: vaultwarden-tls-secret
-          hosts:
-            - "vaultwarden.example.com"
     persistence:
       enabled: true
       storageClass: "nfs"
