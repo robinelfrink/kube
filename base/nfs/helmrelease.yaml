@@ -17,9 +17,6 @@ spec:
         name: nfs-subdir-external-provisioner
       interval: 1h
   values:
-    nfs:
-      server: "{ var:server }"
-      path: "{ var:path }"
     storageClass:
       create: true
       name: nfs
