@@ -11,6 +11,8 @@ spec:
       sourceRef:
         kind: GitRepository
         name: kube
+  dependsOn:
+    - name: cert-manager
   interval: 1h
   releaseName: cluster-issuers
   storageNamespace: kube-system
