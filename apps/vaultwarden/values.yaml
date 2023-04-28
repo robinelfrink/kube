@@ -6,7 +6,7 @@ metadata:
 data:
   values.yaml: |
     vaultwarden:
-    allowSignups: false
+      allowSignups: false
     admin:
       enabled: true
     ingress:
