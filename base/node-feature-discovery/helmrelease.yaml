@@ -2,6 +2,7 @@ apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
   name: node-feature-discovery
+  namespace: flux
 spec:
   interval: 1h
   chart:
@@ -14,6 +15,7 @@ spec:
       interval: 1h
   releaseName: node-feature-discovery
   targetNamespace: kube-system
+  storageNamespace: kube-system
   values:
     worker:
       tolerations:
