@@ -4,7 +4,7 @@ metadata:
   name: letsencrypt-staging
 spec:
   acme:
-    email: $(ADMIN_EMAIL)
+    email: ${admin.email}
     preferredChain: ""
     privateKeySecretRef:
       name: letsencrypt
