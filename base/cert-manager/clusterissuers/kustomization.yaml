@@ -8,7 +8,7 @@ replacements:
   - source:
       kind: Secret
       name: cluster-info
-      fieldPath: data."admin.email"
+      fieldPath: data.[admin.email]
     targets:
       - select:
           kind: ClusterIssuer
