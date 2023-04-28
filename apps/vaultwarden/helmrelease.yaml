@@ -1,0 +1,60 @@
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: vaultwarden
+  namespace: flux
+spec:
+  interval: 1h
+  releaseName: vaultwarden
+  dependsOn:
+    - name: nfs-subdir-external-provisioner
+    - name: cert-manager
+    - name: cluster-issuers
+    - name: ingress-nginx
+  chart:
+    spec:
+      chart: vaultwarden
+      version: 1.0.0
+      sourceRef:
+        kind: HelmRepository
+        name: vaultwarden
+      interval: 1h
+  targetNamespace: vaultwarden
+  storageNamespace: vaultwarden
+  install:
+    createNamespace: true
+  values:
+    vaultwarden:
+      allowSignups: false
+      admin:
+        enabled: true
+    ingress:
+      enabled: true
+      host: vaultwarden.example.com
+      annotations:
+        cert-manager.io/cluster-issuer: selfsigned
+        kubernetes.io/ingress.class: nginx
+      tls:
+        - secretName: vaultwarden-tls-secret
+          hosts:
+            - "vaultwarden.example.com"
+    persistence:
+      enabled: true
+      storageClass: "nfs"
+    image:
+      tag: "1.28.1"
+    securityContext:
+      readOnlyRootFilesystem: true
+  valuesFrom:
+    - kind: Secret
+      name: cluster-info
+      valuesKey: cluster.issuer
+      targetPath: ingress.annotations.[cert-manager.io/cluster-issuer]
+    - kind: Secret
+      name: cluster-info
+      valuesKey: vaultwarden.hostname
+      targetPath: ingress.host
+    - kind: Secret
+      name: cluster-info
+      valuesKey: vaultwarden.hostname
+      targetPath: ingress.tls.0.hosts.0
