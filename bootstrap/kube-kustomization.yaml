@@ -7,7 +7,7 @@ spec:
   decryption:
     provider: sops
     secretRef:
-      name: sops-gpg
+      name: cluster-info
   interval: 30m
   sourceRef:
     kind: GitRepository

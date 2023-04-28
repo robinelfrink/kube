@@ -124,6 +124,8 @@ $ helm install \
       --namespace kube-system \
       --version 1.13.2 \
       --set ipam.mode=kubernetes \
+      --set k8sServiceHost=192.168.1.5 \
+      --set k8sServicePort=6443 \
       --set operator.replicas=1 \
       --set securityContext.privileged=true \
       cilium cilium/cilium
