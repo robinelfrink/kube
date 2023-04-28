@@ -10,6 +10,7 @@ replacements:
       kind: Secret
       version: v1
       name: clusterissuers
+      namespace: kube-system
       fieldPath: stringData.[admin.email]
     targets:
       - select:
