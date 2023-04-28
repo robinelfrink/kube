@@ -32,8 +32,6 @@ spec:
       enabled: true
       annotations:
         kubernetes.io/ingress.class: nginx
-      tls:
-        - secretName: vaultwarden-tls-secret
     persistence:
       enabled: true
       storageClass: "nfs"
@@ -50,7 +48,3 @@ spec:
       name: cluster-info
       valuesKey: vaultwarden.hostname
       targetPath: ingress.host
-    - kind: Secret
-      name: cluster-info
-      valuesKey: vaultwarden.hostname
-      targetPath: ingress.tls.0.hosts.0
