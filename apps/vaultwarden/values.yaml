@@ -7,8 +7,8 @@ data:
   values.yaml: |
     vaultwarden:
       allowSignups: false
-    admin:
-      enabled: true
+      admin:
+        enabled: true
     ingress:
       enabled: true
       host: vaultwarden.local
