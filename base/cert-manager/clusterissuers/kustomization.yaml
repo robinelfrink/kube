@@ -8,6 +8,7 @@ replacements:
   - source:
       kind: Secret
       name: cluster-info
+      namespace: flux
       fieldPath: data.[admin.email]
     targets:
       - select:
