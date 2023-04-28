@@ -35,4 +35,4 @@ spec:
     - kind: Secret
       name: cluster-info
       valuesKey: vaultwarden.hostname
-      targetPath: ingress.tls.0.hosts.0
+      targetPath: ingress.tls[0].hosts[0]
