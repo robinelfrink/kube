@@ -1,58 +1,43 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
-  name: nfs-subdir-external-provisioner-wrapper
+  name: nfs-subdir-external-provisioner
+  namespace: flux
 spec:
   interval: 1h
-  releaseName: nfs-subdir-external-provisioner-wrapper
+  releaseName: nfs-subdir-external-provisioner
+  targetNamespace: kube-system
+  storageNamespace: kube-system
   chart:
     spec:
-      chart: charts/helmrelease-wrapper
+      chart: nfs-subdir-external-provisioner
+      version: 4.0.18
       sourceRef:
-        kind: GitRepository
-        name: kube
+        kind: HelmRepository
+        name: nfs-subdir-external-provisioner
       interval: 1h
   values:
-    name: nfs-subdir-external-provisioner
-    configKey: nfs
-    spec:
-      interval: 1h
-      releaseName: nfs-subdir-external-provisioner
-      targetNamespace: kube-system
-      chart:
-        spec:
-          chart: nfs-subdir-external-provisioner
-          version: 4.0.18
-          sourceRef:
-            kind: HelmRepository
-            name: nfs-subdir-external-provisioner
-          interval: 1h
-    template:
-      nfs:
-        server: "{ var:server }"
-        path: "{ var:path }"
-        mountOptions: "{ var:mountOptions }"
-      storageClass:
-        create: true
-        name: "{ var:storageClassName }"
-        defaultClass: "{ var:defaultClass }"
-        accessModes: "{ var:accessMode }"
-        reclaimPolicy: "{ var:reclaimPolicy }"
-        archiveOnDelete: "{ var:archiveOnDelete }"
-      tolerations:
-        - key: node-role.kubernetes.io/master
-          effect: NoSchedule
-        - key: node-role.kubernetes.io/control-plane
-          effect: NoSchedule
-    defaults:
-      mountOptions: ""
-      accessMode: ReadWriteMany
-      defaultClass: false
+    nfs:
+      server: "{ var:server }"
+      path: "{ var:path }"
+    storageClass:
+      create: true
+      name: nfs
+      defaultClass: true
+      accessModes: ReadWriteMany
       reclaimPolicy: Delete
       archiveOnDelete: true
-    required: true
+    tolerations:
+      - key: node-role.kubernetes.io/master
+        effect: NoSchedule
+      - key: node-role.kubernetes.io/control-plane
+        effect: NoSchedule
   valuesFrom:
     - kind: Secret
-      name: config
-      valuesKey: config
-      targetPath: config
+      name: cluster-info
+      valuesKey: nfs.server
+      targetPath: nfs.server
+    - kind: Secret
+      name: cluster-info
+      valuesKey: nfs.path
+      targetPath: nfs.path

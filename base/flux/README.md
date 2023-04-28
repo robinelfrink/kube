@@ -1,8 +1,8 @@
 # Flux
 
-## Source
-
 * [Code](https://github.com/fluxcd/flux2)
+
+## Upgrade instruction
 
 ```shell
 flux install \
