@@ -2,6 +2,7 @@ apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
   name: ingress-nginx
+  namespace: flux
 spec:
   interval: 1h
   chart:
@@ -14,6 +15,7 @@ spec:
       interval: 1h
   releaseName: ingress-nginx
   targetNamespace: kube-system
+  storageNamespace: kube-system
   values:
     controller:
       config:
