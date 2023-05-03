@@ -1,7 +1,7 @@
 apiVersion: source.toolkit.fluxcd.io/v1beta1
 kind: HelmRepository
 metadata:
-  name: nfs-subdir-external-provisioner
+  name: nfs
   namespace: flux
 spec:
   interval: 1h

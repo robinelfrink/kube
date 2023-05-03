@@ -13,6 +13,6 @@ spec:
     kind: GitRepository
     name: kube
   path: "./clusters/prod"
-  prune: false
+  prune: true
   timeout: 5m
 
