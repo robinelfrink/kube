@@ -7,7 +7,7 @@ spec:
   interval: 1h
   releaseName: vaultwarden
   dependsOn:
-    - name: nfs-subdir-external-provisioner
+    - name: nfs
     - name: cert-manager
     - name: cluster-issuers
     - name: ingress-nginx
