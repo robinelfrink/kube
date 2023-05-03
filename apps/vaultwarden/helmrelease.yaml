@@ -9,7 +9,6 @@ spec:
   dependsOn:
     - name: nfs
     - name: cert-manager
-    - name: cluster-issuers
     - name: ingress-nginx
   chart:
     spec:
