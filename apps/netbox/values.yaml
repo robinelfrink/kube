@@ -20,3 +20,5 @@ data:
         - secretName: ${name}-tls
           hosts:
             - ${hostname}
+    redis:
+      architecture: standalone
