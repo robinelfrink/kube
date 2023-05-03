@@ -9,3 +9,6 @@ resources:
 
   - vaultwarden-values.yaml
   - vaultwarden.yaml
+
+  - netbox-values.yaml
+  - netbox.yaml
