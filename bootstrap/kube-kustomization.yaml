@@ -7,12 +7,12 @@ spec:
   decryption:
     provider: sops
     secretRef:
-      name: cluster-info
+      name: sops-gpg
   interval: 30m
   sourceRef:
     kind: GitRepository
     name: kube
-  path: "./"
+  path: "./clusters/prod"
   prune: false
   timeout: 5m
 

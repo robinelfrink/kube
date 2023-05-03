@@ -43,18 +43,12 @@ $ export CLUSTER=<my cluster>
    $ gpg --export --armor ${CLUSTER} > clusters/$CLUSTER/gpg.pub
    ```
 
--  Create a kubernetes secret holding cluster information and the sops secret:
+-  Create a kubernetes secret the sops secret:
 
    ```shell
    $ kubectl create namespace flux
-   $ kubectl create secret generic cluster-info \
+   $ kubectl create secret generic sops-gpg \
          --namespace=flux \
-	 --from-literal=admin.email=my.email@domain \
-	 --from-literal=api.address=192.168.1.5 \
-	 --from-literal=nfs.server=192.168.1.1 \
-	 --from-literal=nfs.path=/nfs/share \
-	 --from-literal=cluster.issuer=letsencrypt \
-	 --from-literal=vaultwarden.hostname=vaultwarden.example.com \
          --from-file=sops.asc=<(gpg \
              --export-secret-keys --armor ${CLUSTER})
    ```

@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: nfs-values
+  namespace: flux
+data:
+  values.yaml: |
+    storageClass:
+      create: true
+      name: nfs
+      defaultClass: true
+      accessModes: ReadWriteMany
+      reclaimPolicy: Delete
+      archiveOnDelete: true
+    tolerations:
+      - key: node-role.kubernetes.io/master
+        effect: NoSchedule
+      - key: node-role.kubernetes.io/control-plane
+        effect: NoSchedule

@@ -30,11 +30,13 @@ spec:
       - key: node-role.kubernetes.io/control-plane
         effect: NoSchedule
   valuesFrom:
+    - kind: ConfigMap
+      name: nfs-values
     - kind: Secret
-      name: cluster-info
+      name: nfs-values
       valuesKey: nfs.server
       targetPath: nfs.server
     - kind: Secret
-      name: cluster-info
+      name: nfs.values
       valuesKey: nfs.path
       targetPath: nfs.path
