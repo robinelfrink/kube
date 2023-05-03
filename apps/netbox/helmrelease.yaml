@@ -25,4 +25,5 @@ spec:
       name: ${name}-values
     - kind: Secret
       name: ${name}-values
+      valuesKey: values
       optional: true
