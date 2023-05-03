@@ -1,7 +1,7 @@
 apiVersion: source.toolkit.fluxcd.io/v1beta1
 kind: HelmRepository
 metadata:
-  name: vaultwarden
+  name: ${name}
   namespace: flux
 spec:
   interval: 1h
