@@ -5,36 +5,37 @@ metadata:
     namespace: flux
 type: Opaque
 stringData:
-    adminEmail: ENC[AES256_GCM,data:e2Yo9vem8aky/2mgeIqZ4cai5w==,iv:YsSn2q5xquSpJmLvoOQ4mLRCZji3yLlg7z1LvdEZSSs=,tag:7fACE10WqlueW9suyg+9JQ==,type:str]
-    nfsServer: ENC[AES256_GCM,data:/odBs3+nmqmbj5uf,iv:YJ+tYk5dhAcPcNYlTtLqOR/uz6rfon/5VJ2JUbh1ufE=,tag:pHrti4S1yEu2nO4+tuYifg==,type:str]
-    nfsPath: ENC[AES256_GCM,data:Xj5Tgk46/T2Kb2laDdM=,iv:yw7ALBTJk0OzQtkcwf+kS15Z9tDwkjBzRK5mbuvY1yk=,tag:krmWyModcuCu6RCCats4Bw==,type:str]
+    adminEmail: ENC[AES256_GCM,data:UXgn9VsqUPore9VXagzy8OaNbA==,iv:hxC/NbpqM4d9wxVZJvhgvQd2J0+h1NnvqCxOOi37Vtw=,tag:dF0ybMHIRVZvdIQD5eOV6w==,type:str]
+    apiAddress: ENC[AES256_GCM,data:sgX5McCwJWOkk+lfvQ==,iv:6FR2a819VCEDicbXlGN/TddXIzx5JzC3hPqB+z9xUng=,tag:37Y5Sv7tfRoMkkJNOMXehQ==,type:str]
+    nfsServer: ENC[AES256_GCM,data:7XP+Yjc2kAjGJNIt,iv:wNjJKLEi+eeNhLP74ovSmIyBofcTcdFVd02q2pHVBnc=,tag:MAJzNmGr8NawODhmmhAJKQ==,type:str]
+    nfsPath: ENC[AES256_GCM,data:td/yoBRixVX0D50m4Co=,iv:qs217CWhsOJpkts0yv50IBW5d5bU/NyVIgRl60+jXuM=,tag:y9cFYFBxZSqQtnOQBm49qA==,type:str]
 sops:
     kms: []
     gcp_kms: []
     azure_kv: []
     hc_vault: []
     age: []
-    lastmodified: "2023-05-03T11:30:00Z"
-    mac: ENC[AES256_GCM,data:g4ABDtw8Mugzln33e3jQhQXb6SUpNBgQeeNy+PzArRRvuR9ToNXokseFPQfo51b9v8+IHGtwQKRl0242tOo7nRT8dVk/U5aw1wOD8AxGzIWRzjCF5ElxGW2ZbNNWY4wJWLsAJmhghJ70IpdH1UILZ2ISwz1Mz7+qRViee6rxs+I=,iv:r1RP3uoJm7FvYMOiXUiDgR/MZo5A0DaTzziOh3kKWMU=,tag:RweasF6qbM3VlnKCP6N97w==,type:str]
+    lastmodified: "2023-05-03T11:35:03Z"
+    mac: ENC[AES256_GCM,data:TixL818sEhAMO50nGmRz9lAqqphvXzgryaNMwmWJeG0Blmblt7mFtk/OMVT9x3e8Q4cTJaGZe69Oir933AWMoygmvOp7/k7RvQHFlVeV+MxVgUuW3n9+he2C5ftxoA6KgpWzDFnl9vw86FMoDs3KMPqUId68RM39uy1TXzgmBpg=,iv:+w+2te5lnNlgCCNOxD0OWRQIg4OdGZsAyMe381MqLoI=,tag:+3Ze5O2uCVfx5PFKR9RwbA==,type:str]
     pgp:
-        - created_at: "2023-05-03T11:30:00Z"
+        - created_at: "2023-05-03T11:35:02Z"
           enc: |
             -----BEGIN PGP MESSAGE-----
 
-            hQIMA10wx5U3gEw3AQ/+OFC40zi1OOeoe/AScFKZLViG+BO3nT1mdUlujqFZKltF
-            zmRbaRnXWdj8Wzcpou0QqiQJMNDxUVpTwRB0TQCdDj33CkmSuNuPuJlld0bvdORO
-            yuEmpiq30ZLd0ak/53cSAAihRR0pX12lwZMd7hTyvWjggnh3SGmY4r3Xec6HrmT8
-            uk3CeJ0DNg8NpbYwO0xEZMKQ4PfTH7DLHmeP/TDZfK1eoFff5Wu9nGqTF4LdEkK6
-            UTC9+nFnIIQBw1Fh567yYpWz06WlzsiHV9Lliok4XWzgYi8s1kcTdDfdbZkGkxLb
-            PMD3B9wW7ZvisdVEQgQq9VwYmThqaFnOawkHfelHn0gcGWZkvZFvx46QNCMnGtQt
-            KMuZjzIpEMIMNxcdQSmkqX5Qi6fmG9bv99gEPLAPOAeDyGT6YnG/KLbyRgLpVEHw
-            lqKd8WWMGbS5v+IqI3UdGnz5ryIXDuuVBZTRbH4ug4prbaoECN1287GSxBR6SULO
-            X51N8bnhS5cZEOl/qcyBaAx7Em7KlOl3dNAZv9rt8gKUz39bJGp3EtE6onKpI+T8
-            x0Cuynx3bD1QbbZXaTl7XiRxNacKtaruhMM53QSNQJknDaFomJ6O4k6souHqjhCO
-            29x37MnzgJJQGLaj4UDMwZewZ+sCr5aYAhRQl+HDZ3vp3GBMf9iNNMjS8zMdWNDS
-            XgHYjfYXf5t3Rl4rnr0yEo436FeO8f+vp3dsV7EGGsl3uSMS4/tFMkOqQuK3WhQV
-            1Hj1OzyVW4Q4iS9H5BfvABQqvX2Y+AGHDoP5breSxNdCNYHAQpImt6tugi6OF0I=
-            =aO+s
+            hQIMA10wx5U3gEw3AQ//YCog2SX4kuNEsVIuAglvgw/g6m1m0mkRnu0lAI/SLB4p
+            xaumswsw7iqiykzFhw8m2A8fcA19OaCm/KzKwZUqvgGkNq5YV1sPah/2nU1+wEVW
+            +xHNigrEoQM703/P5A1hH2YS68MqUG5LTCMciaqgg/gC6mpfTXGhC3CeGzIKdgWu
+            Q6TVqEagGPzie8Rc3FFK9hXn7pKAcCYhTCjOMYOumGWEUrIeE47ssXpjQ3xYvhAF
+            Q2jcRV8qkLpBSOg9ctUmgOD5hRC8rLsH5OakJqzPHfqGExuGPWVhiC6lI0vvSK+f
+            GqdaInQ0KTJ6xgC7R93CyYVopwJ104E9MJW+4Tht7XRSHE6dESqbTbgIAp/wmiG2
+            WbM/bZVSIwg1JrVU8cxeVncS4EHuGufmjMRzh88ExEEGmkwtkaaTZQomJxOgKy+H
+            u/t3UpPIr7r8JCnU+lO9TuY80kzrBS/4lyLSI/dYu7/Bu/fNs1B+wpNNLKoOSZOD
+            Z7rj5rOqQ74oLUEv2aTiTf7U0zIdNCZyVg0ks5/c45Ed6c1w2W8ALA2MdtQYsbzA
+            TPWg7Dhry5jwS8Bg6mDp1R6lLpP+K77WcMsYniUOkBktLKXOVIu/9itCMdlCr3bF
+            RJFd0jULSEt6DVa/R56pVxcPZZ6VqqAkuZc2UjFjZPXs2+F/6QQ9MDDszO/EJHfS
+            XgFKAzN4BINDknADu2LEA820XhpN4esNkiM3eeKUPRhEP7dmS7S5L4PfFhCTqmCJ
+            ODnLywT2izbMhaEDIWK/G/v/L+acZXj+E7ksmF5hW1VfjVaJLeETWJF3dvPeQuo=
+            =TILJ
             -----END PGP MESSAGE-----
           fp: 8F6A472C7E7E4D37F0CF3EA912DD0773984838FE
     encrypted_regex: ^(data|stringData)$

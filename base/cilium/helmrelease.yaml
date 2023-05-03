@@ -31,5 +31,5 @@ spec:
   valuesFrom:
     - kind: Secret
       name: cluster-info
-      valuesKey: api.address
+      valuesKey: apiAddress
       targetPath: k8sServiceHost

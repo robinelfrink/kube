@@ -11,9 +11,6 @@ spec:
   sourceRef:
     kind: GitRepository
     name: kube
-  dependsOn:
-  - name: cert-manager
-  - name: nginx
   postBuild:
     substituteFrom:
       - kind: Secret

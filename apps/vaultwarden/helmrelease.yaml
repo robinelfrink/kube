@@ -21,6 +21,8 @@ spec:
       interval: 1h
   targetNamespace: ${namespace}
   storageNamespace: ${namespace}
+  dependsOn:
+    - name: ingress-nginx
   values:
     vaultwarden:
       allowSignups: false
