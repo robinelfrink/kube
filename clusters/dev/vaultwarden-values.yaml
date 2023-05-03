@@ -1,0 +1,42 @@
+apiVersion: v1
+kind: Secret
+metadata:
+    name: vaultwarden-values
+    namespace: flux
+type: Opaque
+stringData:
+    name: ENC[AES256_GCM,data:/qFwLR0=,iv:LZOYYsemFYPZ8nsT1mLyHObEXnS2Lg2i2OOfRM737QM=,tag:EhW/bRud4xSZ/arrOA0oBg==,type:str]
+    namespace: ENC[AES256_GCM,data:uNRvVo2dRExi,iv:ffhTPD88VIzJyWkpFmVi3cRXXV89yOykKVLdJBKmsoU=,tag:wzjSz1W97E1vx8s/ihBArw==,type:str]
+    hostname: ENC[AES256_GCM,data:GWFi+CcRG7PsOucf/wU7,iv:OlluTo9N4iaJOCEnB/SJisi/6Jx78JkyX9p3u8mQzhE=,tag:WiJmk7MOv7al3hLg9tOb0Q==,type:str]
+    issuer: ENC[AES256_GCM,data:RawMk/2JtWCKqZoqBRACbXe5gw==,iv:wSkxQuEAQGx68qAxXKpnp2PeysmNwHfBVHaHmkaKNkA=,tag:IeQMLmN1tfENWgSr1Zg4mg==,type:str]
+sops:
+    kms: []
+    gcp_kms: []
+    azure_kv: []
+    hc_vault: []
+    age: []
+    lastmodified: "2023-05-03T11:30:04Z"
+    mac: ENC[AES256_GCM,data:qR6ALM2RTcfPuHdraLNOKDBQifRg7dxvi/03Yp9PY81Cd1yO9KSfF8j6jtdmbr9OAyeFEyOKlqyA3BCPHVegDl5qlkQ1CJMtSoo6mSxgTvyKt7fSFZ1QiQ7t0UzXa+dIg5JXa0OL4KTDoGMnF34G7HhX+cutxoZPu5rE0Oyskmc=,iv:LgUSCMp9qCyz7yIVrHY9yC9DCrziAG16oawEHDhEUTs=,tag:R07QfqZXK5QKVQDFWfqSQg==,type:str]
+    pgp:
+        - created_at: "2023-05-03T11:30:04Z"
+          enc: |
+            -----BEGIN PGP MESSAGE-----
+
+            hQIMA10wx5U3gEw3ARAAyuA/SlqMM9vwY19jA4huOByT/lY9V5dzlRZXeBo0aHUe
+            YITn4ThDr5kZCeeeYgr/lPnfsOFwzEosLkxF3/59B/UYVkc0Vr978npmIJJptLFS
+            75HzlYVEAQeRb7+3ndQ0O2iFZ06zW4Prwk4hFaFBu6j6l97NVAg8QLzd1P+sRjKr
+            ZS0QYwb/mwWLcidSy8mPbmCpcwFl5AAPXnO+0AtASJxZnvbHp3A3HxFv8wUaNnxy
+            doNxqo1e42t4PoFn5OfSG6BBdM7wxOUIti+G2kGSzGUH2MRxIbiKeQGwnG9pZobE
+            xcIvMxrqOJt/veKPPhk04sk0f0eLGfBLL53ehOaBLzLprQIoMlBNOSviSOfGVYww
+            m88n/rHwfTdRXHxmj/tR0XS6JmXiD1H+B/GQiqoo3VX1rOCFp5NgycbVz1Kx6rJH
+            b3hRqfv/MuES0QOx/B8JMyDAdkQ2tonqCRDP5Yx+LcYnMKmt+eLjcmQHpbqN15+O
+            dfW3XPTjAfGNHYKUgxYpWCHaYXvSD4qlK9bJ2ld3mwzLT+uE5Vozw7Qj82MR84OT
+            IXWC/WPCHqPFyvxTJdrk33xf9Kr1VKiJaNwUHaNUJKYP0ypuVeZnpMuvcD9a0gBA
+            RDxA4SqHGiUQEZfOWQ9zGVG0Xmo7cKDFXrX7U9+wSEMvJCGcRlCS1KgQL5MS+D3S
+            XAGyVY3OrxpDoP6DaJArGCbbdJUlrSVZ2AjEijtKTl5fz2PaFseZPt/DcxnaMSCD
+            656sReczFw21JYkJv1s/+dUD4sR8obKzNlcDMk77Oiepuqk07lxl7Y6jujpx
+            =5fl0
+            -----END PGP MESSAGE-----
+          fp: 8F6A472C7E7E4D37F0CF3EA912DD0773984838FE
+    encrypted_regex: ^(data|stringData)$
+    version: 3.7.3

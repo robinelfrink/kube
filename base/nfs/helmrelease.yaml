@@ -33,10 +33,10 @@ spec:
     - kind: ConfigMap
       name: nfs-values
     - kind: Secret
-      name: nfs-values
-      valuesKey: nfs.server
+      name: cluster-info
+      valuesKey: nfsServer
       targetPath: nfs.server
     - kind: Secret
-      name: nfs-values
-      valuesKey: nfs.path
+      name: cluster-info
+      valuesKey: nfsPath
       targetPath: nfs.path
