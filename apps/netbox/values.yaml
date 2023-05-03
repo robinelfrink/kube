@@ -6,7 +6,6 @@ metadata:
 data:
   values.yaml: |
     loginRequired: true
-    timeZone: CEST
     ingress:
       enabled: true
       annotations:
