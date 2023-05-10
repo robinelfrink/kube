@@ -11,4 +11,5 @@ resources:
   - vaultwarden.yaml
 
   - netbox-values.yaml
+  - netbox-openid.yaml
   - netbox.yaml

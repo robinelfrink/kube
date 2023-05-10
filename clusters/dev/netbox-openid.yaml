@@ -1,0 +1,39 @@
+apiVersion: v1
+kind: Secret
+metadata:
+    name: netbox-openid
+    namespace: netbox
+type: Opaque
+stringData:
+    openid.yaml: ENC[AES256_GCM,data:oeIiUWeRF1GZ/U5CLUszTK0UNZMtrGijXB6T17IFKdrgVXxmWKDw1A0ekknepYpFMGlFcC3xXKVCBOFh7kKGjDqgJS/iigKlx3bJZQqzLmCbqVaEBzsWzqONvpB1OvOaeccbDsGP5uhAG1apFEYwmTPnhsSpziu+gSb5zWRGlzDX40KXa8q2Kbecdmwnx8zl3mQKoL7jQxY3ldKqBDkUwTfrEwvaY1ScWvXS2WlP7JwVTr32kGYTSfq/wbZeUF97dX54nDOU8pPaI2uzWgZYTOMlkaKZj1djgfS6s4Ok3PnJGg6wWPtzX4G1GwlwdZJOqutn4zOU8X42/CpWnVkrHO3YjChlp6Z1f+WjYULKPdowpuxvssOQVQHXc/+39q4eQFRdl8i4Cnt3T18V6Np81LqK/9cDViIP3GNdRtJAK38W4Ecti9rBT7lDKBRipQ==,iv:VW/uEesUAJtTq7qDJbsO5u/zPUZ5U9MAD74GzbWHpeU=,tag:CquKbcAaecgbGQv9TXTShg==,type:str]
+sops:
+    kms: []
+    gcp_kms: []
+    azure_kv: []
+    hc_vault: []
+    age: []
+    lastmodified: "2023-05-10T08:14:25Z"
+    mac: ENC[AES256_GCM,data:y6OuQ/tubvyhwk1Lp+fY4SRyu1HLTC9YOCWWoR2dC9FxqpGpwS1qd63tG9kSQltR7Pdi5UD3p3jBxYTsIC4wd6eXVDPZ3kCHFVRYWKp2fKPoASDp8AgIU1D22K+vrVAanZUy/S5xQxzoD1Mp/0oGTA4djoC5dxo7aeRQXiKpKks=,iv:45kY0129nWd08nyFbpblBezQRV9TGsXnzOGMS8VCqn8=,tag:q26m4gYzQLyIn1ufarMeJw==,type:str]
+    pgp:
+        - created_at: "2023-05-10T08:14:23Z"
+          enc: |
+            -----BEGIN PGP MESSAGE-----
+
+            hQIMA10wx5U3gEw3AQ/+OxJNg3xFKN+7IM/aAQEQgf50WwKX+oFNrkPi8mWFM+n7
+            grmGjYFwxCgc2lVP/M2CN9lxyLEkNF7J5ph2dSf6ywCAF7RhHVSll9QXwnvZSz9K
+            y752zy1mnWYBcZ/wbBBaiwKAfGijfU9+CK6mQMissua4oES5usYuGvJbY2EnMykI
+            jVTVLw5qG0xSeWC8OFKZ4Tk9xOlouB44Mat7rJEpqEPxwHRy2ncTzY+o3Wvue0DP
+            jnLml0N/iOk0ZbVDTyJk0Lg9BQqpJsNLSGLvsWiZ/02lz7oOEko8YZ2aMqMj70da
+            4lDT9crTEVfIUAnqM1hEe8Ez6XZ4sGBnQ5BoIO+BWElv2f3AF69F4f+WQNo1ufL8
+            +SalGgyHGEEaLFmVyzVNZ8uSvYKx0N1SVVvIqwI8fBQ4F1YnYJ5B0jtvvVQRkupg
+            viF8OGmuke6IOylMUdxRRn4hrfQEYVIcGVa8Q6mJbm1/OeN6qTsjueBzVyOUXckc
+            53wbOhglB8X2KioRNcJB7x45sN3qYrfb0nPT0c1ZCv4fTZukVVGnta95CVYqq7g7
+            EMBX0DpMzAw4+huySKD1sxXTowmfeiqq4UumoIEarOZ9QStU8FcYW5N/DZ2QtSue
+            HeFdMQraJnq8nRY/TI3NK4jS6OvsDKTkr1yB8++Uov8GTtOwzi+4i54vvrNJfp7S
+            XgHxzzPuqln91j8WGet89jnszLKLLCSqCuHGchll3Gf/qbZDYPWZy6dhE+Ch/3DU
+            d2lPBip0NVEZHWOaoo5Shvjv+8huU2QlLcTfzUfQicZdVD+9qlYqGsC4WrplECI=
+            =gGtb
+            -----END PGP MESSAGE-----
+          fp: 8F6A472C7E7E4D37F0CF3EA912DD0773984838FE
+    encrypted_regex: ^(data|stringData)$
+    version: 3.7.3
