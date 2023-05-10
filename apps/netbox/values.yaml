@@ -5,6 +5,7 @@ metadata:
   namespace: flux
 data:
   values.yaml: |
+    superuser: {}
     loginRequired: true
     ingress:
       enabled: true
