@@ -17,17 +17,47 @@ spec:
         name: cilium
       interval: 1h
   values:
-    ipam:
-      mode: kubernetes
-    kubeProxyReplacement: strict
     k8sServicePort: 6443
+    rollOutCiliumPods: true
     operator:
       replicas: 1
     securityContext:
-      privileged: true
+      privileged: false
+      seLinuxOptions:
+      capabilities:
+        ciliumAgent:
+          - CHOWN
+          - KILL
+          - NET_ADMIN
+          - NET_RAW
+          - IPC_LOCK
+          - SYS_ADMIN
+          - SYS_RESOURCE
+          - DAC_OVERRIDE
+          - FOWNER
+          - SETGID
+          - SETUID
+        cleanCiliumState:
+          - NET_ADMIN
+          - SYS_ADMIN
+          - SYS_RESOURCE
+    cni:
+      uninstall: false
+    enableXTSocketFallback: false
     hubble:
       relay:
         enabled: true
+        rollOutPods: true
+    ipam:
+      mode: kubernetes
+    kubeProxyReplacement: strict
+    localRedirectPolicy: true
+    operator:
+      rollOutPods: true
+    cgroup:
+      autoMount:
+        enabled: false
+      hostRoot: /sys/fs/cgroup
   valuesFrom:
     - kind: Secret
       name: cluster-info
