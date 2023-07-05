@@ -1,0 +1,21 @@
+[
+  {
+    "op": "add",
+    "path": "/cluster/network/cni",
+    "value": {
+      "name": "none"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/cluster/proxy",
+    "value": {
+      "disabled": true
+    }
+  },
+  {
+    "op": "replace",
+    "path": "/machine/install/disk",
+    "value": "/dev/vda"
+  }
+]
