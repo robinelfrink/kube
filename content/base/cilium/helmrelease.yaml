@@ -59,6 +59,6 @@ spec:
       hostRoot: /sys/fs/cgroup
   valuesFrom:
     - kind: Secret
-      name: cluster-info
-      valuesKey: apiAddress
+      name: cilium-values
+      valuesKey: k8sServiceHost
       targetPath: k8sServiceHost

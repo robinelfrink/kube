@@ -1,0 +1,39 @@
+apiVersion: v1
+kind: Secret
+metadata:
+    name: cilium-values
+    namespace: flux
+type: Opaque
+stringData:
+    k8sServiceHost: ENC[AES256_GCM,data:2Dj4O5aJl8Dj5H5Q2Q==,iv:YP2E1+wumYJkOWboZwNZ5fcVVKPwXB6X0mAkrH3+7bQ=,tag:MmqvaAVkXJQCtA3gO58kFA==,type:str]
+sops:
+    kms: []
+    gcp_kms: []
+    azure_kv: []
+    hc_vault: []
+    age: []
+    lastmodified: "2023-07-06T15:36:30Z"
+    mac: ENC[AES256_GCM,data:kaY+/SUB3gLVeyTxP2CWPu381qlWUG5M+WmuGkLSpRL11R+Q0c5zyQxPsU+KCxv3XIUm7Q0OkGGnPEJ3WQfNU8I4YjzYK5bOv1VkzV8SEFkQSU/qUfYHx8yGlZID4DOuIwnbkYS9aTDy4AmDMalsUrIHi8teDDPaN2Xes6WysbE=,iv:xBl9tSTD2+S/Gvu2l0+34eIBtxqj2Dbeoq+HrWtJDfE=,tag:zpz8yrPHARVj1MERfn4X0w==,type:str]
+    pgp:
+        - created_at: "2023-07-06T15:36:30Z"
+          enc: |
+            -----BEGIN PGP MESSAGE-----
+
+            hQIMA3F6ciqgn+yoAQ//ZeWD2Mqpq368rfEKTs25lqAdybI2+YIlaib7Q4++gA8s
+            UQquJyRo9PxqFCFNnzpnMJq/l+Sr0ICG6mtHTXwVFlSBoUw4QhRVzs1rhc3nBQv6
+            Wn4ZjLeNyfjW0dUhF+FM5HCSXkmsEvckrDKdEJ5hReZGz2hVzV+y+YnRKT61doTo
+            nOPU9VnruAWpKahQ/VjWkZgqDj+Nn+yW/njfcLBIXf+jxzhpXhwkeEH/J7CZ2WAV
+            ROVTQaRchd6tN85wx+T8WtdH+Mvup6uP8IzRcVB4+WS2DBH+DmcAqGCdgbTQTgx3
+            eyYJ/tM0Aqwqvlz7DY+KX6dPek3x6vyz2clM3s41T0DP7AYdD1hD5zfi4Qi+kC+c
+            UPzCxcBvgeKUdYLMMQbWqoD8YmXRNRAPBEYivXpdoCEpyI20TimQh78RuQvdYBil
+            /ynsQsyIKCLZkToBLVat+fXAsF0hkeGRILMoZ4AWqp99fLIlGhCF2M3ksiZe5kFz
+            N0l+rWGb36io70czsHpDW3yt3GoKAWYpVPpUGikKnJb5Xnk4qAP2gWGR1Hx85sCI
+            wG/iJ7Ulbg5QS+4JDi8b/TJKVrf/BtWwhg0P5YhZ6LnNTutpsZp5OmIV0B+H+4wK
+            AQQNotgEgILO7UxWD+uboMo2d3YUScgcV5HQWwhyBmSCFFPIjHJlWqwuYy+hYUzS
+            XgHy9ohzhuIDEefjt7+sEnVYAK5ulOF34nzFZB9erRCuQ0MN/ViFdGTTh3lhos0b
+            AsCiSZzcCQpn+Pr1jCkv7r8jGTtsaOgLhoGcpY8M60ihbUDnbVIEGf2tRfP8yVY=
+            =b0rV
+            -----END PGP MESSAGE-----
+          fp: 905CCEEEDF2A4C8D52F5DE8D9E760ECEE16736E0
+    encrypted_regex: ^(data|stringData)$
+    version: 3.7.3
