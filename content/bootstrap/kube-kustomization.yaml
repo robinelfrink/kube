@@ -13,5 +13,5 @@ spec:
     kind: GitRepository
     name: kube
   path: ./content
-  prune: true
+  prune: false
   timeout: 5m
