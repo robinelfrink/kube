@@ -7,4 +7,4 @@ spec:
   interval: 30m
   url: https://github.com/robinelfrink/kube
   ref:
-    branch: new-style
+    branch: main

@@ -12,6 +12,6 @@ spec:
   sourceRef:
     kind: GitRepository
     name: kube
-  path: ./content
+  path: ./base
   prune: false
   timeout: 5m
