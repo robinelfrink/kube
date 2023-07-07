@@ -9,3 +9,5 @@ configMapGenerator:
     namespace: flux
     files:
       - values.yaml
+    options:
+      disableNameSuffixHash: true
