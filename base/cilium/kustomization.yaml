@@ -6,7 +6,6 @@ resources:
   - helmrelease.yaml
 configMapGenerator:
   - name: cilium-values
-    namespace: flux
     files:
       - values.yaml
     options:
