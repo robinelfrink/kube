@@ -8,7 +8,6 @@ spec:
     secretRef:
       name: sops-gpg
   interval: 30m
-  targetNamespace: flux
   sourceRef:
     kind: GitRepository
     name: kube
