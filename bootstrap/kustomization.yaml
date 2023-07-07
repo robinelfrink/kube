@@ -1,13 +1,5 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
-  - cilium-namespace.yaml
+  - cilium
   - ../base/flux
-helmCharts:
-  - name: cilium
-    repo: https://helm.cilium.io
-    version: v1.13.4
-    releaseName: cilium
-    namespace: cilium
-    valuesFile: ../base/cilium/values.yaml
-    includeCRDs: true
