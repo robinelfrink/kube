@@ -11,3 +11,8 @@ spec:
   sourceRef:
     kind: GitRepository
     name: kube
+  healthChecks:
+    - apiVersion: apps/v1
+      kind: Deployment
+      name: cert-manager-webhook
+      namespace: cert-manager
