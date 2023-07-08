@@ -6,8 +6,8 @@ metadata:
 spec:
   interval: 1h
   releaseName: nfs
-  targetNamespace: kube-system
-  storageNamespace: kube-system
+  targetNamespace: nfs-subdir-external-provisioner
+  storageNamespace: nfs-subdir-external-provisioner
   chart:
     spec:
       chart: nfs-subdir-external-provisioner
