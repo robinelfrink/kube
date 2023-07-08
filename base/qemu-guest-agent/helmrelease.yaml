@@ -6,8 +6,8 @@ metadata:
 spec:
   interval: 1h
   releaseName: qemu-guest-agent
-  targetNamespace: kube-system
-  storageNamespace: kube-system
+  targetNamespace: qemu-guest-agent
+  storageNamespace: qemu-guest-agent
   chart:
     spec:
       chart: qemu-guest-agent
