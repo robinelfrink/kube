@@ -3,6 +3,6 @@ kind: Kustomization
 resources:
   - cert-manager
   - cilium
-  - csi-driver-nfs
   - flux
   - ingress-nginx
+  - nfs-subdir-external-provisioner
