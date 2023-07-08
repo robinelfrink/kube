@@ -13,9 +13,6 @@
         "addresses": [
           "${NODE_ADDRESS}/${NODE_MASK}"
         ],
-        "vip": {
-          "ip": "${NODE_VIP}"
-        },
         "routes": [
           {
             "network": "0.0.0.0/0",
