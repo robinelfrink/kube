@@ -7,7 +7,7 @@ spec:
   interval: 1h
   releaseName: ${name}
   dependsOn:
-    - name: nfs
+    - name: nfs-subdir-external-provisioner
     - name: cert-manager
     - name: ingress-nginx
   chart:
