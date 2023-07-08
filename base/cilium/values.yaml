@@ -1,4 +1,4 @@
-k8sServiceHost: ch.an.ge.me
+k8sServiceHost: ${CLUSTER_ENDPOINT}
 k8sServicePort: 6443
 rollOutCiliumPods: true
 securityContext:
