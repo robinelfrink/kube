@@ -5,4 +5,5 @@ resources:
   - cilium
   - flux
   - ingress-nginx
+  - metrics-server
   - nfs-subdir-external-provisioner
