@@ -8,3 +8,4 @@ resources:
   - metrics-server
   - nfs-subdir-external-provisioner
   - node-exporter
+  - qemu-guest-agent
