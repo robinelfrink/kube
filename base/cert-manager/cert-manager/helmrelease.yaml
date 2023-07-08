@@ -17,6 +17,9 @@ spec:
   targetNamespace: cert-manager
   storageNamespace: cert-manager
   values:
+    global:
+      leaderElection:
+        namespace: cert-manager
     installCRDs: true
     extraArgs:
       - --enable-certificate-owner-ref=true
