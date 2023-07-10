@@ -111,6 +111,12 @@ $ kubectl kustomize \
           kubectl apply --filename -
 ```
 
+### Add `GitRepository`
+
+```shell
+$ kubectl apply --filename bootstrap/gitrepository.yaml
+```
+
 ## SOPS
 
 For convenience, store your cluster's name in a variable:
