@@ -1,4 +1,4 @@
-# Bootstrap a new cluster
+# Deploy a new cluster
 
 My cluster runs on [Talos Linux](https://www.talos.dev/). Secrets are encrypted
 using [SOPS](https://github.com/getsops/sops) and decrypted as needed by
