@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+
+if [ $# -ne 2 ]; then
+    echo "Usage: decrypt <cluster> <file>"
+    exit
+fi
+
+FINGERPRINT=$(
+    gpg --list-secret-keys --with-colons $1 | \
+    sed -ne '/^sec:/,/^fpr:/ { /^fpr:/ p }' | \
+    cut -d: -f10
+)
+shift
+
+FILE=$1
+shift
+
+realpath ${FILE}
+
+sops --decrypt \
+    --pgp "${FINGERPRINT}" \
+    --in-place ${FILE} \
+    $@
