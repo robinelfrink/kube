@@ -4,4 +4,4 @@ resources:
   - secrets.yaml
   - gitrepository.yaml
   - base.yaml
-  - apps
+  - apps.yaml
