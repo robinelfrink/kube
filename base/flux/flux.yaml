@@ -3565,8 +3565,6 @@ spec:
       serviceAccountName: source-controller
       terminationGracePeriodSeconds: 10
       tolerations:
-      - key: node-role.kubernetes.io/master
-        operator: Exists
       - key: node-role.kubernetes.io/control-plane
         operator: Exists
       volumes:
@@ -5299,8 +5297,6 @@ spec:
       serviceAccountName: kustomize-controller
       terminationGracePeriodSeconds: 60
       tolerations:
-      - key: node-role.kubernetes.io/master
-        operator: Exists
       - key: node-role.kubernetes.io/control-plane
         operator: Exists
       volumes:
@@ -6326,8 +6322,6 @@ spec:
       serviceAccountName: helm-controller
       terminationGracePeriodSeconds: 600
       tolerations:
-      - key: node-role.kubernetes.io/master
-        operator: Exists
       - key: node-role.kubernetes.io/control-plane
         operator: Exists
       volumes:

@@ -23,5 +23,10 @@ spec:
     installCRDs: true
     extraArgs:
       - --enable-certificate-owner-ref=true
+    nodeSelector:
+      node-role.kubernetes.io/control-plane: ""
     prometheus:
       enabled: false
+    tolerations:
+      - key: node-role.kubernetes.io/control-plane
+        effect: NoSchedule
