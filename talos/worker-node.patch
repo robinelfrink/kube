@@ -1,0 +1,30 @@
+[
+  {
+    "op": "replace",
+    "path": "/machine/network/hostname",
+    "value": "${NODE_HOSTNAME}"
+  },
+  {
+    "op": "replace",
+    "path": "/machine/network/interfaces",
+    "value": [
+      {
+        "interface": "eth0",
+        "addresses": [
+          "${NODE_ADDRESS}/${NODE_MASK}"
+        ],
+        "routes": [
+          {
+            "network": "0.0.0.0/0",
+            "gateway": "${NODE_GATEWAY}"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "op": "replace",
+    "path": "/machine/network/nameservers",
+    "value": ${NODE_NAMESERVERS}
+  }
+]

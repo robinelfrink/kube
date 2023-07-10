@@ -1,1 +1,0 @@
-HelmRelease {{ .Values.name }} has been installed.

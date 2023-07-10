@@ -1,1 +1,5 @@
-venv
+.direnv
+dev
+talos/controlplane.yaml
+talos/talosconfig
+talos/worker.yaml
