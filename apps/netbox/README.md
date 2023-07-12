@@ -3,11 +3,11 @@
 * [Code](https://github.com/netbox-community/netbox)
 * [Helm chart](https://github.com/bootc/netbox-chart)
 
-## using authintik
+## using authentik
 
 See [authentik documentation](https://goauthentik.io/integrations/services/netbox/).
 
-Scope mapping confgiured in authentik:
+Scope mapping configured in authentik:
 
 ```python
 result = {'groups': [group.name for group in request.user.ak_groups.all()]}
