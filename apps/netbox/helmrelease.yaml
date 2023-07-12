@@ -1,0 +1,81 @@
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: ${name}
+  namespace: flux
+spec:
+  interval: 1h
+  releaseName: ${name}
+  dependsOn:
+    - name: nfs-subdir-external-provisioner
+    - name: cert-manager
+    - name: ingress-nginx
+    - name: ${name}-postgresql
+  chart:
+    spec:
+      chart: netbox
+      version: 4.1.1
+      sourceRef:
+        kind: HelmRepository
+        name: ${name}
+      interval: 1h
+  targetNamespace: ${namespace}
+  storageNamespace: ${namespace}
+  values:
+    image:
+      tag: v3.5.6
+    superuser:
+      password: ${superuserPassword}
+    metricsEnabled: true
+    remoteAuth:
+      enabled: true
+      backend: social_core.backends.open_id_connect.OpenIdConnectAuth
+      autoCreateUser: true
+    loginRequired: true
+    extraConfig:
+      - secret:
+          secretName: ${name}-authentik-client
+      - values:
+          SOCIAL_AUTH_PIPELINE:
+            - social_core.pipeline.social_auth.social_details
+            - social_core.pipeline.social_auth.social_uid
+            - social_core.pipeline.social_auth.auth_allowed
+            - social_core.pipeline.social_auth.social_user
+            - social_core.pipeline.user.get_username
+            - social_core.pipeline.user.create_user
+            - social_core.pipeline.social_auth.associate_user
+            - social_core.pipeline.social_auth.load_extra_data
+            - social_core.pipeline.user.user_details
+            - netbox.authentik_pipeline.add_groups
+            - netbox.authentik_pipeline.remove_groups
+            - netbox.authentik_pipeline.set_roles
+    extraVolumes:
+      - name: authentik-pipeline
+        configMap:
+          name: ${name}-authentik-pipeline
+    extraVolumeMounts:
+      - name: authentik-pipeline
+        mountPath: /opt/netbox/netbox/netbox/authentik_pipeline.py
+        subPath: authentik_pipeline.py
+        readOnly: true
+    timezone: Europe/Amsterdam
+    ingress:
+      enabled: true
+      annotations:
+        kubernetes.io/ingress.class: nginx
+        cert-manager.io/cluster-issuer: ${issuer}
+      hosts:
+        - host: ${hostname}
+          paths:
+            - /
+      tls:
+        - secretName: netbox-tls
+          hosts:
+            - ${hostname}
+    postgresql:
+      enabled: false
+    externalDatabase:
+      host: netbox-postgresql
+      password: ${dbPassword}
+      existingSecretName: ${name}-postgresql
+      existingSecretKey: password
