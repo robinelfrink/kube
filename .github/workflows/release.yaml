@@ -33,6 +33,7 @@ jobs:
       with:
         prefix: "v"
         release-branch: main
+        minor-identifier: /^feat(ure)?:/
 
     - name: Create release
       uses: actions/create-release@v1
