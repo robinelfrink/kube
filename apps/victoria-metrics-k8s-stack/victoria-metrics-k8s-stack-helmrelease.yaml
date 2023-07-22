@@ -1,0 +1,115 @@
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: ${name}
+  namespace: flux
+spec:
+  interval: 1h
+  releaseName: ${name}
+  dependsOn:
+    - name: nfs-subdir-external-provisioner
+    - name: cert-manager
+    - name: ingress-nginx
+  chart:
+    spec:
+      chart: victoria-metrics-k8s-stack
+      version: 0.17.1
+      sourceRef:
+        kind: HelmRepository
+        name: ${name}
+      interval: 1h
+  targetNamespace: ${namespace}
+  storageNamespace: ${namespace}
+  values:
+    defaultRules:
+      rules:
+        etcd: false
+        kubeApiserverBurnrate: false
+        kubeApiserverHistogram: false
+        kubeApiserverSlos: false
+        kubelet: false
+        kubePrometheusGeneral: false
+        kubePrometheusNodeRecording: false
+        kubeScheduler: false
+    alertmanager:
+      config:
+        global:
+          smtp_hello: ${alertmanagerHostname}
+          smtp_from: ${smtpAlertmanagerFrom}
+          smtp_smarthost: ${smtpAlertmanagerSmarthost}
+          smtp_require_tls: false
+        route:
+          receiver: 'null'
+          routes:
+            - matchers:
+                - severity=~"info|warning|critical"
+              group_by:
+                - alertgroup
+                - job
+              receiver: email
+        receivers:
+          - name: email
+            email_configs:
+            - to: ${adminEmail}
+              send_resolved: true
+          - name: 'null'
+      ingress:
+        enabled: true
+        ingressClassName: nginx
+        annotations:
+          cert-manager.io/cluster-issuer: ${issuer}
+          nginx.org/mergeable-ingress-type: master
+          nginx.ingress.kubernetes.io/auth-url: "https://$host/oauth2/auth"
+          nginx.ingress.kubernetes.io/auth-signin: "https://$host/oauth2/start?rd=$escaped_request_uri"
+          nginx.ingress.kubernetes.io/configuration-snippet: |
+            auth_request_set $token $upstream_http_authorization;
+            proxy_set_header Authorization $token;
+          nginx.ingress.kubernetes.io/proxy-buffer-size: 16k
+        hosts:
+          - ${alertmanagerHostname}
+    grafana:
+      ingress:
+        enabled: true
+        ingressClassName: nginx
+        annotations:
+          cert-manager.io/cluster-issuer: ${issuer}
+        hosts:
+          - ${grafanaHostname}
+      grafana.ini:
+        server:
+          root_url: https://${grafanaHostname}
+        security:
+          disable_initial_admin_creation: true
+        users:
+          allow_sign_up: false
+          auto_assign_org: true
+          auto_assign_org_role: Admin
+        auth:
+          disable_login_form: true
+          disable_signout_menu: false
+        auth.generic_oauth:
+          name: Authentik
+          icon: signin
+          enabled: true
+          client_id: ${oidcGrafanaClientID}
+          client_secret: ${oidcGrafanaClientSecret}
+          scopes: openid profile email
+          empty_scopes: false
+          auth_url: ${oidcGrafanaAuthUrl}
+          signout_redirect_url: ${oidcGrafanaSignoutUrl}
+          token_url: ${oidcGrafanaTokenUrl}
+          api_url: ${oidcGrafanaUserinfoUrl}
+          allow_sign_up: true
+          use_pkce: true
+    kubelet:
+      enabled: false
+    kubeApiServer:
+      enabled: false
+    kubeControllerManager:
+      enabled: false
+    coreDns:
+      enabled: false
+    kubeEtcd:
+      enabled: false
+    kubeScheduler:
+      enabled: false
