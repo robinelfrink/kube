@@ -68,9 +68,9 @@ spec:
         hosts:
           - ${alertmanagerHostname}
         tls:
-          secretName: ${name}-alertmanager-tls
-          hosts:
-            - ${alertmanagerHostname}
+          - secretName: ${name}-alertmanager-tls
+            hosts:
+              - ${alertmanagerHostname}
     grafana:
       ingress:
         enabled: true
@@ -80,9 +80,9 @@ spec:
         hosts:
           - ${grafanaHostname}
         tls:
-          secretName: ${name}-grafana-tls
-          hosts:
-            - ${grafanaHostname}
+          - secretName: ${name}-grafana-tls
+            hosts:
+              - ${grafanaHostname}
       grafana.ini:
         server:
           root_url: https://${grafanaHostname}
