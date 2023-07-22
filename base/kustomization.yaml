@@ -7,6 +7,5 @@ resources:
   - ingress-nginx
   - metrics-server
   - nfs-subdir-external-provisioner
-  - node-exporter
   - node-feature-discovery
   - qemu-guest-agent
