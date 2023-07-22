@@ -67,6 +67,10 @@ spec:
           nginx.ingress.kubernetes.io/proxy-buffer-size: 16k
         hosts:
           - ${alertmanagerHostname}
+        tls:
+          secretName: ${name}-alertmanager-tls
+          hosts:
+            - ${alertmanagerHostname}
     grafana:
       ingress:
         enabled: true
@@ -75,6 +79,10 @@ spec:
           cert-manager.io/cluster-issuer: ${issuer}
         hosts:
           - ${grafanaHostname}
+        tls:
+          secretName: ${name}-grafana-tls
+          hosts:
+            - ${grafanaHostname}
       grafana.ini:
         server:
           root_url: https://${grafanaHostname}

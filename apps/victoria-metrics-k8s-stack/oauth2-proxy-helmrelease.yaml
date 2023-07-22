@@ -39,6 +39,10 @@ spec:
       className: nginx
       hosts:
         - ${alertmanagerHostname}
+      tls:
+        secretName: ${name}-alertmanager-tls
+        hosts:
+          - ${alertmanagerHostname}
       annotations:
         cert-manager.io/cluster-issuer: ${issuer}
         nginx.org/mergeable-ingress-type: minion
