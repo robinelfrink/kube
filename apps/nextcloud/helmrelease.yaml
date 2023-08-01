@@ -1,0 +1,108 @@
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: ${name}
+  namespace: flux
+spec:
+  interval: 1h
+  install:
+    timeout: 50m
+  releaseName: ${name}
+  dependsOn:
+    - name: nfs-subdir-external-provisioner
+    - name: cert-manager
+    - name: ingress-nginx
+  chart:
+    spec:
+      chart: nextcloud
+      version: 4.2.0
+      sourceRef:
+        kind: HelmRepository
+        name: ${name}
+      interval: 1h
+  targetNamespace: ${namespace}
+  storageNamespace: ${namespace}
+  values:
+    image:
+      tag: 27.0.1-apache
+    ingress:
+      enabled: true
+      annotations:
+        cert-manager.io/cluster-issuer: ${issuer}
+        kubernetes.io/ingress.class: nginx
+        nginx.ingress.kubernetes.io/enable-cors: "true"
+        nginx.ingress.kubernetes.io/cors-allow-headers: "X-Forwarded-For"
+        nginx.ingress.kubernetes.io/server-snippet: |-
+          server_tokens off;
+          proxy_hide_header X-Powered-By;
+          rewrite ^/.well-known/webfinger /index.php/.well-known/webfinger last;
+          rewrite ^/.well-known/nodeinfo /index.php/.well-known/nodeinfo last;
+          rewrite ^/.well-known/host-meta /public.php?service=host-meta last;
+          rewrite ^/.well-known/host-meta.json /public.php?service=host-meta-json;
+          location = /.well-known/carddav {
+            return 301 $scheme://$host/remote.php/dav;
+          }
+          location = /.well-known/caldav {
+            return 301 $scheme://$host/remote.php/dav;
+          }
+          location = /robots.txt {
+            allow all;
+            log_not_found off;
+            access_log off;
+          }
+          location ~ ^/(?:build|tests|config|lib|3rdparty|templates|data)/ {
+            deny all;
+          }
+          location ~ ^/(?:autotest|occ|issue|indie|db_|console) {
+            deny all;
+          }
+      tls:
+        - secretName: ${name}-tls
+          hosts:
+            - ${hostname}
+    nextcloud:
+      host: ${hostname}
+      password: ${adminPassword}
+      defaultConfigs:
+        autoconfig.php: false
+        redis.config.php: true
+      configs:
+        database.php: |-
+          <?php
+          $CONFIG = array(
+            'dbname' => 'nextcloud',
+            'dbhost' => 'cloud-mariadb',
+            'dbpassword' => '${dbPassword}'
+          );
+        proxy.config.php: |-
+          <?php
+          $CONFIG = array (
+            'trusted_proxies' => array(
+              0 => '127.0.0.1',
+              1 => '10.0.0.0/8',
+            ),
+            'forwarded_for_headers' => array('HTTP_X_FORWARDED_FOR'),
+            'overwriteprotocol' => 'https'
+          );
+    startupProbe:
+      enabled: true
+      periodSeconds: 30
+      failureThreshold: 120
+    internalDatabase:
+      enabled: false
+    mariadb:
+      enabled: true
+      auth:
+        password: ${dbPassword}
+        rootPassword: ${dbPassword}
+      primary:
+        persistence:
+          enabled: true
+    redis:
+      enabled: true
+      architecture: standalone
+      master:
+        persistence:
+          enabled: false
+    persistence:
+      enabled: true
