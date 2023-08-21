@@ -169,15 +169,11 @@ $ kubectl create secret generic sops-gpg \
 ### Upgrade Talos
 
 ```shell
-$ talosctl upgrade \
-      --preserve \
-      --image ghcr.io/siderolabs/installer:v<version>
+$ talosctl upgrade --preserve
 ```
 
 ### Upgrade Kubernetes
 
 ```shell
-$ talosctl upgrade-k8s \
-      --from <current version> \
-      --to <new version>
-```robin@vrijdag:/home/groups/vijftien/cloud.15augustus.nl/data/robin/files/Documentation$
+$ talosctl upgrade-k8s --nodes ${NODE_ADDRESS}
+```
