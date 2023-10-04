@@ -21,8 +21,6 @@ securityContext:
       - NET_ADMIN
       - SYS_ADMIN
       - SYS_RESOURCE
-cni:
-  uninstall: false
 enableXTSocketFallback: false
 hubble:
   relay:
