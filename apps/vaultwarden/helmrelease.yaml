@@ -39,6 +39,6 @@ spec:
       enabled: true
       storageClass: "nfs"
     image:
-      tag: "1.29.0"
+      tag: "1.29.2"
     securityContext:
       readOnlyRootFilesystem: true
