@@ -1,5 +1,5 @@
-k8sServiceHost: ${CLUSTER_ENDPOINT}
-k8sServicePort: 6443
+k8sServiceHost: localhost
+k8sServicePort: 7445
 rollOutCiliumPods: true
 securityContext:
   privileged: false
