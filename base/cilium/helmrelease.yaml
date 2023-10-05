@@ -19,7 +19,3 @@ spec:
   valuesFrom:
     - kind: ConfigMap
       name: cilium-values
-    - kind: Secret
-      name: secrets
-      valuesKey: clusterEndpoint
-      targetPath: k8sServiceHost
