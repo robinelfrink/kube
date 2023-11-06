@@ -22,6 +22,7 @@ spec:
   storageNamespace: ${namespace}
   values:
     vaultwarden:
+      domain: https://${hostname}
       allowSignups: false
       admin:
         enabled: true
