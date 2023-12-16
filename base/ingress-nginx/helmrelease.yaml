@@ -20,6 +20,7 @@ spec:
     controller:
       config:
         use-proxy-protocol: "true"
+      allowSnippetAnnotations: true
       kind: DaemonSet
       tolerations:
         - key: node-role.kubernetes.io/control-plane
