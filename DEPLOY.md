@@ -156,7 +156,6 @@ $ gpg --export --armor \
 * Create a kubernetes secret from the sops secret:
 
 ```shell
-$ kubectl create namespace flux
 $ kubectl create secret generic sops-gpg \
       --namespace=flux \
       --from-file=sops.asc=<(gpg \
