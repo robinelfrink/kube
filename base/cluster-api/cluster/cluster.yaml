@@ -1,0 +1,17 @@
+apiVersion: cluster.x-k8s.io/v1beta1
+kind: Cluster
+metadata:
+  name: cluster
+  namespace: cluster-api
+spec:
+  infrastructureRef:
+    apiVersion: infrastructure.cluster.x-k8s.io/v1beta1
+    kind: ProxmoxCluster
+    name: cluster
+  controlPlaneRef:
+    apiVersion: controlplane.cluster.x-k8s.io/v1beta1
+    kind: TalosControlPlane
+    name: cluster
+  controlPlaneEndpoint:
+    host: 192.168.17.50
+    port: 6443

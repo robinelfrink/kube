@@ -1,0 +1,16 @@
+apiVersion: controlplane.cluster.x-k8s.io/v1alpha3
+kind: TalosControlPlane
+metadata:
+  name: cluster
+  namespace: cluster-api
+spec:
+  version: v1.29.1
+  replicas: 1
+  infrastructureTemplate:
+    kind: ProxmoxMachineTemplate
+    apiVersion: infrastructure.cluster.x-k8s.io/v1beta1
+    name: controlplane-template
+  controlPlaneConfig:
+    controlplane:
+      generateType: controlplane
+      talosVersion: v1.6.3

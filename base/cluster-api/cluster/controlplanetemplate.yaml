@@ -1,0 +1,16 @@
+apiVersion: infrastructure.cluster.x-k8s.io/v1beta1
+kind: ProxmoxMachineTemplate
+metadata:
+  name: controlplane-template
+  namespace: cluster-api
+spec:
+  template:
+    spec:
+      node: node2
+      image:
+        url: https://cloud-images.ubuntu.com/releases/jammy/release-20230914/ubuntu-22.04-server-cloudimg-amd64-disk-kvm.img
+        checksum: c5eed826009c9f671bc5f7c9d5d63861aa2afe91aeff1c0d3a4cb5b28b2e35d6
+        checksumType: sha256
+      hardware:
+        cpu: 4
+        memory: 8192
