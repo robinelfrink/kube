@@ -4,5 +4,5 @@ resources:
   - secrets.yaml
   - coreprovider.yaml
   - infrastructureprovider.yaml
-  - controlplaneprovider.yaml
   - bootstrapprovider.yaml
+  - controlplaneprovider.yaml
