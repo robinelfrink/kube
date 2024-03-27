@@ -171,6 +171,13 @@ $ kubectl create secret generic sops-gpg \
 $ talosctl upgrade --preserve
 ```
 
+Optionally build a custom installer image at https://factory.talos.dev/, and
+use that to upgrade Talos:
+
+```shell
+$ talosctl upgrade --preserve --image factory.talos.dev/installer/<generated hash>:v<version>
+```
+
 ### Upgrade Kubernetes
 
 ```shell
