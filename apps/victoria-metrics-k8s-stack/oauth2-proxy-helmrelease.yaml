@@ -16,7 +16,7 @@ spec:
       version: 7.1.0
       sourceRef:
         kind: HelmRepository
-        name: ${name}-oauth2-proxy
+        name: oauth2-proxy
       interval: 1h
   targetNamespace: ${namespace}
   storageNamespace: ${namespace}

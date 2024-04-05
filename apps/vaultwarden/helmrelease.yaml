@@ -16,7 +16,7 @@ spec:
       version: 1.0.0
       sourceRef:
         kind: HelmRepository
-        name: ${name}
+        name: gissilabs
       interval: 1h
   targetNamespace: ${namespace}
   storageNamespace: ${namespace}
