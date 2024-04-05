@@ -3,5 +3,8 @@
   "baseBranches": ["dev"],
   "extends": [
     "config:recommended"
-  ]
+  ],
+  "flux": {
+    "fileMatch": ["(?:^|/).*\\.ya?ml$"]
+  }
 }
