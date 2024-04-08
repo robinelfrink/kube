@@ -45,6 +45,9 @@ spec:
         username: ${adminUsername}
         password: ${adminPassword}
         adminEmail: ${adminEmail}
+    redis-cluster:
+      cluster:
+        nodes: 1
     postgresql-ha:
       enabled: false
     postgresql:
