@@ -25,7 +25,8 @@ spec:
   values:
     ssh:
       type: NodePort
-      port: 30022
+      port: 2222
+      nodePort: 30022
     ingress:
       enabled: true
       annotations:
