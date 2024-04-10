@@ -95,26 +95,17 @@ $ talosctl apply-config \
 ### Add nodes to talosconfig
 
 ```shell
-$ talosctl config endpoint <ip address of control-plane node>
 $ talosctl config node <ip addresses of all nodes, separated by space>
 ```
 
 ### Bootstrap Cilium and Flux
 
 ```shell
-$ export CLUSTER_ENDPOINT=<ip address of control-plane node>
 $ kubectl kustomize \
       --enable-helm \
       --load-restrictor=LoadRestrictionsNone \
-      bootstrap/ | \
-          envsubst | \
-          kubectl apply --filename -
-```
-
-### Add `GitRepository`
-
-```shell
-$ kubectl apply --filename bootstrap/gitrepository.yaml
+      bootstrap | \
+  kubectl apply --filename -
 ```
 
 ## SOPS
@@ -161,6 +152,24 @@ $ kubectl create secret generic sops-gpg \
       --from-file=sops.asc=<(gpg \
           --export-secret-keys \
           --armor ${CLUSTER_NAME})
+```
+
+### Create `GitRepository` and `Kustomization`
+
+```shell
+$ flux create source git kube \
+      --namespace flux \
+      --interval 30m \
+      --url https://github.com/robinelfrink/kube \
+      --branch main
+$ flux create kustomization cluster \
+      --namespace flux \
+      --interval 30m \
+      --decryption-provider sops \
+      --decryption-secret sops-gpg \
+      --source GitRepository/kube \
+      --path ./cluster \
+      --prune false
 ```
 
 ## Upgrade

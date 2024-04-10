@@ -4,14 +4,14 @@ metadata:
   name: base
   namespace: flux
 spec:
-  decryption:
-    provider: sops
-    secretRef:
-      name: sops-gpg
-  interval: 30m
+  interval: 10m
+  path: "../base"
+  prune: true
+  timeout: 1m
   sourceRef:
     kind: GitRepository
     name: kube
-  path: ./base
-  prune: false
-  timeout: 5m
+  postBuild:
+    substituteFrom:
+      - kind: Secret
+        name: secrets

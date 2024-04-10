@@ -40,9 +40,6 @@ operator:
   rollOutPods: true
   nodeSelector:
     node-role.kubernetes.io/control-plane: ""
-  tolerations:
-    - key: node-role.kubernetes.io/control-plane
-      operator: Exists
 cgroup:
   autoMount:
     enabled: false

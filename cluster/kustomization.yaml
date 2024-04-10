@@ -3,5 +3,4 @@ kind: Kustomization
 resources:
   - secrets.yaml
   - base.yaml
-  - ../apps
-  - apps.yaml
+  - apps

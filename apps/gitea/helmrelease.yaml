@@ -18,7 +18,7 @@ spec:
       version: 10.1.3
       sourceRef:
         kind: HelmRepository
-        name: gitea
+        name: gitea-${name}
       interval: 1h
   targetNamespace: ${namespace}
   storageNamespace: ${namespace}
@@ -27,6 +27,7 @@ spec:
       type: NodePort
       port: 2222
       nodePort: 30022
+      externalTrafficPolicy: Local
     ingress:
       enabled: true
       annotations:
@@ -46,9 +47,20 @@ spec:
         username: ${adminUsername}
         password: ${adminPassword}
         adminEmail: ${adminEmail}
+      config:
+        database:
+          DB_TYPE: postgres
+        session:
+          PROVIDER: db
+        cache:
+          ADAPTER: memory
+        queue:
+          TYPE: level
+        indexer:
+          ISSUE_INDEXER_TYPE: bleve
+          REPO_INDEXER_ENABLED: true
     redis-cluster:
-      cluster:
-        nodes: 1
+      enabled: false
     postgresql-ha:
       enabled: false
     postgresql:

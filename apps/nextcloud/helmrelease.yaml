@@ -18,7 +18,7 @@ spec:
       version: 4.6.5
       sourceRef:
         kind: HelmRepository
-        name: nextcloud
+        name: nextcloud-${name}
       interval: 1h
   targetNamespace: ${namespace}
   storageNamespace: ${namespace}
