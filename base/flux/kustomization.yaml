@@ -1,16 +1,14 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
-  - flux.yaml
-patches:
-  - target:
-      kind: Deployment
-    patch: |-
-      kind: not-important
-      metadata:
-        name: not-important
-      spec:
-        template:
-          spec:
-            nodeSelector:
-              node-role.kubernetes.io/control-plane: ""
+  - https://github.com/fluxcd/flux2/manifests/crds/?ref=v2.3.0
+  - namespace.yaml
+  - helmrepository.yaml
+  - helmrelease.yaml
+configMapGenerator:
+  - name: flux-values
+    namespace: flux
+    files:
+      - values.yaml
+    options:
+      disableNameSuffixHash: true

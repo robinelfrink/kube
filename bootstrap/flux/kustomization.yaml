@@ -1,0 +1,20 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: flux
+resources:
+  - ../../base/flux/namespace.yaml
+  - https://github.com/fluxcd/flux2/manifests/crds/?ref=v2.3.0
+labels:
+  - pairs:
+      app.kubernetes.io/managed-by: Helm
+commonAnnotations:
+  meta.helm.sh/release-name: flux
+  meta.helm.sh/release-namespace: flux
+helmCharts:
+  - name: flux2
+    repo: https://fluxcd-community.github.io/helm-charts
+    version: 2.13.0
+    releaseName: flux
+    namespace: flux
+    valuesFile: ../../base/flux/values.yaml
+    includeCRDs: true
