@@ -23,14 +23,6 @@ securityContext:
       - SYS_RESOURCE
 enableXTSocketFallback: false
 hubble:
-  relay:
-    enabled: true
-    rollOutPods: true
-    nodeSelector:
-      node-role.kubernetes.io/control-plane: ""
-    tolerations:
-      - key: node-role.kubernetes.io/control-plane
-        operator: Exists
   dropEventEmitter:
     enabled: true
     interval: 2m
