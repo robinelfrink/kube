@@ -33,7 +33,7 @@ hubble:
         operator: Exists
 ipam:
   mode: kubernetes
-kubeProxyReplacement: strict
+kubeProxyReplacement: true
 localRedirectPolicy: true
 operator:
   replicas: 1
