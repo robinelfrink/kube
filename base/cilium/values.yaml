@@ -31,6 +31,12 @@ hubble:
     tolerations:
       - key: node-role.kubernetes.io/control-plane
         operator: Exists
+  dropEventEmitter:
+    enabled: true
+    interval: 2m
+    reasons:
+      - auth_required
+      - policy_denied
 ipam:
   mode: kubernetes
 kubeProxyReplacement: true
