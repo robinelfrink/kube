@@ -17,3 +17,5 @@ sourceController:
   tolerations:
   - key: node-role.kubernetes.io/control-plane
     operator: Exists
+policies:
+  create: false
