@@ -1,0 +1,51 @@
+---
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
+  name: ingress-nginx
+  namespace: ingress-nginx
+spec:
+  endpointSelector:
+    matchLabels:
+      app.kubernetes.io/instance: ingress-nginx
+  ingress:
+  # In-namespace
+  - fromEndpoints:
+    - matchLabels:
+        "k8s:io.kubernetes.pod.namespace": ingress-nginx
+        app.kubernetes.io/instance: ingress-nginx
+  # HTTP
+  - toPorts:
+    - ports:
+      - port: "80"
+        protocol: TCP
+      - port: "443"
+        protocol: TCP
+  # Webhook
+  - fromEntities:
+    - kube-apiserver
+    toPorts:
+    - ports:
+      - port: "8443"
+        protocol: TCP
+  egress:
+  # In-namespace
+  - toEndpoints:
+    - matchLabels:
+        "k8s:io.kubernetes.pod.namespace": ingress-nginx
+        app.kubernetes.io/instance: ingress-nginx
+  # Kubernetes API
+  - toEntities:
+    - kube-apiserver
+  # DNS
+  - toEndpoints:
+    - matchLabels:
+        "k8s:io.kubernetes.pod.namespace": kube-system
+        k8s-app: kube-dns
+    toPorts:
+    - ports:
+      - port: "53"
+        protocol: ANY
+  # Other namespaces
+  - toEntities:
+    - cluster

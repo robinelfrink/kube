@@ -3,6 +3,7 @@ kind: Kustomization
 resources:
   - https://github.com/fluxcd/flux2/manifests/crds/?ref=v2.3.0
   - namespace.yaml
+  - networkpolicies.yaml
   - helmrepository.yaml
   - helmrelease.yaml
 configMapGenerator:
