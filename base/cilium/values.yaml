@@ -25,7 +25,7 @@ enableXTSocketFallback: false
 hubble:
   dropEventEmitter:
     enabled: true
-    interval: 2m
+    interval: 15s
     reasons:
       - auth_required
       - policy_denied
