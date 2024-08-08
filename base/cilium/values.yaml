@@ -42,3 +42,5 @@ cgroup:
   autoMount:
     enabled: false
   hostRoot: /sys/fs/cgroup
+envoy:
+  enabled: false
