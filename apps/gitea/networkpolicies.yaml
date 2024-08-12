@@ -7,13 +7,8 @@ metadata:
 spec:
   endpointSelector:
     matchLabels:
-      app.kubernetes.io/instance: ${name}
+      app.kubernetes.io/name: gitea
   ingress:
-  # In-namespace
-  - fromEndpoints:
-    - matchLabels:
-        "k8s:io.kubernetes.pod.namespace": ${namespace}
-        app.kubernetes.io/instance: ${name}
   # Ingress controller
   - fromEndpoints:
     - matchLabels:
@@ -24,11 +19,6 @@ spec:
       - port: "3000"
         protocol: TCP
   egress:
-  # In-namespace
-  - toEndpoints:
-    - matchLabels:
-        "k8s:io.kubernetes.pod.namespace": ${namespace}
-        app.kubernetes.io/instance: ${name}
   # DNS
   - toEndpoints:
     - matchLabels:
@@ -38,6 +28,15 @@ spec:
     - ports:
       - port: "53"
         protocol: ANY
+  # Postgresql
+  - toEndpoints:
+    - matchLabels:
+        "k8s:io.kubernetes.pod.namespace": ${namespace}
+        app.kubernetes.io/name: postgresql
+    toPorts:
+    - ports:
+      - port: "5432"
+        protocol: TCP
   # SMTP
   - toPorts:
     - ports:
@@ -52,3 +51,33 @@ spec:
         protocol: TCP
       - port: "443"
         protocol: TCP
+---
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
+  name: ${name}-postgresql
+  namespace: ${namespace}
+spec:
+  endpointSelector:
+    matchLabels:
+      app.kubernetes.io/name: postgresql
+  ingress:
+  # Gitea
+  - fromEndpoints:
+    - matchLabels:
+        "k8s:io.kubernetes.pod.namespace": ${namespace}
+        app.kubernetes.io/name: gitea
+    toPorts:
+    - ports:
+      - port: "5432"
+        protocol: TCP
+  egress:
+  # DNS
+  - toEndpoints:
+    - matchLabels:
+        "k8s:io.kubernetes.pod.namespace": kube-system
+        k8s-app: kube-dns
+    toPorts:
+    - ports:
+      - port: "53"
+        protocol: ANY
