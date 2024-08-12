@@ -70,3 +70,5 @@ spec:
           auth:
             username: ${dbUsername}
             password: ${dbPassword}
+      volumePermissions:
+        enabled: true
