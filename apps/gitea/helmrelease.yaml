@@ -23,6 +23,8 @@ spec:
   targetNamespace: ${namespace}
   storageNamespace: ${namespace}
   values:
+    strategy:
+      type: Recreate
     ssh:
       type: NodePort
       port: 2222
@@ -48,6 +50,8 @@ spec:
         password: ${adminPassword}
         adminEmail: ${adminEmail}
       config:
+        service:
+          DISABLE_REGISTRATION: true
         database:
           DB_TYPE: postgres
         session:
@@ -59,6 +63,12 @@ spec:
         indexer:
           ISSUE_INDEXER_TYPE: bleve
           REPO_INDEXER_ENABLED: true
+        repository:
+          FORCE_PRIVATE: true
+          ENABLE_REVERSE_PROXY_AUTO_REGISTRATION: true
+          DEFAULT_ORG_VISIBILITY: private
+          DEFAULT_ORG_MEMBER_VISIBLE: false
+          REQUIRE_SIGNIN_VIEW: true
     redis-cluster:
       enabled: false
     postgresql-ha:
