@@ -18,6 +18,11 @@ spec:
     - ports:
       - port: "3000"
         protocol: TCP
+  # SSH
+  - toPorts:
+    - ports:
+      - port: "2222"
+        protocol: TCP
   egress:
   # DNS
   - toEndpoints:
