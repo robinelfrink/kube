@@ -38,3 +38,10 @@ spec:
     - ports:
       - port: "53"
         protocol: ANY
+  # HTTP
+  - toPorts:
+    - ports:
+      - port: "80"
+        protocol: TCP
+      - port: "443"
+        protocol: TCP
