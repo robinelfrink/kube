@@ -3,7 +3,7 @@ kind: Kustomization
 namespace: flux
 resources:
   - ../../base/flux/namespace.yaml
-  - https://github.com/fluxcd/flux2/manifests/crds/?ref=v2.3.0
+  - https://github.com/fluxcd/flux2/manifests/crds/?ref=v2.4.0
 labels:
   - pairs:
       app.kubernetes.io/managed-by: Helm
