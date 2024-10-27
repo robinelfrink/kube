@@ -1,0 +1,68 @@
+---
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
+  name: zigbee2mqtt
+  namespace: zigbee2mqtt
+spec:
+  endpointSelector:
+    matchLabels:
+      app.kubernetes.io/name: zigbee2mqtt
+  ingress:
+  # Ingress controller
+  - fromEndpoints:
+    - matchLabels:
+        "k8s:io.kubernetes.pod.namespace": ingress-nginx
+        app.kubernetes.io/name: ingress-nginx
+    toPorts:
+    - ports:
+      - port: "8080"
+        protocol: TCP
+  # DNS
+  - toEndpoints:
+    - matchLabels:
+        "k8s:io.kubernetes.pod.namespace": kube-system
+        k8s-app: kube-dns
+    toPorts:
+    - ports:
+      - port: "53"
+        protocol: ANY
+---
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
+  name: backup
+  namespace: zigbee2mqtt
+spec:
+  endpointSelector:
+    matchLabels:
+      k8upjob: "true"
+  egress:
+  # Kubernetes API
+  - toEntities:
+    - kube-apiserver
+  # DNS
+  - toEndpoints:
+    - matchLabels:
+        "k8s:io.kubernetes.pod.namespace": kube-system
+        k8s-app: kube-dns
+    toPorts:
+    - ports:
+      - port: "53"
+        protocol: ANY
+      rules:
+        dns:
+          - matchName: ${backuphost}
+          - matchName: prometheus-pushgateway.prometheus-pushgateway.svc.cluster.local
+  # Offsite backup
+  - toFQDNs:
+    - matchName: ${backuphost}
+  # Metrics
+  - toEndpoints:
+    - matchLabels:
+        "k8s:io.kubernetes.pod.namespace": prometheus-pushgateway
+        app.kubernetes.io/name: prometheus-pushgateway
+    toPorts:
+    - ports:
+      - port: "9091"
+        protocol: TCP

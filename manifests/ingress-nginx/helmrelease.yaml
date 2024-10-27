@@ -1,0 +1,73 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta2
+kind: HelmRelease
+metadata:
+  name: ingress-nginx
+  namespace: flux
+spec:
+  interval: 1h
+  chart:
+    spec:
+      chart: ingress-nginx
+      version: 4.11.3
+      sourceRef:
+        kind: HelmRepository
+        name: ingress-nginx
+      interval: 1h
+  releaseName: ingress-nginx
+  targetNamespace: ingress-nginx
+  storageNamespace: ingress-nginx
+  dependsOn:
+    - name: prometheus
+  values:
+    controller:
+      config:
+        use-proxy-protocol: "true"
+      allowSnippetAnnotations: true
+      kind: DaemonSet
+      admissionWebhooks:
+        tolerations:
+          - key: node-role.kubernetes.io/control-plane
+            effect: NoSchedule
+        nodeSelector:
+          node-role.kubernetes.io/control-plane: ""
+        patch:
+          tolerations:
+            - key: node-role.kubernetes.io/control-plane
+              effect: NoSchedule
+      service:
+        type: NodePort
+        nodePorts:
+          http: 30080
+          https: 30443
+      metrics:
+        enabled: true
+        serviceMonitor:
+          enabled: true
+        prometheusRule:
+          enabled: true
+          rules:
+            - alert: NGINXConfigFailed
+              expr: count(nginx_ingress_controller_config_last_reload_successful == 0) > 0
+              for: 30s
+              labels:
+                severity: critical
+              annotations:
+                description: bad ingress config - nginx config test failed
+                summary: uninstall the latest ingress changes to allow config reloads to resume
+            - alert: NGINXCertificateExpiry
+              expr: (avg(nginx_ingress_controller_ssl_expire_time_seconds{host!="_"}) by (host) - time()) < 604800
+              for: 1s
+              labels:
+                severity: critical
+              annotations:
+                description: ssl certificate(s) will expire in less then a week
+                summary: renew expiring certificates to avoid downtime
+            - alert: NGINXTooMany500s
+              expr: 100 * ( sum( nginx_ingress_controller_requests{status=~"5.+"} ) / sum(nginx_ingress_controller_requests) ) > 5
+              for: 1m
+              labels:
+                severity: warning
+              annotations:
+                description: Too many 5XXs
+                summary: More than 5% of all requests returned 5XX, this requires your attention

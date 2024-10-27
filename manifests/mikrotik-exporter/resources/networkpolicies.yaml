@@ -1,0 +1,32 @@
+---
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
+  name: mikrotik-exporter
+  namespace: mikrotik-exporter
+spec:
+  endpointSelector:
+    matchLabels:
+      app.kubernetes.io/name: mikrotik-exporter
+  ingress:
+  # Prometheus
+  - fromEndpoints:
+    - matchLabels:
+        "k8s:io.kubernetes.pod.namespace": prometheus
+        app.kubernetes.io/name: prometheus
+    toPorts:
+    - ports:
+      - port: "9436"
+        protocol: TCP
+  egress:
+  # DNS
+  - toPorts:
+    - ports:
+      - port: "53"
+        protocol: ANY
+      rules:
+        dns:
+          - matchName: ${address}
+  # Mikrotik
+  - toFQDNs:
+      - matchName: ${address}

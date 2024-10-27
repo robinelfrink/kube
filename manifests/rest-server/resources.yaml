@@ -1,0 +1,20 @@
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: rest-server-resources
+  namespace: flux
+spec:
+  decryption:
+    provider: sops
+    secretRef:
+      name: sops-age
+  interval: 10m
+  path: ./manifests/rest-server/resources
+  prune: true
+  timeout: 1m
+  sourceRef:
+    kind: GitRepository
+    name: kube
+  dependsOn:
+    - name: cluster

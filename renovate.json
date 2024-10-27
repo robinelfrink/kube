@@ -1,10 +1,24 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "baseBranches": ["main"],
+  "baseBranches": [
+    "main"
+  ],
   "extends": [
     "config:recommended"
   ],
   "flux": {
     "fileMatch": ["(?:^|/).*\\.ya?ml$"]
-  }
+  },
+  "customManagers": [
+    {
+      "customType": "regex",
+      "fileMatch": [
+        ".envrc"
+      ],
+      "matchStrings": [
+        "# renovate: datasource=(?<datasource>[a-z-]+)(?: depName=(?<depName>[a-z-\\/]+))?(?: versioning=(?<versioning>[a-z-]+))?\\s[A-Z]+_VERSION=(?<currentValue>.+)\\s"
+      ],
+      "versioningTemplate": "{{#if versioning}}{{{versioning}}}{{else}}semver{{/if}}"
+    }
+  ]
 }

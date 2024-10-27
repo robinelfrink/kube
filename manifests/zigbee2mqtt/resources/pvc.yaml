@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  annotations:
+    kustomize.toolkit.fluxcd.io/prune: disabled
+    volume.kubernetes.io/selected-node: ${nodename}
+  name: data-volume-zigbee2mqtt-0
+  namespace: zigbee2mqtt
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+  storageClassName: ssd

@@ -1,0 +1,22 @@
+---
+installCRDs: false
+helmController:
+  tolerations:
+  - key: node-role.kubernetes.io/control-plane
+    operator: Exists
+imageAutomationController:
+  create: false
+imageReflectionController:
+  create: false
+kustomizeController:
+  tolerations:
+  - key: node-role.kubernetes.io/control-plane
+    operator: Exists
+notificationController:
+  create: false
+sourceController:
+  tolerations:
+  - key: node-role.kubernetes.io/control-plane
+    operator: Exists
+policies:
+  create: false

@@ -120,38 +120,18 @@ $ export CLUSTER_NAME=mykube
 
 This needs to be done only once.
 
-* Generate a gpg keypair:
+* Generate an age keypair:
 
 ```shell
-$ gpg --batch --full-generate-key <<EOF
-%no-protection
-Key-Type: 1
-Key-Length: 4096
-Subkey-Type: 1
-Subkey-Length: 4096
-Expire-Date: 0
-Name-Comment: Content ${CLUSTER_NAME}
-Name-Real: ${CLUSTER_NAME}
-EOF
-```
-
-* Export the private and public keys and store them somewhere safe.
-
-```shell
-$ gpg --export-secret-keys --armor \
-      ${CLUSTER_NAME} > clusters/${CLUSTER_NAME}/gpg.sec
-$ gpg --export --armor \
-      ${CLUSTER_NAME} > clusters/${CLUSTER_NAME}/gpg.pub
+$ age-keygen --output ~/.age-${CLUSTER_NAME}.txt
 ```
 
 * Create a kubernetes secret from the sops secret:
 
 ```shell
-$ kubectl create secret generic sops-gpg \
+$ kubectl create secret generic sops-age \
       --namespace=flux \
-      --from-file=sops.asc=<(gpg \
-          --export-secret-keys \
-          --armor ${CLUSTER_NAME})
+      --from-file=age.agekey=<(cat ~/.age-${CLUSTER_NAME}.txt)
 ```
 
 ### Create `GitRepository` and `Kustomization`
@@ -162,14 +142,7 @@ $ flux create source git kube \
       --interval 30m \
       --url https://github.com/robinelfrink/kube \
       --branch main
-$ flux create kustomization cluster \
-      --namespace flux \
-      --interval 30m \
-      --decryption-provider sops \
-      --decryption-secret sops-gpg \
-      --source GitRepository/kube \
-      --path ./cluster \
-      --prune false
+$ kubectl apply --filename cluster.yaml
 ```
 
 ## Upgrade

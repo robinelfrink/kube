@@ -1,8 +1,9 @@
+---
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 namespace: cilium
 resources:
-  - ../../base/cilium/namespace.yaml
+  - ../../manifests/cilium/namespace.yaml
 labels:
   - pairs:
       app.kubernetes.io/managed-by: Helm
@@ -15,5 +16,5 @@ helmCharts:
     version: 1.16.2
     releaseName: cilium
     namespace: cilium
-    valuesFile: ../../base/cilium/values.yaml
+    valuesFile: ../../manifests/cilium/values.yaml
     includeCRDs: true

@@ -1,0 +1,23 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: authentik-keydb
+  namespace: flux
+data:
+  values.yaml: |
+    architecture: standalone
+    auth:
+      enabled: true
+      password: ${keydbpassword}
+    master:
+      persistence:
+        enabled: false
+      networkPolicy:
+        enabled: false
+    metrics:
+      enabled: true
+      serviceMonitor:
+        enabled: true
+      prometheusRule:
+        enabled: true

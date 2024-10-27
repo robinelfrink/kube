@@ -1,0 +1,25 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: zigbee2mqtt
+  namespace: flux
+data:
+  values.yaml: |
+    image:
+      tag: 1.41.0
+    service:
+      type: ClusterIP
+    statefulset:
+      nodeSelector:
+        kubernetes.io/hostname: ${nodename}
+      storage:
+        enabled: true
+        existingVolume: data-volume-zigbee2mqtt-0
+        storageClassName: ssd
+        size: 1Gi
+    zigbee2mqtt:
+      mqtt:
+        server: mqtt://mochi-mqtt.mochi-mqtt.svc.cluster.local:1883
+      serial:
+        port: /dev/ttyUSB0
