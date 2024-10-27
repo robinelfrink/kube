@@ -1,0 +1,91 @@
+---
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
+  name: prometheus
+  namespace: prometheus
+spec:
+  endpointSelector:
+    matchLabels:
+      app.kubernetes.io/name: prometheus
+  ingress:
+  # Ingress controller
+  - fromEndpoints:
+    - matchLabels:
+        "k8s:io.kubernetes.pod.namespace": ingress-nginx
+        app.kubernetes.io/name: ingress-nginx
+    toPorts:
+    - ports:
+      - port: "9090"
+        protocol: TCP
+  egress:
+  # The world
+  - toEntities:
+    - all
+---
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
+  name: prometheus-operator
+  namespace: prometheus
+spec:
+  endpointSelector:
+    matchLabels:
+      app.kubernetes.io/name: prometheus-operator
+  egress:
+  # Kubernetes API
+  - toEntities:
+    - kube-apiserver
+---
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
+  name: alertmanager
+  namespace: prometheus
+spec:
+  endpointSelector:
+    matchLabels:
+      app.kubernetes.io/name: alertmanager
+  ingress:
+  # Prometheus
+  - fromEndpoints:
+    - matchLabels:
+        app.kubernetes.io/name: prometheus
+    toPorts:
+    - ports:
+      - port: "8080"
+        protocol: TCP
+      - port: "9093"
+        protocol: TCP
+  # Ingress controller
+  - fromEndpoints:
+    - matchLabels:
+        "k8s:io.kubernetes.pod.namespace": ingress-nginx
+        app.kubernetes.io/name: ingress-nginx
+    toPorts:
+    - ports:
+      - port: "9093"
+        protocol: TCP
+---
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
+  name: kube-state-metrics
+  namespace: prometheus
+spec:
+  endpointSelector:
+    matchLabels:
+      app.kubernetes.io/name: kube-state-metrics
+  ingress:
+  # Prometheus
+  - fromEndpoints:
+    - matchLabels:
+        app.kubernetes.io/name: prometheus
+    toPorts:
+    - ports:
+      - port: "8080"
+        protocol: TCP
+  egress:
+  # Kubernetes API
+  - toEntities:
+    - kube-apiserver

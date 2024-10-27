@@ -1,0 +1,60 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: authentik
+  namespace: flux
+spec:
+  interval: 1h
+  chart:
+    spec:
+      chart: authentik
+      version: 2024.10.1
+      sourceRef:
+        kind: HelmRepository
+        name: authentik
+      interval: 1h
+  releaseName: authentik
+  targetNamespace: authentik
+  storageNamespace: authentik
+  dependsOn:
+    - name: prometheus
+  valuesFrom:
+    - kind: ConfigMap
+      name: authentik
+    - kind: Secret
+      name: authentik
+      valuesKey: nodename
+      targetPath: server.nodeSelector.kubernetes\.io/hostname
+    - kind: Secret
+      name: authentik
+      valuesKey: hostname
+      targetPath: server.ingress.hosts[0]
+    - kind: Secret
+      name: authentik
+      valuesKey: hostname
+      targetPath: server.ingress.tls[0].hosts[0]
+    - kind: Secret
+      name: authentik
+      valuesKey: secretkey
+      targetPath: authentik.secret_key
+    - kind: Secret
+      name: authentik
+      valuesKey: emailhost
+      targetPath: authentik.email.host
+    - kind: Secret
+      name: authentik
+      valuesKey: emailusername
+      targetPath: authentik.email.username
+    - kind: Secret
+      name: authentik
+      valuesKey: emailpassword
+      targetPath: authentik.email.password
+    - kind: Secret
+      name: authentik
+      valuesKey: emailfrom
+      targetPath: authentik.email.from
+    - kind: Secret
+      name: authentik
+      valuesKey: keydbpassword
+      targetPath: authentik.redis.password

@@ -1,0 +1,121 @@
+---
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
+  name: authentik
+  namespace: authentik
+spec:
+  endpointSelector:
+    matchLabels:
+      app.kubernetes.io/name: authentik
+  ingress:
+  # Ingress controller
+  - fromEndpoints:
+    - matchLabels:
+        "k8s:io.kubernetes.pod.namespace": ingress-nginx
+        app.kubernetes.io/name: ingress-nginx
+    toPorts:
+    - ports:
+      - port: "9000"
+        protocol: TCP
+  egress:
+  # Kubernetes API
+  - toEntities:
+    - kube-apiserver
+  # DNS
+  - toEndpoints:
+    - matchLabels:
+        "k8s:io.kubernetes.pod.namespace": kube-system
+        k8s-app: kube-dns
+    toPorts:
+    - ports:
+      - port: "53"
+        protocol: ANY
+  # KeyDB
+  - toEndpoints:
+    - matchLabels:
+        app.kubernetes.io/name: keydb
+    toPorts:
+    - ports:
+      - port: "6379"
+        protocol: TCP
+  # Postgres
+  - toEndpoints:
+    - matchLabels:
+        cnpg.io/instanceName: postgresql-1
+    toPorts:
+    - ports:
+      - port: "5432"
+        protocol: TCP
+  # SMTP
+  - toPorts:
+    - ports:
+      - port: "25"
+        protocol: TCP
+      - port: "587"
+        protocol: TCP
+  # HTTP
+  - toPorts:
+    - ports:
+      - port: "80"
+        protocol: TCP
+      - port: "443"
+        protocol: TCP
+---
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
+  name: keydb
+  namespace: authentik
+spec:
+  endpointSelector:
+    matchLabels:
+      app.kubernetes.io/name: keydb
+  ingress:
+  # Ingress controller
+  - fromEndpoints:
+    - matchLabels:
+        app.kubernetes.io/name: authentik
+    toPorts:
+    - ports:
+      - port: "6379"
+        protocol: TCP
+---
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
+  name: backup
+  namespace: authentik
+spec:
+  endpointSelector:
+    matchLabels:
+      k8upjob: "true"
+  egress:
+  # Kubernetes API
+  - toEntities:
+    - kube-apiserver
+  # DNS
+  - toEndpoints:
+    - matchLabels:
+        "k8s:io.kubernetes.pod.namespace": kube-system
+        k8s-app: kube-dns
+    toPorts:
+    - ports:
+      - port: "53"
+        protocol: ANY
+      rules:
+        dns:
+        - matchName: ${backuphost}
+        - matchName: prometheus-pushgateway.prometheus-pushgateway.svc.cluster.local
+  # Offsite backup
+  - toFQDNs:
+    - matchName: ${backuphost}
+  # Metrics
+  - toEndpoints:
+    - matchLabels:
+        "k8s:io.kubernetes.pod.namespace": prometheus-pushgateway
+        app.kubernetes.io/name: prometheus-pushgateway
+    toPorts:
+    - ports:
+      - port: "9091"
+        protocol: TCP

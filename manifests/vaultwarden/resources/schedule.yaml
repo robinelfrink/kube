@@ -1,0 +1,37 @@
+---
+apiVersion: k8up.io/v1
+kind: Schedule
+metadata:
+  name: backup
+  namespace: vaultwarden
+spec:
+  backend:
+    repoPasswordSecretRef:
+      name: backup
+      key: password
+    rest:
+      url: ${backupurl}
+      userSecretRef:
+        name: backup
+        key: username
+      passwordSecretReg:
+        name: backup
+        key: passwordEncoded
+  backup:
+    schedule: "@daily-random"
+    activeDeadlineSeconds: 14400
+    failedJobsHistoryLimit: 2
+    successfulJobsHistoryLimit: 2
+    promURL: http://prometheus-pushgateway.prometheus-pushgateway.svc.cluster.local:9091
+  prune:
+    schedule: "@weekly-random"
+    activeDeadlineSeconds: 14400
+    failedJobsHistoryLimit: 2
+    successfulJobsHistoryLimit: 2
+    retention:
+      keepDaily: 7
+      keepMonthly: 12
+      keepYearly: 10
+  podSecurityContext:
+    fsGroup: 0
+    runAsUser: 0

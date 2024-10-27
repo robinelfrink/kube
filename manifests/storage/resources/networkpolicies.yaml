@@ -1,0 +1,19 @@
+---
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
+  name: storage
+  namespace: storage
+spec:
+  endpointSelector:
+    matchLabels:
+      app.kubernetes.io/name: local-path-provisioner
+  egress:
+  # Kubernetes API
+  - toEntities:
+    - kube-apiserver
+  # DNS
+  - toPorts:
+    - ports:
+      - port: "53"
+        protocol: ANY

@@ -1,0 +1,9 @@
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: auth
+  namespace: zigbee2mqtt
+spec:
+  type: ExternalName
+  externalName: authentik-server.authentik.svc.cluster.local

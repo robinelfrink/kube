@@ -1,24 +1,12 @@
 #!/usr/bin/env bash
 
 if [ $# -ne 2 ]; then
-    echo "Usage: decrypt <cluster> <file>"
+    echo "Usage: encrypt <age-file> <secret-file>"
     exit
 fi
 
-FINGERPRINT=$(
-    gpg --list-secret-keys --with-colons $1 | \
-    sed -ne '/^sec:/,/^fpr:/ { /^fpr:/ p }' | \
-    cut -d: -f10
-)
-shift
-
-FILE=$1
-shift
-
-realpath ${FILE}
-
 sops --encrypt \
-    --encrypted-regex "^(data|stringData)$" \
-    --pgp "${FINGERPRINT}" \
-    --in-place ${FILE} \
-    $@
+    --age $(grep 'public key' $1 | awk '{print($4)}' | head -1) \
+    --filename-override $(dirname $0)/../.sops.yaml \
+    --in-place \
+    $2

@@ -1,0 +1,110 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: prometheus
+  namespace: flux
+spec:
+  interval: 1h
+  chart:
+    spec:
+      chart: kube-prometheus-stack
+      version: 66.2.1
+      sourceRef:
+        kind: HelmRepository
+        name: prometheus
+      interval: 1h
+  releaseName: prometheus
+  targetNamespace: prometheus
+  storageNamespace: prometheus
+  valuesFrom:
+    - kind: ConfigMap
+      name: prometheus
+    - kind: Secret
+      name: prometheus
+      valuesKey: alermanagersmtphello
+      targetPath: alertmanager.config.global.smtp_hello
+    - kind: Secret
+      name: prometheus
+      valuesKey: alertmanagersmtpfrom
+      targetPath: alertmanager.config.global.smtp_from
+    - kind: Secret
+      name: prometheus
+      valuesKey: alertmanagersmtpsmarthost
+      targetPath: alertmanager.config.global.smtp_smarthost
+    - kind: Secret
+      name: prometheus
+      valuesKey: alertmanagersmtpusername
+      targetPath: alertmanager.config.global.smtp_auth_username
+    - kind: Secret
+      name: prometheus
+      valuesKey: alertmanagersmtppassword
+      targetPath: alertmanager.config.global.smtp_auth_password
+    - kind: Secret
+      name: prometheus
+      valuesKey: adminemail
+      targetPath: alertmanager.config.receivers[1].email_configs[0].to
+    - kind: Secret
+      name: prometheus
+      valuesKey: alertmanagerhostname
+      targetPath: alertmanager.ingress.hosts[0]
+    - kind: Secret
+      name: prometheus
+      valuesKey: alertmanagerhostname
+      targetPath: alertmanager.ingress.tls[0].hosts[0]
+    - kind: Secret
+      name: prometheus
+      valuesKey: adminpassword
+      targetPath: grafana.adminPassword
+    - kind: Secret
+      name: prometheus
+      valuesKey: grafanahostname
+      targetPath: grafana.ingress.hosts[0]
+    - kind: Secret
+      name: prometheus
+      valuesKey: grafanahostname
+      targetPath: grafana.ingress.tls[0].hosts[0]
+    - kind: Secret
+      name: prometheus
+      valuesKey: prometheushostname
+      targetPath: prometheus.ingress.hosts[0]
+    - kind: Secret
+      name: prometheus
+      valuesKey: nodename
+      targetPath: prometheus.prometheusSpec.nodeSelector.kubernetes\.io/hostname
+    - kind: Secret
+      name: prometheus
+      valuesKey: nodename
+      targetPath: prometheus.prometheusSpec.storageSpec.volumeClaimTemplate.metadata.annotations.volume\.kubernetes\.io/selected-node
+    - kind: Secret
+      name: prometheus
+      valuesKey: nodename
+      targetPath: grafana.persistence.annotations.volume\.kubernetes\.io/selected-node
+    - kind: Secret
+      name: prometheus
+      valuesKey: grafanaclientid
+      targetPath: grafana.grafana\.ini.auth\.generic_oauth.client_id
+    - kind: Secret
+      name: prometheus
+      valuesKey: grafanaclientsecret
+      targetPath: grafana.grafana\.ini.auth\.generic_oauth.client_secret
+    - kind: Secret
+      name: prometheus
+      valuesKey: grafanaauthurl
+      targetPath: grafana.grafana\.ini.auth\.generic_oauth.auth_url
+    - kind: Secret
+      name: prometheus
+      valuesKey: grafanasignoutredirecturl
+      targetPath: grafana.grafana\.ini.auth\.generic_oauth.signout_redirect_url
+    - kind: Secret
+      name: prometheus
+      valuesKey: grafanatokenurl
+      targetPath: grafana.grafana\.ini.auth\.generic_oauth.token_url
+    - kind: Secret
+      name: prometheus
+      valuesKey: grafanaapiurl
+      targetPath: grafana.grafana\.ini.auth\.generic_oauth.api_url
+    - kind: Secret
+      name: prometheus
+      valuesKey: grafanarooturl
+      targetPath: grafana.grafana\.ini.server.root_url

@@ -1,0 +1,20 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: config
+  namespace: mochi-mqtt
+data:
+  config.yaml: |
+    listeners:
+      - type: "tcp"
+        id: "file-tcp1"
+        address: ":1883"
+      - type: "ws"
+        id: "file-websocket"
+        address: ":1882"
+    hooks:
+      auth:
+        allow_all: true
+    options:
+      inline_client: true

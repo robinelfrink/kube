@@ -1,0 +1,29 @@
+---
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
+  name: mochi-mqtt
+  namespace: mochi-mqtt
+spec:
+  endpointSelector:
+    matchLabels:
+      app.kubernetes.io/name: mochi-mqtt
+  ingress:
+  # Home Assistant
+  - fromEndpoints:
+    - matchLabels:
+        "k8s:io.kubernetes.pod.namespace": home-assistant
+        app.kubernetes.io/name: home-assistant
+    toPorts:
+      - ports:
+        - port: "1883"
+          protocol: TCP
+  # Zigbee2mqtt
+  - fromEndpoints:
+    - matchLabels:
+        "k8s:io.kubernetes.pod.namespace": zigbee2mqtt
+        app.kubernetes.io/name: zigbee2mqtt
+    toPorts:
+      - ports:
+        - port: "1883"
+          protocol: TCP

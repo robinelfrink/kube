@@ -1,0 +1,32 @@
+---
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
+  name: gs1200-exporter
+  namespace: gs1200-exporter
+spec:
+  endpointSelector:
+    matchLabels:
+      app.kubernetes.io/name: gs1200-exporter
+  ingress:
+  # Prometheus
+  - fromEndpoints:
+    - matchLabels:
+        "k8s:io.kubernetes.pod.namespace": prometheus
+        app.kubernetes.io/name: prometheus
+    toPorts:
+    - ports:
+      - port: "9934"
+        protocol: TCP
+  egress:
+  # DNS
+  - toPorts:
+    - ports:
+      - port: "53"
+        protocol: ANY
+      rules:
+        dns:
+          - matchName: ${address}
+  # GS1200
+  - toFQDNs:
+      - matchName: ${address}
