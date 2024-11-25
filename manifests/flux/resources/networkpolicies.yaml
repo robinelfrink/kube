@@ -25,6 +25,15 @@ spec:
         - kustomize-controller
         - source-controller
         - helm-controller
+  # Prometheus
+  - fromEndpoints:
+    - matchLabels:
+        "k8s:io.kubernetes.pod.namespace": prometheus
+        app.kubernetes.io/name: prometheus
+    toPorts:
+    - ports:
+      - port: "8080"
+        protocol: TCP
   egress:
   # In-namespace
   - toEndpoints:

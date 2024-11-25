@@ -28,6 +28,15 @@ spec:
     - ports:
       - port: "53"
         protocol: ANY
+  # Mochi MQTT
+  - toEndpoints:
+    - matchLabels:
+        "k8s:io.kubernetes.pod.namespace": mochi-mqtt
+        app.kubernetes.io/name: mochi-mqtt
+    toPorts:
+    - ports:
+      - port: "1883"
+        protocol: TCP
 ---
 apiVersion: cilium.io/v2
 kind: CiliumNetworkPolicy
