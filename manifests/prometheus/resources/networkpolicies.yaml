@@ -18,6 +18,14 @@ spec:
     - ports:
       - port: "9090"
         protocol: TCP
+  # Grafana
+  - fromEndpoints:
+    - matchLabels:
+        app.kubernetes.io/name: grafana
+    toPorts:
+    - ports:
+      - port: "9090"
+        protocol: TCP
   egress:
   # The world
   - toEntities:
