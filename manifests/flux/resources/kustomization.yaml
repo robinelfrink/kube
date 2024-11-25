@@ -5,3 +5,4 @@ resources:
   - networkpolicies.yaml
   - podmonitors.yaml
   - prometheusrules.yaml
+  - vertical-pod-autoscalers.yaml

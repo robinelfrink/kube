@@ -6,3 +6,4 @@ resources:
   - letsencrypt.yaml
   - selfsigned.yaml
   - networkpolicies.yaml
+  - vertical-pod-autoscalers.yaml

@@ -1,0 +1,13 @@
+---
+apiVersion: autoscaling.k8s.io/v1
+kind: VerticalPodAutoscaler
+metadata:
+  name: mochi-mqtt
+  namespace: mochi-mqtt
+spec:
+  targetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: mochi-mqtt
+  updatePolicy:
+    updateMode: "Off"

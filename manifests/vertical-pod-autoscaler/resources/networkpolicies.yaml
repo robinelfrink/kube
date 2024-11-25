@@ -1,0 +1,27 @@
+---
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
+  name: vertical-pod-autoscaler
+  namespace: vertical-pod-autoscaler
+spec:
+  endpointSelector:
+    matchLabels:
+      app.kubernetes.io/name: vertical-pod-autoscaler
+  egress:
+  # metrics-server
+  - toEndpoints:
+      matchLabels:
+        app.kubernetes.io/name: metrics-server
+    toPorts:
+    - ports:
+      - port: "443"
+        protocol: TCP
+  # DNS
+  - toPorts:
+    - ports:
+      - port: "53"
+        protocol: ANY
+      rules:
+        dns:
+          - matchName: ${address}

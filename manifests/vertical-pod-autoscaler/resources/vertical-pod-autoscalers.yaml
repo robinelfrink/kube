@@ -1,0 +1,13 @@
+---
+apiVersion: autoscaling.k8s.io/v1
+kind: VerticalPodAutoscaler
+metadata:
+  name: recommender
+  namespace: vertical-pod-autoscaler
+spec:
+  targetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: vertical-pod-autoscaler-recommender
+  updatePolicy:
+    updateMode: "Off"

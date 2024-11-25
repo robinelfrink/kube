@@ -8,3 +8,4 @@ resources:
   - service-auth.yaml
   - ingress.yaml
   - networkpolicies.yaml
+  - vertical-pod-autoscalers.yaml

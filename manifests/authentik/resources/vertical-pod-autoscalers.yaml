@@ -1,0 +1,52 @@
+---
+apiVersion: autoscaling.k8s.io/v1
+kind: VerticalPodAutoscaler
+metadata:
+  name: authentik-server
+  namespace: authentik
+spec:
+  targetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: authentik-server
+  updatePolicy:
+    updateMode: "Off"
+---
+apiVersion: autoscaling.k8s.io/v1
+kind: VerticalPodAutoscaler
+metadata:
+  name: authentik-worker
+  namespace: authentik
+spec:
+  targetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: authentik-worker
+  updatePolicy:
+    updateMode: "Off"
+---
+apiVersion: autoscaling.k8s.io/v1
+kind: VerticalPodAutoscaler
+metadata:
+  name: keydb
+  namespace: authentik
+spec:
+  targetRef:
+    apiVersion: apps/v1
+    kind: StatefulSet
+    name: keydb-master
+  updatePolicy:
+    updateMode: "Off"
+---
+apiVersion: autoscaling.k8s.io/v1
+kind: VerticalPodAutoscaler
+metadata:
+  name: postgres
+  namespace: authentik
+spec:
+  targetRef:
+    apiVersion: postgresql.cnpg.io/v1
+    kind: Cluster
+    name: postgresql
+  updatePolicy:
+    updateMode: "Off"
