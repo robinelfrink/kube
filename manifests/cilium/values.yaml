@@ -34,11 +34,42 @@ ipam:
   mode: kubernetes
 kubeProxyReplacement: true
 localRedirectPolicy: true
+resources:
+  limits:
+    cpu: 1000m
+    memory: 1Gi
+  requests:
+    cpu: 100m
+    memory: 128Mi
+initResources:
+  limits:
+    cpu: 256m
+    memory: 256Mi
+  requests:
+    cpu: 100m
+    memory: 128Mi
+cni:
+  resources:
+    requests:
+      cpu: 100m
+      memory: 10Mi
 operator:
   replicas: 1
   rollOutPods: true
   nodeSelector:
     node-role.kubernetes.io/control-plane: ""
+  resources:
+    limits:
+      cpu: 100m
+      memory: 128Mi
+    requests:
+      cpu: 100m
+      memory: 128Mi
+nodeinit:
+  resources:
+    requests:
+      cpu: 100m
+      memory: 100Mi
 cgroup:
   autoMount:
     enabled: false

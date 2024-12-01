@@ -55,6 +55,21 @@ data:
       volumeMounts:
         - name: media
           mountPath: /media
+      resources:
+        requests:
+          cpu: 50m
+          memory: 128Mi
+        limits:
+          cpu: 256m
+          memory: 768Mi
+    worker:
+      resources:
+        requests:
+          cpu: 50m
+          memory: 128Mi
+        limits:
+          cpu: 256m
+          memory: 768Mi
     prometheus:
       rules:
         enabled: true

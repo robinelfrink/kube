@@ -15,9 +15,23 @@ data:
         enabled: false
       networkPolicy:
         enabled: false
+      resources:
+        requests:
+          cpu: 50m
+          memory: 64Mi
+        limits:
+          cpu: 256m
+          memory: 128Mi
     metrics:
       enabled: true
       serviceMonitor:
         enabled: true
       prometheusRule:
         enabled: true
+      resources:
+        requests:
+          cpu: 25m
+          memory: 32Mi
+        limits:
+          cpu: 50m
+          memory: 128Mi
