@@ -45,6 +45,8 @@ data:
             email_configs:
               - to: ${adminemail}
                 send_resolved: true
+      alertmanagerSpec:
+        externalUrl: ${alertmanagerurl}
     grafana:
       adminPassword: ${adminpassword}
       defaultDashboardsEditable: false
@@ -113,6 +115,7 @@ data:
       prometheusSpec:
         nodeSelector:
           kubernetes.io/hostname: ${nodename}
+        externalUrl: ${prometheusurl}
         retention: 10d
         storageSpec:
           disableMountSubPath: true

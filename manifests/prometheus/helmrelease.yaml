@@ -54,6 +54,10 @@ spec:
       targetPath: alertmanager.ingress.tls[0].hosts[0]
     - kind: Secret
       name: prometheus
+      valuesKey: alertmanagerurl
+      targetPath: alertmanager.alertmanagerSpec.externalUrl
+    - kind: Secret
+      name: prometheus
       valuesKey: adminpassword
       targetPath: grafana.adminPassword
     - kind: Secret
@@ -68,6 +72,10 @@ spec:
       name: prometheus
       valuesKey: prometheushostname
       targetPath: prometheus.ingress.hosts[0]
+    - kind: Secret
+      name: prometheus
+      valuesKey: prometheusurl
+      targetPath: prometheus.prometheusSpec.externalUrl
     - kind: Secret
       name: prometheus
       valuesKey: nodename
