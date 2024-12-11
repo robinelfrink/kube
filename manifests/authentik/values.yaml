@@ -37,6 +37,8 @@ data:
     server:
       nodeSelector:
         kubernetes.io/hostname: ${nodename}
+      deploymentStrategy:
+        type: Recreate
       ingress:
         enabled: true
         annotations:
