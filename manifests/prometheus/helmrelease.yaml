@@ -14,6 +14,17 @@ spec:
         kind: HelmRepository
         name: prometheus
       interval: 1h
+  install:
+    crds: Create
+  upgrade:
+    crds: CreateReplace
+  driftDetection:
+    mode: enabled
+    ignore:
+      # Ignore "validated" annotation which is not inserted during install
+      - paths: [ "/metadata/annotations/prometheus-operator-validated" ]
+        target:
+          kind: PrometheusRule
   releaseName: prometheus
   targetNamespace: prometheus
   storageNamespace: prometheus
