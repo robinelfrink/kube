@@ -6,4 +6,3 @@ resources:
   - ingress-prometheus.yaml
   - ingress-alertmanager.yaml
   - networkpolicies.yaml
-  - vertical-pod-autoscalers.yaml

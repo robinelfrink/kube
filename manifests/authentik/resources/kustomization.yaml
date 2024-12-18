@@ -7,4 +7,3 @@ resources:
   - pvc.yaml
   - postgresql.yaml
   - schedule.yaml
-  - vertical-pod-autoscalers.yaml

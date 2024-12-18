@@ -4,4 +4,3 @@ kind: Kustomization
 resources:
   - prometheusrules.yaml
   - networkpolicies.yaml
-  - vertical-pod-autoscalers.yaml

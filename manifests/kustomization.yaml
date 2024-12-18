@@ -22,5 +22,4 @@ resources:
   - unifi-controller
   - unpoller
   - vaultwarden
-  - vertical-pod-autoscaler
   - zigbee2mqtt

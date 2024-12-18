@@ -4,4 +4,3 @@ kind: Kustomization
 resources:
   - secret.yaml
   - schedule.yaml
-  - vertical-pod-autoscalers.yaml
