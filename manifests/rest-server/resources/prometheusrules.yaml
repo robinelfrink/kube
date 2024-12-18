@@ -9,7 +9,7 @@ spec:
   - name: Restic Server
     rules:
     - alert: BackupFailed
-      expr: sum by (repo, user) (rate(rest_server_blob_write_total{type="snapshots"}[1d8h])) == 0
+      expr: sum by (repo, user) (rate(rest_server_blob_write_total{type="snapshots"}[1d12h])) == 0
       for: 5m
       labels:
         severity: critical
