@@ -21,8 +21,8 @@ spec:
       cpu: 25m
       memory: 64Mi
     limits:
-      cpu: 128m
-      memory: 128Mi
+      cpu: 256m
+      memory: 256Mi
   storage:
     size: 5Gi
     storageClass: ssd
