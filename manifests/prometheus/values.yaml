@@ -63,9 +63,11 @@ data:
               - ${grafanahostname}
         extraPaths:
           - path: /metrics
+            pathType: Prefix
             backend:
-              serviceName: non-existing
-              servicePort: 12345
+              service: non-existing
+              port:
+                number: 12345
       persistence:
         enabled: true
         storageClassName: hdd
