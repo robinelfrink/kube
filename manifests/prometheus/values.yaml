@@ -65,9 +65,10 @@ data:
           - path: /metrics
             pathType: Prefix
             backend:
-              service: non-existing
-              port:
-                number: 12345
+              service:
+                name: non-existing
+                port:
+                  number: 12345
       persistence:
         enabled: true
         storageClassName: hdd
