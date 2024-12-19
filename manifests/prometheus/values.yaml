@@ -61,6 +61,11 @@ data:
           - secretName: grafana-tls
             hosts:
               - ${grafanahostname}
+        extraPaths:
+          - path: /metrics
+            backend:
+              serviceName: non-existing
+              servicePort: 12345
       persistence:
         enabled: true
         storageClassName: hdd
