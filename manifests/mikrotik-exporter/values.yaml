@@ -28,13 +28,6 @@ data:
         config:
           mountPath: /app/config.yml
           subPath: config.yml
-      resources:
-        requests:
-          cpu: 100m
-          memory: 25Mi
-        limits:
-          cpu: 200m
-          memory: 50Mi
       securityContext:
         allowPrivilegeEscalation: false
         capabilities:

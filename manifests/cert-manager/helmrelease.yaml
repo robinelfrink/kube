@@ -24,31 +24,8 @@ spec:
       leaderElection:
         namespace: cert-manager
     installCRDs: true
-    resources:
-      requests:
-        cpu: 25m
-        memory: 64Mi
-      limits:
-        cpu: 50m
-        memory: 256Mi
     extraArgs:
       - --enable-certificate-owner-ref=true
-    webhook:
-      resources:
-        requests:
-          cpu: 25m
-          memory: 64Mi
-        limits:
-          cpu: 50m
-          memory: 256Mi
-    cainjector:
-      resources:
-        requests:
-          cpu: 25m
-          memory: 64Mi
-        limits:
-          cpu: 50m
-          memory: 256Mi
     prometheus:
       servicemonitor:
         enabled: true
