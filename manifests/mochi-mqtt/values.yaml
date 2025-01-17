@@ -20,6 +20,10 @@ data:
           name: ws
           protocol: TCP
           hostPort: 1882
+        - containerPort: 1880
+          name: healthcheck
+          protocol: TCP
+          hostPort: 1880
       strategy:
         type: Recreate
         rollingUpdate: null
@@ -41,6 +45,16 @@ data:
         runAsUser: 999
         seccompProfile:
           type: RuntimeDefault
+      readinessProbe:
+        enabled: true
+        httpGet:
+          path: /healthcheck
+          port: 1880
+      livenessProbe:
+        enabled: true
+        httpGet:
+          path: /healthcheck
+          port: 1880
     service:
       ports:
         - port: 1883
@@ -63,6 +77,9 @@ data:
               - type: "ws"
                 id: "file-websocket"
                 address: ":1882"
+              - type: "healthcheck"
+                id: "file-healthcheck"
+                address: ":1880"
             hooks:
               auth:
                 allow_all: true
