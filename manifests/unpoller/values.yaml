@@ -21,6 +21,9 @@ deployment:
     - containerPort: 9130
       name: metrics
       protocol: TCP
+  strategy:
+    type: Recreate
+    rollingUpdate: null
   securityContext:
     allowPrivilegeEscalation: false
     capabilities:
