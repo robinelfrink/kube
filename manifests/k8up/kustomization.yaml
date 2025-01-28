@@ -4,7 +4,13 @@ kind: Kustomization
 resources:
   - https://github.com/k8up-io/k8up/releases/download/k8up-4.8.1/k8up-crd.yaml
   - namespace.yaml
-  - values.yaml
   - helmrepository.yaml
   - helmrelease.yaml
   - resources.yaml
+configMapGenerator:
+- name: k8up
+  namespace: flux
+  files:
+  - values.yaml
+generatorOptions:
+  disableNameSuffixHash: true

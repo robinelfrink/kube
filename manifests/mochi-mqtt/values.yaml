@@ -1,87 +1,80 @@
 ---
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: mochi-mqtt
-  namespace: flux
-data:
-  values.yaml: |
-    applicationName: mochi-mqtt
-    deployment:
-      image:
-        repository: docker.io/mochimqtt/server
-        tag: 2.6.6
-      ports:
-        - containerPort: 1883
-          name: tcp
-          protocol: TCP
-          hostPort: 1883
-        - containerPort: 1882
-          name: ws
-          protocol: TCP
-          hostPort: 1882
-        - containerPort: 1880
-          name: healthcheck
-          protocol: TCP
-          hostPort: 1880
-      strategy:
-        type: Recreate
-        rollingUpdate: null
-      volumes:
-        config:
-          configMap:
-            name: mochi-mqtt-config
-      volumeMounts:
-        config:
-          mountPath: /config.yaml
-          subPath: config.yaml
-      securityContext:
-        allowPrivilegeEscalation: false
-        capabilities:
-          drop:
-          - ALL
-        readOnlyRootFilesystem: true
-        runAsNonRoot: true
-        runAsUser: 999
-        seccompProfile:
-          type: RuntimeDefault
-      readinessProbe:
-        enabled: true
-        httpGet:
-          path: /healthcheck
-          port: 1880
-      livenessProbe:
-        enabled: true
-        httpGet:
-          path: /healthcheck
-          port: 1880
-    service:
-      ports:
-        - port: 1883
-          name: tcp
-          protocol: TCP
-          targetPort: 1883
-        - port: 1882
-          name: ws
-          protocol: TCP
-          targetPort: 1882
-    configMap:
-      enabled: true
-      files:
-        config:
-          config.yaml: |
-            listeners:
-              - type: "tcp"
-                id: "file-tcp1"
-                address: ":1883"
-              - type: "ws"
-                id: "file-websocket"
-                address: ":1882"
-              - type: "healthcheck"
-                id: "file-healthcheck"
-                address: ":1880"
-            hooks:
-              auth:
-                allow_all: true
-            options:
-              inline_client: true
+applicationName: mochi-mqtt
+deployment:
+  image:
+    repository: docker.io/mochimqtt/server
+    tag: 2.6.6
+  ports:
+    - containerPort: 1883
+      name: tcp
+      protocol: TCP
+      hostPort: 1883
+    - containerPort: 1882
+      name: ws
+      protocol: TCP
+      hostPort: 1882
+    - containerPort: 1880
+      name: healthcheck
+      protocol: TCP
+      hostPort: 1880
+  strategy:
+    type: Recreate
+    rollingUpdate: null
+  volumes:
+    config:
+      configMap:
+        name: mochi-mqtt-config
+  volumeMounts:
+    config:
+      mountPath: /config.yaml
+      subPath: config.yaml
+  securityContext:
+    allowPrivilegeEscalation: false
+    capabilities:
+      drop:
+      - ALL
+    readOnlyRootFilesystem: true
+    runAsNonRoot: true
+    runAsUser: 999
+    seccompProfile:
+      type: RuntimeDefault
+  readinessProbe:
+    enabled: true
+    httpGet:
+      path: /healthcheck
+      port: 1880
+  livenessProbe:
+    enabled: true
+    httpGet:
+      path: /healthcheck
+      port: 1880
+service:
+  ports:
+    - port: 1883
+      name: tcp
+      protocol: TCP
+      targetPort: 1883
+    - port: 1882
+      name: ws
+      protocol: TCP
+      targetPort: 1882
+configMap:
+  enabled: true
+  files:
+    config:
+      config.yaml: |
+        listeners:
+          - type: "tcp"
+            id: "file-tcp1"
+            address: ":1883"
+          - type: "ws"
+            id: "file-websocket"
+            address: ":1882"
+          - type: "healthcheck"
+            id: "file-healthcheck"
+            address: ":1880"
+        hooks:
+          auth:
+            allow_all: true
+        options:
+          inline_client: true

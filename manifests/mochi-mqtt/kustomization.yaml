@@ -4,7 +4,13 @@ kind: Kustomization
 resources:
   - namespace.yaml
   - config.yaml
-  - values.yaml
   - helmrepository.yaml
   - helmrelease.yaml
   - resources.yaml
+configMapGenerator:
+- name: mochi-mqtt
+  namespace: flux
+  files:
+  - values.yaml
+generatorOptions:
+  disableNameSuffixHash: true

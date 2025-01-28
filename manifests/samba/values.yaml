@@ -1,105 +1,98 @@
 ---
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: samba
-  namespace: flux
-data:
-  values.yaml: |
-    applicationName: samba
-    deployment:
-      image:
-        repository: ghcr.io/servercontainers/samba
-        tag: smbd-wsdd2-a3.20.3-s4.19.9-r0
-      nodeSelector:
-        kubernetes.io/hostname: ${nodename}
-      env:
-        SAMBA_CONF_WORKGROUP:
-          value: ${workgroup}
-        SAMBA_VOLUME_CONFIG_Documents:
-          value: |
-            [Documents]
-            path=/share/Documents
-            read only = no
-            browsable = yes
-            guest ok = yes
-            writable = yes
-            force create mode = 0660
-            force directory mode = 2770
-            force user = root
-            force group = root
-        SAMBA_VOLUME_CONFIG_Downloads:
-          value: |
-            [Downloads]
-            path=/share/Downloads
-            read only = no
-            browsable = yes
-            guest ok = yes
-            writable = yes
-            force create mode = 0660
-            force directory mode = 2770
-            force user = root
-            force group = root
-        SAMBA_VOLUME_CONFIG_Music:
-          value: |
-            [Music]
-            path=/share/Music
-            read only = no
-            browsable = yes
-            guest ok = yes
-            writable = yes
-            force create mode = 0660
-            force directory mode = 2770
-            force user = root
-            force group = root
-        SAMBA_VOLUME_CONFIG_Pictures:
-          value: |
-            [Pictures]
-            path=/share/Pictures
-            read only = no
-            browsable = yes
-            guest ok = yes
-            writable = yes
-            force create mode = 0660
-            force directory mode = 2770
-            force user = root
-            force group = root
-        SAMBA_VOLUME_CONFIG_Videos:
-          value: |
-            [Videos]
-            path=/share/Videos
-            read only = no
-            browsable = yes
-            guest ok = yes
-            writable = yes
-            force create mode = 0660
-            force directory mode = 2770
-            force user = root
-            force group = root
-      ports:
-        - containerPort: 445
-          name: samba
-          protocol: TCP
-      hostNetwork: true
-      strategy:
-        type: Recreate
-        rollingUpdate: null
-      containerSecurityContext:
-        readOnlyRootFilesystem: false
-        runAsNonRoot: false
-      securityContext:
-        privileged: true
-    persistence:
-      enabled: true
-      mountPVC: true
-      mountPath: /share
-      storageClass: hdd
-      annotations:
-        helm.sh/resource-policy: keep
-        volume.kubernetes.io/selected-node: ${nodename}
-    service:
-      ports:
-        - port: 445
-          name: samba
-          protocol: TCP
-          targetPort: 445
+applicationName: samba
+deployment:
+  image:
+    repository: ghcr.io/servercontainers/samba
+    tag: smbd-wsdd2-a3.20.3-s4.19.9-r0
+  nodeSelector:
+    kubernetes.io/hostname: ${nodename}
+  env:
+    SAMBA_CONF_WORKGROUP:
+      value: ${workgroup}
+    SAMBA_VOLUME_CONFIG_Documents:
+      value: |
+        [Documents]
+        path=/share/Documents
+        read only = no
+        browsable = yes
+        guest ok = yes
+        writable = yes
+        force create mode = 0660
+        force directory mode = 2770
+        force user = root
+        force group = root
+    SAMBA_VOLUME_CONFIG_Downloads:
+      value: |
+        [Downloads]
+        path=/share/Downloads
+        read only = no
+        browsable = yes
+        guest ok = yes
+        writable = yes
+        force create mode = 0660
+        force directory mode = 2770
+        force user = root
+        force group = root
+    SAMBA_VOLUME_CONFIG_Music:
+      value: |
+        [Music]
+        path=/share/Music
+        read only = no
+        browsable = yes
+        guest ok = yes
+        writable = yes
+        force create mode = 0660
+        force directory mode = 2770
+        force user = root
+        force group = root
+    SAMBA_VOLUME_CONFIG_Pictures:
+      value: |
+        [Pictures]
+        path=/share/Pictures
+        read only = no
+        browsable = yes
+        guest ok = yes
+        writable = yes
+        force create mode = 0660
+        force directory mode = 2770
+        force user = root
+        force group = root
+    SAMBA_VOLUME_CONFIG_Videos:
+      value: |
+        [Videos]
+        path=/share/Videos
+        read only = no
+        browsable = yes
+        guest ok = yes
+        writable = yes
+        force create mode = 0660
+        force directory mode = 2770
+        force user = root
+        force group = root
+  ports:
+    - containerPort: 445
+      name: samba
+      protocol: TCP
+  hostNetwork: true
+  strategy:
+    type: Recreate
+    rollingUpdate: null
+  containerSecurityContext:
+    readOnlyRootFilesystem: false
+    runAsNonRoot: false
+  securityContext:
+    privileged: true
+persistence:
+  enabled: true
+  mountPVC: true
+  mountPath: /share
+  storageClass: hdd
+  annotations:
+    helm.sh/resource-policy: keep
+    volume.kubernetes.io/selected-node: ${nodename}
+service:
+  ports:
+    - port: 445
+      name: samba
+      protocol: TCP
+      targetPort: 445

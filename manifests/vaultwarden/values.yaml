@@ -1,36 +1,29 @@
 ---
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: vaultwarden
-  namespace: flux
-data:
-  values.yaml: |
-    vaultwarden:
-      domain: ${domain}
-      allowSignups: false
-    ingress:
-      enabled: true
-      host: ${hostname}
-      annotations:
-        cert-manager.io/cluster-issuer: letsencrypt
-        kubernetes.io/ingress.class: nginx
-      tls:
-        - secretName: vaultwarden-tls
-          hosts:
-            - ${hostname}
-    persistence:
-      enabled: true
-      storageClass: ssd
-      annotations:
-        helm.sh/resource-policy: keep
-        volume.kubernetes.io/selected-node: ${nodename}
-    image:
-      tag: "1.32.5"
-    nodeSelector:
-      kubernetes.io/hostname: ${nodename}
-    strategy:
-      type: Recreate
-      rollingUpdate: null
-    securityContext:
-      readOnlyRootFilesystem: true
+vaultwarden:
+  domain: ${domain}
+  allowSignups: false
+ingress:
+  enabled: true
+  host: ${hostname}
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt
+    kubernetes.io/ingress.class: nginx
+  tls:
+    - secretName: vaultwarden-tls
+      hosts:
+        - ${hostname}
+persistence:
+  enabled: true
+  storageClass: ssd
+  annotations:
+    helm.sh/resource-policy: keep
+    volume.kubernetes.io/selected-node: ${nodename}
+image:
+  tag: "1.32.5"
+nodeSelector:
+  kubernetes.io/hostname: ${nodename}
+strategy:
+  type: Recreate
+  rollingUpdate: null
+securityContext:
+  readOnlyRootFilesystem: true

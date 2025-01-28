@@ -4,10 +4,19 @@ kind: Kustomization
 resources:
   - namespace.yaml
   - secrets.yaml
-  - values.yaml
   - helmrepository.yaml
   - helmrelease.yaml
   - resources.yaml
-  - keydb-values.yaml
   - keydb-helmrepository.yaml
   - keydb-helmrelease.yaml
+configMapGenerator:
+- name: authentik
+  namespace: flux
+  files:
+  - values.yaml
+- name: authentik-keydb
+  namespace: flux
+  files:
+  - values.yaml=keydb-values.yaml
+generatorOptions:
+  disableNameSuffixHash: true
