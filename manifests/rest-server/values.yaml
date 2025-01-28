@@ -3,7 +3,7 @@ applicationName: rest-server
 deployment:
   image:
     repository: docker.io/restic/rest-server
-    tag: 0.12.1
+    tag: 0.13.0
   nodeSelector:
     kubernetes.io/hostname: ${nodename}
   env:
