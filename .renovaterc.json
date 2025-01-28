@@ -7,10 +7,11 @@
     "config:recommended"
   ],
   "flux": {
-    "fileMatch": ["(?:^|/).*\\.ya?ml$"]
+    "fileMatch": ["(^|/).*\\.ya?ml$"]
   },
   "helm-values": {
-    "fileMatch": ["(?:^|/|-)values\\.ya?ml$"]
+    "enabled": true,
+    "fileMatch": ["(^|/|.*-)values\\.ya?ml$"]
   },
   "customManagers": [
     {
