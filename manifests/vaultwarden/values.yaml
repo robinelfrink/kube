@@ -19,6 +19,7 @@ persistence:
     helm.sh/resource-policy: keep
     volume.kubernetes.io/selected-node: ${nodename}
 image:
+  repository: ghcr.io/dani-garcia/vaultwarden
   tag: "1.32.5"
 nodeSelector:
   kubernetes.io/hostname: ${nodename}
