@@ -16,4 +16,5 @@ zigbee2mqtt:
   mqtt:
     server: mqtt://mochi-mqtt.mochi-mqtt.svc.cluster.local:1883
   serial:
+    adapter: zstack
     port: /dev/ttyUSB0
