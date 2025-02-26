@@ -8,16 +8,8 @@ spec:
   groups:
   - name: Restic Server
     rules:
-    - alert: BackupFailed
-      expr: sum by (repo, user) (rate(rest_server_blob_write_total{type="snapshots"}[1d12h])) == 0
-      for: 5m
-      labels:
-        severity: critical
-      annotations:
-        summary: "Backup failed for {{ $labels.repo }}"
-        description: "The backup of repository {{ $labels.repo }} has failed today."
     - alert: NoBackup
-      expr: count by( repo, user) (max_over_time(rest_server_blob_write_total{type="snapshots"}[7d] offset 26h)) unless count by(repo, user) (max_over_time(rest_server_blob_write_total{type="snapshots"}[1d8h]))
+      expr: time() - max_over_time(max by (repo) (timestamp(changes(rest_server_blob_write_total{type="snapshots"}[1h]) > 0))[7d:1h]) > (24*3600)
       for: 5m
       labels:
         severity: critical
