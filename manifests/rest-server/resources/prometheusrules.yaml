@@ -9,7 +9,7 @@ spec:
   - name: Restic Server
     rules:
     - alert: NoBackup
-      expr: time() - max_over_time(max by (repo) (timestamp(changes(rest_server_blob_write_total{type="snapshots"}[1h]) > 0))[7d:1h]) > (24*3600)
+      expr: time() - max_over_time(max by (repo) (timestamp(changes(rest_server_blob_write_total{type="snapshots",repo!~"^${noAlertRepoRegex}$"}[1h]) > 0))[7d:1h]) > (24*3600)
       for: 5m
       labels:
         severity: critical

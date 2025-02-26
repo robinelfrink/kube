@@ -18,3 +18,7 @@ spec:
     name: kube
   dependsOn:
     - name: cluster
+  postBuild:
+    substituteFrom:
+      - kind: Secret
+        name: rest-server
