@@ -3,7 +3,7 @@ applicationName: mochi-mqtt
 deployment:
   image:
     repository: docker.io/mochimqtt/server
-    tag: 2.7.8
+    tag: 2.7.9
   ports:
     - containerPort: 1883
       name: tcp
