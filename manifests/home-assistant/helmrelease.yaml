@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: home-assistant
-      version: 0.2.111
+      version: 0.2.112
       sourceRef:
         kind: HelmRepository
         name: home-assistant
