@@ -20,7 +20,7 @@
         ".envrc"
       ],
       "matchStrings": [
-        "# renovate: datasource=(?<datasource>[a-z-]+)(?: depName=(?<depName>[a-z-\\/]+))?(?: versioning=(?<versioning>[a-z-]+))?\\s[A-Z]+_VERSION=(?<currentValue>.+)\\s"
+        "# renovate: datasource=(?<datasource>[a-z-]+)(?: depName=(?<depName>[a-z0-9-\\/]+))?(?: versioning=(?<versioning>[a-z-]+))?\\s[A-Z]+_VERSION=(?<currentValue>.+)\\s"
       ],
       "versioningTemplate": "{{#if versioning}}{{{versioning}}}{{else}}semver{{/if}}"
     }
