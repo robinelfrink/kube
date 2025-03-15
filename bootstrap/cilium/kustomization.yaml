@@ -13,7 +13,7 @@ commonAnnotations:
 helmCharts:
   - name: cilium
     repo: https://helm.cilium.io
-    version: 1.17.1
+    version: 1.17.2
     releaseName: cilium
     namespace: cilium
     valuesFile: ../../manifests/cilium/values.yaml
