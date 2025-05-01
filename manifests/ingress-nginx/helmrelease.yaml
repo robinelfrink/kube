@@ -17,8 +17,6 @@ spec:
   releaseName: ingress-nginx
   targetNamespace: ingress-nginx
   storageNamespace: ingress-nginx
-  dependsOn:
-    - name: prometheus
   valuesFrom:
     - kind: ConfigMap
       name: ingress-nginx
