@@ -3,7 +3,7 @@ applicationName: unpoller
 deployment:
   image:
     repository: ghcr.io/unpoller/unpoller
-    tag: v2.14.1
+    tag: v2.15.3
   env:
     UP_POLLER_QUIET:
       value: "true"
