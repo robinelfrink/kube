@@ -90,6 +90,11 @@ grafana:
       use_pkce: true
       role_attribute_path: contains(groups, 'Grafana Admins') && 'Admin' || contains(groups, 'Grafana Editors') && 'Editor' || 'Viewer'
   assertNoLeakedSecrets: false
+  initChownData:
+    securityContext:
+      capabilities:
+        drop: []
+      readOnlyRootFilesystem: false
 kubeEtcd:
   enabled: false
 kubeControllerManager:
