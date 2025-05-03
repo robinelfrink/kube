@@ -1,0 +1,76 @@
+---
+applicationName: ntfy
+deployment:
+  image:
+    repository: binwiederhier/ntfy
+    tag: v1.28.0
+  args:
+    - serve
+  ports:
+    - containerPort: 8080
+      name: http
+      protocol: TCP
+  env:
+    TZ:
+      value: Europe/Amsterdam
+    NTFY_LISTEN_HTTP:
+      value: :8080
+    NTFY_BASE_URL:
+      value: ${baseurl}
+    NTFY_AUTH_FILE:
+      value: /var/lib/ntfy/auth.db
+    NTFY_AUTH_DEFAULT_ACCESS:
+      value: deny-all
+  securityContext:
+    allowPrivilegeEscalation: false
+    capabilities:
+      drop:
+      - ALL
+    readOnlyRootFilesystem: true
+    runAsNonRoot: true
+    seccompProfile:
+      type: RuntimeDefault
+  containerSecurityContext:
+    runAsUser: 65534
+    runAsGroup: 65534
+  strategy:
+    type: Recreate
+  nodeSelector:
+    kubernetes.io/hostname: ${nodename}
+persistence:
+  enabled: true
+  mountPVC: true
+  mountPath: /var/lib/ntfy
+  storageClass: ssd
+  annotations:
+    helm.sh/resource-policy: keep
+    volume.kubernetes.io/selected-node: ${nodename}
+  storageSize: 1Gi
+service:
+  annotations:
+    prometheus.io/port: "8080"
+    prometheus.io/scrape: "true"
+  ports:
+    - port: 8080
+      name: http
+      protocol: TCP
+      targetPort: 8080
+ingress:
+  enabled: true
+  ingressClassName: nginx
+  hosts:
+    - host: ${hostname}
+      paths:
+        - path: /
+          pathType: Prefix
+          backend:
+            service:
+              name:  ntfy
+              port:
+                name: http
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt
+  tls:
+    - secretName: ntfy-tls
+      hosts:
+        - ${hostname}

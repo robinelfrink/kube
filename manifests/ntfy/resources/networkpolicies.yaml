@@ -1,0 +1,29 @@
+---
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
+  name: ntfy
+  namespace: ntfy
+spec:
+  endpointSelector:
+    matchLabels:
+      app.kubernetes.io/name: ntfy
+  ingress:
+  # Prometheus
+  - fromEndpoints:
+    - matchLabels:
+        "k8s:io.kubernetes.pod.namespace": prometheus
+        app.kubernetes.io/name: prometheus
+    toPorts:
+    - ports:
+      - port: "8080"
+        protocol: TCP
+  egress:
+  # DNS
+  - toPorts:
+    - ports:
+      - port: "53"
+        protocol: ANY
+      rules:
+        dns:
+          - matchName: ${address}
