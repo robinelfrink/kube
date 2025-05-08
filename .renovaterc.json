@@ -7,17 +7,21 @@
     "config:recommended"
   ],
   "flux": {
-    "fileMatch": ["(^|/).*\\.ya?ml$"]
+    "managerFilePatterns": [
+      "/(^|/).*\\.ya?ml$/"
+    ]
   },
   "helm-values": {
     "enabled": true,
-    "fileMatch": ["(^|/|.*-)values\\.ya?ml$"]
+    "managerFilePatterns": [
+      "/(^|/|.*-)values\\.ya?ml$/"
+    ]
   },
   "customManagers": [
     {
       "customType": "regex",
-      "fileMatch": [
-        ".envrc"
+      "managerFilePatterns": [
+        "/.envrc/"
       ],
       "matchStrings": [
         "# renovate: datasource=(?<datasource>[a-z-]+)(?: depName=(?<depName>[a-zA-Z0-9-\\/]+))?(?: versioning=(?<versioning>[a-z-]+))?\\s[A-Z]+_VERSION=(?<currentValue>.+)\\s"
