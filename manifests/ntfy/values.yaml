@@ -21,6 +21,8 @@ deployment:
       value: /var/lib/ntfy/auth.db
     NTFY_AUTH_DEFAULT_ACCESS:
       value: deny-all
+    NTFY_ENABLE_METRICS:
+      value: "true"
   securityContext:
     allowPrivilegeEscalation: false
     capabilities:
