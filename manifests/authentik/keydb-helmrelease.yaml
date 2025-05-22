@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: keydb
-      version: 0.5.8
+      version: 0.5.10
       sourceRef:
         kind: HelmRepository
         name: authentik-keydb
