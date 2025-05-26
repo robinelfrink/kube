@@ -19,3 +19,5 @@ zigbee2mqtt:
   serial:
     adapter: zstack
     port: /dev/ttyUSB0
+  availability:
+    enabled: true
