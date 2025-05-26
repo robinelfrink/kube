@@ -20,7 +20,7 @@ persistence:
     volume.kubernetes.io/selected-node: ${nodename}
 image:
   repository: ghcr.io/dani-garcia/vaultwarden
-  tag: "1.33.2"
+  tag: "1.34.1"
 nodeSelector:
   kubernetes.io/hostname: ${nodename}
 strategy:
