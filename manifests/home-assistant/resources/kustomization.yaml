@@ -4,3 +4,4 @@ kind: Kustomization
 resources:
   - secret.yaml
   - schedule.yaml
+  - servicemonitor.yaml
