@@ -1,0 +1,20 @@
+---
+server:
+  retentionPeriod: 25y
+  extraArgs:
+    influxListenAddr: :8088
+  nodeSelector:
+    kubernetes.io/hostname: ${nodename}
+  persistentVolume:
+    annotations:
+      helm.sh/resource-policy: keep
+      volume.kubernetes.io/selected-node: ${nodename}
+    storageClassName: hdd
+    size: 40Gi
+  resources:
+    limits:
+      cpu: null
+      memory: null
+    requests:
+      cpu: null
+      memory: null
