@@ -43,6 +43,8 @@ alertmanager:
 grafana:
   adminPassword: ${adminpassword}
   defaultDashboardsEditable: false
+  nodeSelector:
+    kubernetes.io/hostname: ${nodename}
   ingress:
     enabled: true
     annotations:

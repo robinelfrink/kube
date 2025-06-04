@@ -81,6 +81,14 @@ spec:
       targetPath: grafana.ingress.tls[0].hosts[0]
     - kind: Secret
       name: prometheus
+      valuesKey: nodename
+      targetPath: grafana.nodeSelector.kubernetes\.io/hostname
+    - kind: Secret
+      name: prometheus
+      valuesKey: nodename
+      targetPath: grafana.persistence.annotations.volume\.kubernetes\.io/selected-node
+    - kind: Secret
+      name: prometheus
       valuesKey: prometheushostname
       targetPath: prometheus.ingress.hosts[0]
     - kind: Secret
