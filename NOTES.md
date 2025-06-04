@@ -16,3 +16,40 @@ $ podman run --interactive --tty --rm \
       docker://renovate/renovate:slim \
       --platform=local
 ```
+
+## Run pods with hostPath mount
+
+```shell
+$ kubectl run busybox --image busybox \
+      --stdin --tty --rm \
+      --namespace=kube-system \
+      --overrides='
+        {
+          "spec": {
+            "containers": [
+              {
+                "name": "busybox",
+                "image": "busybox",
+                "stdin": true,
+                "stdinOnce": true,
+                "tty": true,
+                "volumeMounts": [{
+                  "mountPath": "/host",
+                  "name": "hostdir"
+                }]
+              }
+            ],
+            "volumes": [{
+              "name":"hostdir",
+              "hostPath": {
+                "path": "/",
+                "type": "Directory"
+              }
+            }],
+            "nodeSelector": {
+              "kubernetes.io/hostname": "<nodename>"
+            }
+          }
+        }
+        '
+```
