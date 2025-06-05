@@ -9,6 +9,8 @@ deployment:
   env:
     SAMBA_CONF_WORKGROUP:
       value: ${workgroup}
+    SAMBA_CONF_SERVER_STRING:
+      value: ${nodename}
     SAMBA_VOLUME_CONFIG_Documents:
       value: |
         [Documents]
