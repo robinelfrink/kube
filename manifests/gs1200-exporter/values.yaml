@@ -3,7 +3,7 @@ applicationName: gs1200-exporter
 deployment:
   image:
     repository: ghcr.io/robinelfrink/gs1200-exporter
-    tag: v2.11.5
+    tag: v2.11.6
   ports:
     - containerPort: 9934
       name: metrics
