@@ -14,7 +14,7 @@ commonAnnotations:
 helmCharts:
   - name: flux2
     repo: https://fluxcd-community.github.io/helm-charts
-    version: 2.15.0
+    version: 2.16.0
     releaseName: flux
     namespace: flux
     valuesFile: ../../manifests/flux/values.yaml
