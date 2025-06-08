@@ -1,0 +1,18 @@
+---
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: home-assistant
+  namespace: flux
+spec:
+  groups:
+  - name: home-assistants
+    rules:
+    - alert: Battery Low
+      expr: hass_sensor_battery_percent < 20
+      for: 5m
+      labels:
+        severity: critical
+      annotations:
+        summary: "{{ $labels.friendly_name }} is low."
+        description: "Battery {{ $labels.friendly_name }} has less than 20% left."
