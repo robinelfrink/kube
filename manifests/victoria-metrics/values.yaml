@@ -1,0 +1,3 @@
+---
+operator:
+  disable_prometheus_converter: true

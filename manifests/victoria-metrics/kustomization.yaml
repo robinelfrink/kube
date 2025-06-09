@@ -8,7 +8,7 @@ resources:
   - helmrelease.yaml
   - resources.yaml
 configMapGenerator:
-- name: victoriametrics
+- name: victoria-metrics-operator
   namespace: flux
   files:
   - values.yaml

@@ -1,0 +1,20 @@
+apiVersion: operator.victoriametrics.com/v1beta1
+kind: VMSingle
+metadata:
+  name: vmsingle-long
+  namespace: victoria-metrics
+spec:
+  disableSelfServiceScrape: true
+  nodeSelector:
+    kubernetes.io/hostname: ford
+  retentionPeriod: 100y
+  storage:
+    accessModes:
+    - ReadWriteOnce
+    resources:
+      requests:
+        storage: 100Gi
+    storageClassName: hdd
+  storageMetadata:
+    annotations:
+      volume.kubernetes.io/selected-node: ford

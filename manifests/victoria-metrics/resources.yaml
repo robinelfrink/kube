@@ -2,12 +2,12 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: victoriametrics-resources
+  name: victoria-metrics-resources
   namespace: flux
 spec:
   force: false
   interval: 30m0s
-  path: ./manifests/victoriametrics/resources
+  path: ./manifests/victoria-metrics/resources
   prune: true
   sourceRef:
     kind: GitRepository
@@ -17,4 +17,4 @@ spec:
   postBuild:
     substituteFrom:
       - kind: Secret
-        name: victoriametrics
+        name: victoria-metrics

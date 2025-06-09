@@ -1,0 +1,26 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: victoria-metrics-operator
+  namespace: flux
+spec:
+  interval: 1h
+  chartRef:
+    kind: OCIRepository
+    name: victoria-metrics-operator
+    namespace: flux
+  releaseName: victoria-metrics
+  targetNamespace: victoria-metrics
+  storageNamespace: victoria-metrics
+  valuesFrom:
+    - kind: ConfigMap
+      name: victoria-metrics-operator
+#    - kind: Secret
+#      name: victoriametrics
+#      valuesKey: nodename
+#      targetPath: server.nodeSelector.kubernetes\.io/hostname
+#    - kind: Secret
+#      name: victoriametrics
+#      valuesKey: nodename
+#      targetPath: server.persistentVolume.annotations.volume\.kubernetes\.io/selected-node

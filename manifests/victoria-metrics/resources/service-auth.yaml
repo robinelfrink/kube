@@ -3,7 +3,7 @@ kind: Service
 apiVersion: v1
 metadata:
   name: auth
-  namespace: victoriametrics
+  namespace: victoria-metrics
 spec:
   type: ExternalName
   externalName: authentik-server.authentik.svc.cluster.local

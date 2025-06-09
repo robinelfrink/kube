@@ -4,3 +4,7 @@ kind: Kustomization
 resources:
   - service-auth.yaml
   - ingress.yaml
+  - ingress-long.yaml
+  - vmsingle.yaml
+  - vmsingle-long.yaml
+  - vmagent.yaml
