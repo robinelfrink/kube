@@ -8,9 +8,9 @@ spec:
   endpoints:
   - path: /api/prometheus
     port: http
-    relabelConfigs:
+    metricRelabelConfigs:
     - source_labels: [entity]
-      regex: "^sensor\\.(current|electricity|energy|gas|opentherm).*"
+      regex: ^sensor\.(current|electricity|energy|gas|opentherm).*$
       target_label: storage_period
       replacement: long
   namespaceSelector:
