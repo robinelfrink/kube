@@ -9,12 +9,12 @@ spec:
   - url: "http://vmsingle-vmsingle.victoria-metrics.svc.cluster.local:8429/api/v1/write"
     inlineUrlRelabelConfig:
     - action: labeldrop
-      regex: "^storage-period$"
+      regex: "^storage_period$"
   - url: "http://vmsingle-vmsingle-long.victoria-metrics.svc.cluster.local:8429/api/v1/write"
     inlineUrlRelabelConfig:
     - action: keep
-      sourceLabels: [storage-period]
-      regex: long
+      sourceLabels: [storage_period]
+      regex: "^long$"
     - action: labeldrop
-      regex: "^storage-period$"
+      regex: "^storage_period$"
   selectAllByDefault: true

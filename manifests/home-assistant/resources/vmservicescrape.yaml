@@ -1,0 +1,22 @@
+---
+apiVersion: operator.victoriametrics.com/v1beta1
+kind: VMServiceScrape
+metadata:
+  name: home-assistant
+  namespace: home-assistant
+spec:
+  endpoints:
+  - path: /api/prometheus
+    port: http
+    relabelConfigs:
+    - source_labels: [entity]
+      regex: "^sensor\\.(current|electricity|energy|gas|opentherm).*"
+      target_label: storage_period
+      replacement: long
+  namespaceSelector:
+    matchNames:
+      - home-assistant
+  selector:
+    matchLabels:
+      app.kubernetes.io/instance: home-assistant
+      app.kubernetes.io/name: home-assistant
