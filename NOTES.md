@@ -17,39 +17,40 @@ $ podman run --interactive --tty --rm \
       --platform=local
 ```
 
-## Run pods with hostPath mount
+## Run emergency pod with hostPath mount
 
 ```shell
-$ kubectl run busybox --image busybox \
-      --stdin --tty --rm \
+$ kubectl run emergency --image ubuntu \
       --namespace=kube-system \
-      --overrides='
-        {
+      --overrides='{
           "spec": {
             "containers": [
               {
-                "name": "busybox",
-                "image": "busybox",
-                "stdin": true,
-                "stdinOnce": true,
-                "tty": true,
-                "volumeMounts": [{
-                  "mountPath": "/host",
-                  "name": "hostdir"
-                }]
+                "name": "emergency",
+                "image": "ubuntu",
+                "args": ["sh", "-c", "sleep infinity"],
+                "volumeMounts": [
+                  {"mountPath": "/host", "name": "hostdir"},
+                  {"mountPath": "/dev", "name": "hostdev"}
+                ],
+                "securityContext": {"privileged": true}
               }
             ],
-            "volumes": [{
-              "name":"hostdir",
-              "hostPath": {
-                "path": "/",
-                "type": "Directory"
+            "volumes": [
+              {
+                "name":"hostdir",
+                "hostPath": {"path": "/", "type": "Directory"}
+              },
+              {
+                "name":"hostdev",
+                "hostPath": {"path": "/dev", "type": "Directory"}
               }
-            }],
-            "nodeSelector": {
-              "kubernetes.io/hostname": "<nodename>"
-            }
+            ],
+            "securityContext": {"capabilities": {"add": ["SYS_ADMIN"]}},
+            "nodeSelector": {"kubernetes.io/hostname": "<nodename>"}
           }
-        }
-        '
+        }'
+$ kubectl exec --stdin --tty --namespace kube-system emergency -- bash
+[...]
+$ kubectl delete pod --namespace kube-system kube-system emergency
 ```
