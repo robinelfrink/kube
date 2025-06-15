@@ -1,0 +1,48 @@
+---
+ingress:
+  enabled: true
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    cert-manager.io/cluster-issuer: letsencrypt-staging
+    nginx.ingress.kubernetes.io/proxy-body-size: 32m
+  tls:
+    - secretName: nextcloud-tls
+      hosts:
+        - ${hostname}
+nextcloud:
+  host: ${hostname}
+  configs:
+    extra.config.php: |-
+      <?php
+        $CONFIG = array(
+          'overwriteprotocol' => 'https',
+        );
+      ?>
+  strategy:
+    type: Recreate
+    rollingUpdate: null
+persistence:
+  enabled: true
+  annotations:
+    volume.kubernetes.io/selected-node: ${nodename}
+  storageClass: hdd
+startupProbe:
+  enabled: true
+  failureThreshold: 360
+nodeSelector:
+  kubernetes.io/hostname: ${nodename}
+internalDatabase:
+  enabled: false
+mariadb:
+  enabled: true
+  networkPolicy:
+    enabled: false
+  primary:
+    resourcesPreset: none
+    persistence:
+      enabled: true
+      storageClass: ssd
+      annotations:
+        volume.kubernetes.io/selected-node: ${nodename}
+  nodeSelector:
+    kubernetes.io/hostname: ${nodename}
