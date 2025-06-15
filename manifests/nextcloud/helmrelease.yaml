@@ -30,6 +30,26 @@ spec:
       targetPath: nextcloud.host
     - kind: Secret
       name: nextcloud
+      valuesKey: mailfrom
+      targetPath: nextcloud.mail.fromAddress
+    - kind: Secret
+      name: nextcloud
+      valuesKey: maildomain
+      targetPath: nextcloud.mail.domain
+    - kind: Secret
+      name: nextcloud
+      valuesKey: smtphost
+      targetPath: nextcloud.mail.smtp.host
+    - kind: Secret
+      name: smtpusername
+      valuesKey: hostname
+      targetPath: nextcloud.mail.smtp.name
+    - kind: Secret
+      name: smtppassword
+      valuesKey: hostname
+      targetPath: nextcloud.mail.smtp.password
+    - kind: Secret
+      name: nextcloud
       valuesKey: nodename
       targetPath: persistence.annotations.volume\.kubernetes\.io/selected-node
     - kind: Secret

@@ -16,8 +16,20 @@ nextcloud:
       <?php
         $CONFIG = array(
           'overwriteprotocol' => 'https',
+          'default_phone_region' => 31,
         );
       ?>
+  mail:
+    enabled: true
+    fromAddress: ${mailfrom}
+    domain: ${maildomain}
+    smtp:
+      host: ${smtphost}
+      secure: ssl
+      port: 465
+      authtype: LOGIN
+      name: ${smtpusername}
+      password: ${smtppassword}
   strategy:
     type: Recreate
     rollingUpdate: null
