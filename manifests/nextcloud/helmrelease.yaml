@@ -41,12 +41,12 @@ spec:
       valuesKey: smtphost
       targetPath: nextcloud.mail.smtp.host
     - kind: Secret
-      name: smtpusername
-      valuesKey: hostname
+      name: nextcloud
+      valuesKey: smtpusername
       targetPath: nextcloud.mail.smtp.name
     - kind: Secret
-      name: smtppassword
-      valuesKey: hostname
+      name: nextcloud
+      valuesKey: smtppassword
       targetPath: nextcloud.mail.smtp.password
     - kind: Secret
       name: nextcloud
