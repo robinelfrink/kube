@@ -1,4 +1,6 @@
 ---
+image:
+  tag: 30.0.10
 ingress:
   enabled: true
   annotations:
