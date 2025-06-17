@@ -1,5 +1,6 @@
 ---
 image:
+  repository: nextcloud
   tag: 30.0.10-apache
 ingress:
   enabled: true
