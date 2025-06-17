@@ -36,6 +36,8 @@ nextcloud:
   strategy:
     type: Recreate
     rollingUpdate: null
+cronjob:
+  enabled: true
 persistence:
   enabled: true
   annotations:
