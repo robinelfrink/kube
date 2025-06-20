@@ -19,7 +19,7 @@ spec:
         key: passwordEncoded
   backup:
     schedule: "@weekly-random"
-    activeDeadlineSeconds: 14400
+    activeDeadlineSeconds: 43200
     failedJobsHistoryLimit: 2
     successfulJobsHistoryLimit: 2
     promURL: http://prometheus-pushgateway.prometheus-pushgateway.svc.cluster.local:9091
