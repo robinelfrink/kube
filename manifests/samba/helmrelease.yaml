@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: application
-      version: 6.2.1
+      version: 6.5.0
       sourceRef:
         kind: HelmRepository
         name: samba
