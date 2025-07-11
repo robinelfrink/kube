@@ -24,5 +24,4 @@ resources:
   - unifi-controller
   - unpoller
   - vaultwarden
-  - victoria-metrics
   - zigbee2mqtt
