@@ -6,14 +6,10 @@ metadata:
   namespace: flux
 spec:
   interval: 1h
-  chart:
-    spec:
-      chart: nextcloud
-      version: 6.6.10
-      sourceRef:
-        kind: HelmRepository
-        name: nextcloud
-      interval: 1h
+  chartRef:
+    kind: OCIRepository
+    name: nextcloud
+    namespace: flux
   releaseName: nextcloud
   targetNamespace: nextcloud
   storageNamespace: nextcloud
