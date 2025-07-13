@@ -1,9 +1,11 @@
 ---
 apiVersion: source.toolkit.fluxcd.io/v1
-kind: HelmRepository
+kind: OCIRepository
 metadata:
   name: nextcloud
   namespace: flux
 spec:
   interval: 1h
-  url: https://nextcloud.github.io/helm
+  url: oci://ghcr.io/nextcloud/helm/nextcloud
+  ref:
+    tag: 7.0.0
