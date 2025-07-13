@@ -6,7 +6,7 @@ metadata:
   namespace: home-assistant
 spec:
   groups:
-  - name: home-assistants
+  - name: home-assistant
     rules:
     - alert: Battery Low
       expr: hass_sensor_battery_percent < 20
