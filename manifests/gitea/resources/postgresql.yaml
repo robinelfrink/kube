@@ -1,0 +1,24 @@
+---
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
+metadata:
+  annotations:
+    kustomize.toolkit.fluxcd.io/prune: disabled
+  name: postgresql
+  namespace: gitea
+spec:
+  affinity:
+    nodeSelector:
+      kubernetes.io/hostname: ${nodename}
+  inheritedMetadata:
+    annotations:
+      volume.kubernetes.io/selected-node: ${nodfename}
+      k8up.io/backupcommand: sh -c 'PGDATABASE="authentik" pg_dump --clean'
+      k8up.io/file-extension: .sql
+  instances: 1
+  storage:
+    size: 5Gi
+    storageClass: hdd
+  bootstrap:
+    initdb:
+      database: gitea

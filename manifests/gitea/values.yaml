@@ -1,0 +1,100 @@
+strategy:
+  type: Recreate
+  rollingUpdate: null
+image:
+  tag: 1.24.3
+service:
+  ssh:
+    type: NodePort
+    nodePort: 32222
+    externalTrafficPolicy: Local
+ingress:
+  enabled: true
+  className: nginx
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt
+  hosts:
+    - host: $(hostname}
+      paths:
+        - path: /
+  tls:
+    - secretName: gitea-tls
+      hosts:
+        - ${hostname}
+nodeSelector:
+  kubernetes.io/hostname: ${nodename}
+persistence:
+  storageClass: hdd
+  annotations:
+    volume.kubernetes.io/selected-node: ${nodename}
+gitea:
+  admin:
+    password: ${adminpassword}
+    passwordMode: initialOnlyNoReset
+  metrics:
+    enabled: true
+  oauth:
+    - name: 'authentik'
+      provider: openidConnect
+      key: ${oauthkey}
+      secret: ${oauthsecret}
+      autoDiscoverUrl: ${oauthdiscover}
+  config:
+    repository:
+      FORCE_PRIVATE: true
+      DEFAULT_REPO_UNITS: repo.code,repo.releases,repo.issues,repo.pulls
+    server:
+      SSH_PORT: 2222
+      SSH_SERVER_USE_PROXY_PROTOCOL: true
+    database:
+      DB_TYPE: postgres
+      HOST: postgresql-rw.gitea.svc.cluster.local
+      NAME: gitea
+      USER: gitea
+    admin:
+      DEFAULT_EMAIL_NOTIFICATIONS: onmention
+      USER_DISABLED_FEATURES: deletion,manage_mfa,manage_credentials,change_username,change_full_name
+    security:
+      INSTALL_LOCK: true
+    openid:
+      ENABLE_OPENID_SIGNIN: false
+      ENABLE_OPENID_SIGNUP: false
+    oauth2_client:
+      ENABLE_AUTO_REGISTRATION: true
+      ACCOUNT_LINKING: auto
+      OPENID_CONNECT_SCOPES: email profile gitea
+    service:
+      DISABLE_REGISTRATION: true
+      REQUIRE_SIGNIN_VIEW: true
+      ENABLE_NOTIFY_MAIL: true
+      ENABLE_PASSWORD_SIGNIN_FORM: false
+      ENABLE_PASSKEY_AUTHENTICATION: false
+    service.explore:
+      REQUIRE_SIGNIN_VIEW: true
+    ssh.minimum_key_sizes:
+      RSA: 2048
+    mailer:
+      ENABLED: true
+      PROTOCOL: smtps
+      SMTP_ADDR: ${smtphost}
+      SMTP_PORT: 465
+      USER: ${smtpuser}
+      PASSWD: ${smtppassword}
+      FROM: ${smtpfrom}
+      ENVELOPE_FROM: ${smtpenvelope}
+    session:
+      PROVIDER: db
+  additionalConfigFromEnvs:
+    - name: GITEA__DATABASE__PASSWD
+      valueFrom:
+        secretKeyRef:
+          name: postgresql-app
+          key: password
+valkey-cluster:
+  enabled: false
+valkey:
+  enabled: false
+postgresql-ha:
+  enabled: false
+postgresql:
+  enabled: false
