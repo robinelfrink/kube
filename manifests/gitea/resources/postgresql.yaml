@@ -12,7 +12,7 @@ spec:
       kubernetes.io/hostname: ${nodename}
   inheritedMetadata:
     annotations:
-      volume.kubernetes.io/selected-node: ${nodfename}
+      volume.kubernetes.io/selected-node: ${nodename}
       k8up.io/backupcommand: sh -c 'PGDATABASE="authentik" pg_dump --clean'
       k8up.io/file-extension: .sql
   instances: 1
