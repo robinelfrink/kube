@@ -21,7 +21,5 @@ resources:
   - rest-server
   - samba
   - storage
-  - unifi-controller
-  - unpoller
   - vaultwarden
   - zigbee2mqtt
