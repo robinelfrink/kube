@@ -16,6 +16,7 @@ resources:
   - mikrotik-exporter
   - mochi-mqtt
   - nextcloud
+  - nextcloud2
   - prometheus
   - prometheus-pushgateway
   - rest-server

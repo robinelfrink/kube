@@ -1,0 +1,62 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: nextcloud2
+  namespace: flux
+spec:
+  interval: 1h
+  chartRef:
+    kind: OCIRepository
+    name: nextcloud2
+    namespace: flux
+  releaseName: nextcloud2
+  targetNamespace: nextcloud2
+  storageNamespace: nextcloud2
+  valuesFrom:
+    - kind: ConfigMap
+      name: nextcloud2
+    - kind: Secret
+      name: nextcloud2
+      valuesKey: hostname
+      targetPath: ingress.tls[0].hosts[0]
+    - kind: Secret
+      name: nextcloud2
+      valuesKey: hostname
+      targetPath: nextcloud.host2
+    - kind: Secret
+      name: nextcloud2
+      valuesKey: mailfrom
+      targetPath: nextcloud.mail.fromAddress
+    - kind: Secret
+      name: nextcloud2
+      valuesKey: maildomain
+      targetPath: nextcloud.mail.domain
+    - kind: Secret
+      name: nextcloud2
+      valuesKey: smtphost
+      targetPath: nextcloud.mail.smtp.host
+    - kind: Secret
+      name: nextcloud2
+      valuesKey: smtpusername
+      targetPath: nextcloud.mail.smtp.name
+    - kind: Secret
+      name: nextcloud2
+      valuesKey: smtppassword
+      targetPath: nextcloud.mail.smtp.password
+    - kind: Secret
+      name: nextcloud2
+      valuesKey: nodename
+      targetPath: persistence.annotations.volume\.kubernetes\.io/selected-node
+    - kind: Secret
+      name: nextcloud2
+      valuesKey: nodename
+      targetPath: nodeSelector.kubernetes\.io/hostname
+    - kind: Secret
+      name: nextcloud2
+      valuesKey: nodename
+      targetPath: mariadb.primary.persistence.annotations.volume\.kubernetes\.io/selected-node
+    - kind: Secret
+      name: nextcloud2
+      valuesKey: nodename
+      targetPath: mariadb.primary.nodeSelector.kubernetes\.io/hostname
