@@ -23,7 +23,7 @@ spec:
     - kind: Secret
       name: nextcloud2
       valuesKey: hostname
-      targetPath: nextcloud.host2
+      targetPath: nextcloud.host
     - kind: Secret
       name: nextcloud2
       valuesKey: mailfrom
