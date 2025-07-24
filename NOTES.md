@@ -20,6 +20,7 @@ $ podman run --interactive --tty --rm \
 ## Run emergency pod with hostPath mount
 
 ```shell
+$ export NODE=<nodename>
 $ kubectl run emergency --image ubuntu \
       --namespace=kube-system \
       --overrides='{
@@ -47,7 +48,7 @@ $ kubectl run emergency --image ubuntu \
               }
             ],
             "securityContext": {"capabilities": {"add": ["SYS_ADMIN"]}},
-            "nodeSelector": {"kubernetes.io/hostname": "<nodename>"}
+            "nodeSelector": {"kubernetes.io/hostname": "'${NODE}'"}
           }
         }'
 $ kubectl exec --stdin --tty --namespace kube-system emergency -- bash
