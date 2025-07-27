@@ -22,3 +22,5 @@ spec:
   bootstrap:
     initdb:
       database: authentik
+  monitoring:
+    enablePodMonitor: true

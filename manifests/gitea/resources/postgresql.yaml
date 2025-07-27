@@ -22,3 +22,5 @@ spec:
   bootstrap:
     initdb:
       database: gitea
+  monitoring:
+    enablePodMonitor: true
