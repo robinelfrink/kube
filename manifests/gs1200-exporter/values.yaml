@@ -8,8 +8,6 @@ deployment:
     - containerPort: 9934
       name: metrics
       protocol: TCP
-  nodeSelector:
-    kubernetes.io/hostname: ${nodename}
   env:
     GS1200_ADDRESS:
       value: ${address}

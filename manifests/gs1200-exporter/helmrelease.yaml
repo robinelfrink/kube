@@ -22,10 +22,6 @@ spec:
       name: gs1200-exporter
     - kind: Secret
       name: gs1200-exporter
-      valuesKey: nodename
-      targetPath: deployment.nodeSelector.kubernetes\.io/hostname
-    - kind: Secret
-      name: gs1200-exporter
       valuesKey: address
       targetPath: deployment.env.GS1200_ADDRESS.value
     - kind: Secret
