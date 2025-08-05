@@ -3,7 +3,7 @@ applicationName: unifi-ap-exporter
 deployment:
   image:
     repository: ghcr.io/robinelfrink/unifi-ap-exporter
-    tag: v0.1.5
+    tag: v0.1.6
   ports:
     - containerPort: 9130
       name: metrics
