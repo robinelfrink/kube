@@ -1,0 +1,19 @@
+---
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: unifi-ap-exporter
+  namespace: unifi-ap-exporter
+spec:
+  groups:
+  - name: unifi-ap-exporter
+    rules:
+    - alert: Unifi Access Point Unreachable
+      annotations:
+        description: "Unifi Access Point {{ $labels.name }} is unreachable.
+          Check the output of the unifi access point eporter."
+        summary: "Unifi Access Point {{ $labels.name }} is unreachable."
+      expr: unifi_ap_info == 0
+      for: 10m
+      labels:
+        severity: critical
