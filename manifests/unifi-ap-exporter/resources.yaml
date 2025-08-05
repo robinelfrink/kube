@@ -9,6 +9,10 @@ spec:
   interval: 30m0s
   path: ./manifests/unifi-ap-exporter/resources
   prune: true
+  decryption:
+    provider: sops
+    secretRef:
+      name: sops-age
   sourceRef:
     kind: GitRepository
     name: kube
