@@ -23,7 +23,7 @@ deployment:
         secretName: config
   volumeMounts:
     config:
-      mountPath: /home/nonroot/
+      mountPath: /work
 service:
   annotations:
     prometheus.io/port: "9130"

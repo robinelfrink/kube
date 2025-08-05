@@ -20,3 +20,14 @@ spec:
   valuesFrom:
     - kind: ConfigMap
       name: unifi-ap-exporter
+  postRenderers:
+  - kustomize:
+      patches:
+      - patch: |
+          - op: add
+            path: /spec/template/spec/containers/0/workingDir
+            value: /work
+        target:
+          kind: Deployment
+          name: unifi-ap-exporter
+          version: v1
