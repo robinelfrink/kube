@@ -1,7 +1,7 @@
 ---
 image:
   repository: nextcloud
-  tag: 31.0.7-apache
+  tag: 31.0.8-apache
 ingress:
   enabled: true
   annotations:
