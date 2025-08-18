@@ -8,4 +8,4 @@ spec:
   interval: 1h
   url: oci://ghcr.io/victoriametrics/helm-charts/victoria-metrics-single
   ref:
-    tag: 0.24.2
+    tag: 0.24.3
