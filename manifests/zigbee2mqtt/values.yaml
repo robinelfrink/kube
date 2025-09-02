@@ -1,7 +1,7 @@
 ---
 image:
   repository: koenkk/zigbee2mqtt
-  tag: 2.6.0
+  tag: 2.6.1
 service:
   type: ClusterIP
 statefulset:
