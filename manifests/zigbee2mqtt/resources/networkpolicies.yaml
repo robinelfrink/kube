@@ -37,6 +37,8 @@ spec:
     - ports:
       - port: "1883"
         protocol: TCP
+  - toEntities:
+    - world
 ---
 apiVersion: cilium.io/v2
 kind: CiliumNetworkPolicy
