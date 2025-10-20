@@ -4,7 +4,8 @@
     "main"
   ],
   "extends": [
-    "config:recommended"
+    "config:recommended",
+    ":disableDependencyDashboard"
   ],
   "flux": {
     "managerFilePatterns": [
