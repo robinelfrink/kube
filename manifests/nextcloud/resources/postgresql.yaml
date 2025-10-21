@@ -5,7 +5,7 @@ metadata:
   annotations:
     kustomize.toolkit.fluxcd.io/prune: disabled
   name: postgresql
-  namespace: gitea
+  namespace: nextcloud
 spec:
   affinity:
     nodeSelector:
@@ -13,14 +13,14 @@ spec:
   inheritedMetadata:
     annotations:
       volume.kubernetes.io/selected-node: ${nodename}
-      k8up.io/backupcommand: sh -c 'PGDATABASE="gitea" pg_dump --clean'
+      k8up.io/backupcommand: sh -c 'PGDATABASE="nextcloud" pg_dump --clean'
       k8up.io/file-extension: .sql
   instances: 1
   storage:
     size: 5Gi
-    storageClass: hdd
+    storageClass: ssd
   bootstrap:
     initdb:
-      database: gitea
+      database: nextcloud
   monitoring:
     enablePodMonitor: true
