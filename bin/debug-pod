@@ -1,16 +1,29 @@
 #!/usr/bin/env sh
 
+NODE=""
 case "${1}" in
-  "")
-    NODESELECTOR=""
+  -n=*)
+    NODE=${1#-n=}
+    shift
     ;;
-  *)
-    NODESELECTOR='
-    "nodeSelector": {
-      "kubernetes.io/hostname": "'"${1}"'"
-    },'
+  --node=*)
+    NODE=${1#--node=}
+    shift
+    ;;
+  -n|--node)
+    NODE=${2}
+    shift
+    shift
     ;;
 esac
+if [ -z "${NODE}" ]; then
+    NODESELECTOR=""
+else
+    NODESELECTOR='
+    "nodeSelector": {
+      "kubernetes.io/hostname": "'"${NODE}"'"
+    },'
+fi
 
 kubectl run debug-pod \
     --namespace kube-system \
