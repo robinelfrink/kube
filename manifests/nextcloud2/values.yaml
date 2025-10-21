@@ -8,18 +8,33 @@ ingress:
     kubernetes.io/ingress.class: nginx
     cert-manager.io/cluster-issuer: letsencrypt-staging
     nginx.ingress.kubernetes.io/proxy-body-size: 32m
+    nginx.ingress.kubernetes.io/enable-cors: "true"
+    nginx.ingress.kubernetes.io/cors-allow-headers: "X-Forwarded-For"
   tls:
     - secretName: nextcloud-tls
       hosts:
         - ${hostname}
 nextcloud:
   host: ${hostname}
+  defaultConfigs:
+    redis.config.php: false
   configs:
     extra.config.php: |-
       <?php
         $CONFIG = array(
           'overwriteprotocol' => 'https',
           'default_phone_region' => 31,
+          'maintenance_window_start' => 11,
+        );
+      ?>
+    proxy.config.php: |-
+      <?php
+        $CONFIG=array(
+          'trusted_proxies' => array(
+            0 => '127.0.0.1',
+            1 => '10.0.0.0/8',
+          ),
+          'forwarded_for_headers' => array('HTTP_X_FORWARDED_FOR'),
         );
       ?>
   mail:
