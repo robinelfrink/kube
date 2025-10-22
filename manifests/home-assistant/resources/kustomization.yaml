@@ -14,3 +14,4 @@ resources:
   - victoria-ocirepository.yaml
   - victoria-helmrelease.yaml
   - victoria-ingress.yaml
+  - poddisruptionbudget.yaml

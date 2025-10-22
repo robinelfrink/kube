@@ -24,3 +24,4 @@ spec:
       database: nextcloud2
   monitoring:
     enablePodMonitor: true
+  enablePDB: false

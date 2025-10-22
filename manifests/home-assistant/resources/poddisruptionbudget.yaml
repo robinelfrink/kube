@@ -1,0 +1,22 @@
+---
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: home-assistant
+  namespace: home-assistant
+spec:
+  maxUnavailable: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: home-assistant
+---
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: victoria-metrics-single
+  namespace: home-assistant
+spec:
+  maxUnavailable: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: victoria-metrics-single
