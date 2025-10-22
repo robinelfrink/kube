@@ -64,16 +64,13 @@ nodeSelector:
   kubernetes.io/hostname: ${nodename}
 internalDatabase:
   enabled: false
-mariadb:
+externalDatabase:
   enabled: true
-  networkPolicy:
-    enabled: false
-  primary:
-    resourcesPreset: none
-    persistence:
-      enabled: true
-      storageClass: ssd
-      annotations:
-        volume.kubernetes.io/selected-node: ${nodename}
-  nodeSelector:
-    kubernetes.io/hostname: ${nodename}
+  type: postgresql
+  host: postgresql-rw.nextcloud.svc.cluster.local
+  existingSecret:
+    enabled: true
+    secretName: postgresql-app
+    usernameKey: username
+    passwordKey: password
+    databaseKey: dbname
