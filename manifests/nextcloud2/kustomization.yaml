@@ -7,6 +7,8 @@ resources:
   - helmrelease.yaml
   - secrets.yaml
   - resources.yaml
+  - valkey-helmrepository.yaml
+  - valkey-helmrelease.yaml
 configMapGenerator:
 - name: nextcloud2
   namespace: flux

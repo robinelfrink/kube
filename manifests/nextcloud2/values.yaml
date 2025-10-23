@@ -15,8 +15,6 @@ ingress:
         - ${hostname}
 nextcloud:
   host: ${hostname}
-  defaultConfigs:
-    redis.config.php: false
   configs:
     extra.config.php: |-
       <?php
@@ -67,10 +65,13 @@ internalDatabase:
 externalDatabase:
   enabled: true
   type: postgresql
-  host: postgresql-rw.nextcloud.svc.cluster.local
+  host: postgresql-rw.nextcloud2.svc.cluster.local
   existingSecret:
     enabled: true
     secretName: postgresql-app
     usernameKey: username
     passwordKey: password
     databaseKey: dbname
+externalRedis:
+  enabled: true
+  host: valkey.nextcloud2.svc.cluster.local
