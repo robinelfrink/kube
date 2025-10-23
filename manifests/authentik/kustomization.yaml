@@ -7,16 +7,12 @@ resources:
   - helmrepository.yaml
   - helmrelease.yaml
   - resources.yaml
-  - keydb-helmrepository.yaml
-  - keydb-helmrelease.yaml
+  - valkey-helmrepository.yaml
+  - valkey-helmrelease.yaml
 configMapGenerator:
 - name: authentik
   namespace: flux
   files:
   - values.yaml
-- name: authentik-keydb
-  namespace: flux
-  files:
-  - values.yaml=keydb-values.yaml
 generatorOptions:
   disableNameSuffixHash: true

@@ -31,10 +31,10 @@ spec:
     - ports:
       - port: "53"
         protocol: ANY
-  # KeyDB
+  # Valkey
   - toEndpoints:
     - matchLabels:
-        app.kubernetes.io/name: keydb
+        app.kubernetes.io/name: valkey
     toPorts:
     - ports:
       - port: "6379"
@@ -65,12 +65,12 @@ spec:
 apiVersion: cilium.io/v2
 kind: CiliumNetworkPolicy
 metadata:
-  name: keydb
+  name: valkey
   namespace: authentik
 spec:
   endpointSelector:
     matchLabels:
-      app.kubernetes.io/name: keydb
+      app.kubernetes.io/name: valkey
   ingress:
   # Ingress controller
   - fromEndpoints:
@@ -118,24 +118,4 @@ spec:
     toPorts:
     - ports:
       - port: "9091"
-        protocol: TCP
----
-apiVersion: cilium.io/v2
-kind: CiliumNetworkPolicy
-metadata:
-  name: keydb-metrics
-  namespace: authentik
-spec:
-  endpointSelector:
-    matchLabels:
-      app.kubernetes.io/name: keydb
-  ingress:
-  # Prometheus
-  - fromEndpoints:
-    - matchLabels:
-        "k8s:io.kubernetes.pod.namespace": prometheus
-        app.kubernetes.io/name: prometheus
-    toPorts:
-    - ports:
-      - port: "9121"
         protocol: TCP

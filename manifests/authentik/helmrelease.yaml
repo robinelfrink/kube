@@ -54,7 +54,3 @@ spec:
       name: authentik
       valuesKey: emailfrom
       targetPath: authentik.email.from
-    - kind: Secret
-      name: authentik
-      valuesKey: keydbpassword
-      targetPath: authentik.redis.password

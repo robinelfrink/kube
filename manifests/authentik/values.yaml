@@ -6,11 +6,6 @@ global:
         secretKeyRef:
           name: postgresql-app
           key: password
-    - name: AUTHENTIK_REDIS__PASSWORD
-      valueFrom:
-        secretKeyRef:
-          name: keydb
-          key: keydb-password
 authentik:
   secret_key: ${secretkey}
   email:
@@ -26,7 +21,7 @@ authentik:
   postgresql:
     host: postgresql-rw.authentik.svc.cluster.local
   redis:
-    host: keydb-master.authentik.svc.cluster.local
+    host: valkey.authentik.svc.cluster.local
 server:
   nodeSelector:
     kubernetes.io/hostname: ${nodename}
