@@ -2,7 +2,7 @@
 apiVersion: source.toolkit.fluxcd.io/v1
 kind: HelmRepository
 metadata:
-  name: authentik-valkey
+  name: nextcloud2-valkey
   namespace: flux
 spec:
   interval: 1h
