@@ -13,7 +13,7 @@ spec:
   inheritedMetadata:
     annotations:
       volume.kubernetes.io/selected-node: ${nodename}
-      k8up.io/backupcommand: sh -c 'PGDATABASE="nextcloud" pg_dump --clean'
+      k8up.io/backupcommand: sh -c 'pg_dumpall -U postgres --clean'
       k8up.io/file-extension: .sql
   instances: 1
   storage:
