@@ -25,7 +25,7 @@ spec:
         summary: "{{ $labels.friendly_name }} is low."
         description: "Battery {{ $labels.friendly_name }} has less than 20% left."
     - alert: Heating Pressure Low
-      expr: hass_sensor_pressure_bar[entity="sensor.opentherm_ketel_waterdruk_centrale_verwarming"] < 1.5
+      expr: hass_sensor_pressure_bar{entity="sensor.opentherm_ketel_waterdruk_centrale_verwarming"} < 1.5
       for: 30m
       labels:
         severity: critical
@@ -33,7 +33,7 @@ spec:
         summary: "{{ $labels.friendly_name }} is low."
         description: "{{ $labels.friendly_name }} pressure is below 1.5 bar."
     - alert: Heating Pressure High
-      expr: hass_sensor_pressure_bar[entity="sensor.opentherm_ketel_waterdruk_centrale_verwarming"] > 2
+      expr: hass_sensor_pressure_bar{entity="sensor.opentherm_ketel_waterdruk_centrale_verwarming"} > 2
       for: 30m
       labels:
         severity: critical
