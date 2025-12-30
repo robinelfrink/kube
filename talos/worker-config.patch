@@ -11,5 +11,12 @@
       "enabled": true,
       "port": 7445
     }
+  },
+  {
+    "op": "replace",
+    "path": "/machine/network/kubespan",
+    "value": {
+      "enabled": true
+    }
   }
 ]
