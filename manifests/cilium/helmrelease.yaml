@@ -9,14 +9,10 @@ spec:
   releaseName: cilium
   targetNamespace: cilium
   storageNamespace: cilium
-  chart:
-    spec:
-      chart: cilium
-      version: 1.18.6
-      sourceRef:
-        kind: HelmRepository
-        name: cilium
-      interval: 1h
+  chartRef:
+    kind: OCIRepository
+    name: cilium
+    namespace: flux
   valuesFrom:
     - kind: ConfigMap
       name: cilium-values
