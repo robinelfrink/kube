@@ -6,6 +6,6 @@ metadata:
   namespace: flux
 spec:
   interval: 1h
-  oci://quay.io/cilium/charts/cilium
+  url: oci://quay.io/cilium/charts/cilium
   ref:
     tag: 1.18.6
