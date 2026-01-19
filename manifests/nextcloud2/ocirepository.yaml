@@ -8,4 +8,4 @@ spec:
   interval: 1h
   url: oci://ghcr.io/nextcloud/helm/nextcloud
   ref:
-    tag: 8.7.0
+    tag: 8.8.1
