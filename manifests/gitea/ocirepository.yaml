@@ -8,4 +8,4 @@ spec:
   interval: 1h
   url: oci://docker.gitea.com/charts/gitea
   ref:
-    tag: 12.4.0
+    tag: 12.5.0
