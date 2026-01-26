@@ -30,6 +30,9 @@ hubble:
     reasons:
       - auth_required
       - policy_denied
+  tls:
+    auto:
+      method: cronJob
 ipam:
   mode: kubernetes
 kubeProxyReplacement: true
