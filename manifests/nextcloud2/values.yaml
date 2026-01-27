@@ -97,3 +97,5 @@ collabora:
       - secretName: nextcloud-office-tls
         hosts:
          - ${collabora_hostname}
+  nodeSelector:
+    kubernetes.io/hostname: ${nodename}

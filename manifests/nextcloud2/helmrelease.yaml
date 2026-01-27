@@ -69,3 +69,7 @@ spec:
       name: nextcloud2
       valuesKey: nodename
       targetPath: mariadb.primary.nodeSelector.kubernetes\.io/hostname
+    - kind: Secret
+      name: nextcloud2
+      valuesKey: nodename
+      targetPath: collabora.nodeSelector.kubernetes\.io/hostname
