@@ -27,6 +27,14 @@ spec:
       targetPath: nextcloud.host
     - kind: Secret
       name: nextcloud2
+      valuesKey: hostname
+      targetPath: collabora.ingress.hosts[0].host
+    - kind: Secret
+      name: nextcloud2
+      valuesKey: hostname
+      targetPath: collabora.ingress.tls[0].hosts[0]
+    - kind: Secret
+      name: nextcloud2
       valuesKey: mailfrom
       targetPath: nextcloud.mail.fromAddress
     - kind: Secret
