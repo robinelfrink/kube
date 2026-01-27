@@ -75,3 +75,25 @@ externalDatabase:
 externalRedis:
   enabled: true
   host: valkey.nextcloud2.svc.cluster.local
+collabora:
+  enabled: true
+  collabora:
+    extra_params: --o:ssl.enable=false --o:ssl.termination=true
+  ingress:
+    enabled: true
+    className: nginx
+    annotations:
+      cert-manager.io/cluster-issuer: letsencrypt
+      nginx.ingress.kubernetes.io/server-snippet: |
+        location /cool/getMetrics { deny all; return 403; }
+        location /cool/adminws/ { deny all; return 403; }
+        location /browser/dist/admin/admin.html { deny all; return 403; }
+    hosts:
+      - host: ${collabora_hostname}
+        paths:
+          - path: /
+            pathType: ImplementationSpecific
+    tls:
+      - secretName: nextcloud-office-tls
+        hosts:
+         - ${collabora_hostname}
