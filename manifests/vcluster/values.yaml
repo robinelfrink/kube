@@ -1,0 +1,28 @@
+---
+sync:
+  toHost:
+    persistentVolumeClaims:
+      enabled: false
+controlPlane:
+  statefulSet:
+    scheduling:
+      nodeSelector:
+        kubernetes.io/hostname: ${nodename}
+    persistence:
+      volumeClaimTemplates:
+        - metadata:
+            name: data
+            annotations:
+              kustomize.toolkit.fluxcd.io/prune: disabled
+              volume.kubernetes.io/selected-node: ${nodename}
+          spec:
+            accessModes:
+              - ReadWriteOnce
+            storageClassName: hdd
+            resources:
+              requests:
+                storage: 5Gi
+  service:
+    httpsNodePort: 32443
+    spec:
+      type: NodePort

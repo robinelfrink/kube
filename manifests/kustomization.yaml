@@ -24,4 +24,5 @@ resources:
   - storage
   - unifi-ap-exporter
   - vaultwarden
+  - vcluster
   - zigbee2mqtt
