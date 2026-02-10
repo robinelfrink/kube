@@ -1,0 +1,14 @@
+---
+controller:
+  ingressClassResource:
+    enabled: true
+    controllerClass: haproxy
+  kind: DaemonSet
+  daemonset:
+    useHostPort: true
+  service:
+    enabled: false
+  haproxy:
+    enabled: true
+  metrics:
+    enabled: true
