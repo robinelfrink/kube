@@ -22,7 +22,6 @@ securityContext:
       - NET_ADMIN
       - SYS_ADMIN
       - SYS_RESOURCE
-enableXTSocketFallback: false
 hubble:
   dropEventEmitter:
     enabled: true
@@ -36,7 +35,6 @@ hubble:
 ipam:
   mode: kubernetes
 kubeProxyReplacement: true
-localRedirectPolicy: true
 operator:
   replicas: 1
   rollOutPods: true
