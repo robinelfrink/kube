@@ -9,6 +9,7 @@ resources:
   - flux
   - gitea
   - gs1200-exporter
+  - haproxy-ingress
   - home-assistant
   - ingress-nginx
   - k8up
