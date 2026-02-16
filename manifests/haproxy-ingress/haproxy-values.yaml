@@ -1,0 +1,38 @@
+---
+kind: DaemonSet
+daemonset:
+  useHostNetwork: true
+  useHostPort: true
+dnsPolicy: ClusterFirstWithHostNet
+config: |
+  global
+    log stdout format raw local0
+    maxconn 1024
+
+  defaults
+    log global
+    timeout client 60s
+    timeout connect 60s
+    timeout server 60s
+
+  frontend http
+    bind :80
+    option independent-streams
+    default_backend http-ingress
+
+  frontend https
+    bind :443
+    option independent-streams
+    default_backend https-ingress
+
+  backend http-ingress
+    mode tcp
+    option log-health-checks
+    option independent-streams
+    server haproxy-ingress haproxy-ingress.haproxy-ingress.svc.cluster.local:80 send-proxy
+
+  backend https-ingress
+    mode tcp
+    option log-health-checks
+    option independent-streams
+    server haproxy-ingress haproxy-ingress.haproxy-ingress.svc.cluster.local:443 send-proxy

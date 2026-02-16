@@ -5,11 +5,17 @@ resources:
   - namespace.yaml
   - helmrepository.yaml
   - helmrelease.yaml
+  - haproxy-helmrepository.yaml
+  - haproxy-helmrelease.yaml
   - resources.yaml
 configMapGenerator:
 - name: haproxy-ingress
   namespace: flux
   files:
   - values.yaml
+- name: haproxy
+  namespace: flux
+  files:
+  - haproxy-values.yaml
 generatorOptions:
   disableNameSuffixHash: true

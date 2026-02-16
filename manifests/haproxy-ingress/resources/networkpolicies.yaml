@@ -13,7 +13,6 @@ spec:
   - fromEndpoints:
     - matchLabels:
         "k8s:io.kubernetes.pod.namespace": haproxy-ingress
-        app.kubernetes.io/name: haproxy-ingress
   # HTTP
   - toPorts:
     - ports:

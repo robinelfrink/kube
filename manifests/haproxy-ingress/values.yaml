@@ -4,10 +4,18 @@ controller:
     enabled: true
     controllerClass: haproxy
   kind: DaemonSet
-  daemonset:
-    useHostPort: true
+  config:
+    use-proxy-protocol: "true"
   service:
-    enabled: false
+    type: NodePort
+    httpPorts:
+      - port: 80
+        targetPort: http
+        nodePort: 31080
+    httpsPorts:
+      - port: 443
+        targetPort: https
+        nodePort: 31443
   haproxy:
     enabled: true
   metrics:
