@@ -18,6 +18,13 @@ spec:
     - ports:
       - port: "9000"
         protocol: TCP
+  # LDAP
+  - toPorts:
+    - ports:
+      - port: "389"
+        protocol: TCP
+      - port: "636"
+        protocol: TCP
   egress:
   # Kubernetes API
   - toEntities:

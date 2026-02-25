@@ -8,3 +8,4 @@ resources:
   - postgresql.yaml
   - schedule.yaml
   - poddisruptionbudget.yaml
+  - ldap-nodeport.yaml
