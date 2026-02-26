@@ -6,10 +6,9 @@ ingress:
   annotations:
     kubernetes.io/ingress.class: haproxy
     cert-manager.io/cluster-issuer: letsencrypt
-    ingress.kubernetes.io/server-snippet: |
-      if ($request_uri = /api/prometheus) {
-          return 403;
-      }
+    haproxy-ingress.github.io/config-backend: |
+      acl bad path_beg /api/prometheus
+      http-request deny if bad
   hosts:
     - host: hostname
       paths:

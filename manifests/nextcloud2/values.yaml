@@ -81,6 +81,13 @@ collabora:
     className: haproxy
     annotations:
       cert-manager.io/cluster-issuer: letsencrypt
+      haproxy-ingress.github.io/config-backend: |
+        acl bad1 path_beg /cool/getMetrics
+        http-request deny if bad1
+        acl bad2 path_beg /cool/adminws
+        http-request deny if bad2
+        acl bad3 path_beg /browser/dist/admin/admin.html
+        http-request deny if bad3
     hosts:
       - host: ${collabora_hostname}
         paths:
