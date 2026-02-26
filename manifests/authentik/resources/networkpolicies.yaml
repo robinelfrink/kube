@@ -12,8 +12,8 @@ spec:
   # Ingress controller
   - fromEndpoints:
     - matchLabels:
-        "k8s:io.kubernetes.pod.namespace": ingress-nginx
-        app.kubernetes.io/name: ingress-nginx
+        "k8s:io.kubernetes.pod.namespace": haproxy-ingress
+        app.kubernetes.io/name: haproxy-ingress
     toPorts:
     - ports:
       - port: "9000"

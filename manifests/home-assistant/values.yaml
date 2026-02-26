@@ -4,9 +4,9 @@ nodeSelector:
 ingress:
   enabled: true
   annotations:
-    kubernetes.io/ingress.class: nginx
+    kubernetes.io/ingress.class: haproxy
     cert-manager.io/cluster-issuer: letsencrypt
-    nginx.ingress.kubernetes.io/server-snippet: |
+    ingress.kubernetes.io/server-snippet: |
       if ($request_uri = /api/prometheus) {
           return 403;
       }

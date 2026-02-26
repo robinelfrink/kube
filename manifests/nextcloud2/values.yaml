@@ -5,10 +5,7 @@ image:
 ingress:
   enabled: true
   annotations:
-    kubernetes.io/ingress.class: nginx
     cert-manager.io/cluster-issuer: letsencrypt
-    nginx.ingress.kubernetes.io/proxy-body-size: 128m
-    nginx.ingress.kubernetes.io/cors-allow-headers: "X-Forwarded-For"
   tls:
     - secretName: nextcloud-tls
       hosts:
@@ -81,13 +78,9 @@ collabora:
     extra_params: --o:ssl.enable=false --o:ssl.termination=true
   ingress:
     enabled: true
-    className: nginx
+    className: haproxy
     annotations:
       cert-manager.io/cluster-issuer: letsencrypt
-      nginx.ingress.kubernetes.io/server-snippet: |
-        location /cool/getMetrics { deny all; return 403; }
-        location /cool/adminws/ { deny all; return 403; }
-        location /browser/dist/admin/admin.html { deny all; return 403; }
     hosts:
       - host: ${collabora_hostname}
         paths:

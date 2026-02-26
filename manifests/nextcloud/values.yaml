@@ -5,10 +5,10 @@ image:
 ingress:
   enabled: true
   annotations:
-    kubernetes.io/ingress.class: nginx
+    kubernetes.io/ingress.class: haproxy
     cert-manager.io/cluster-issuer: letsencrypt
-    nginx.ingress.kubernetes.io/proxy-body-size: 128m
-    nginx.ingress.kubernetes.io/cors-allow-headers: "X-Forwarded-For"
+    ingress.kubernetes.io/proxy-body-size: 128m
+    ingress.kubernetes.io/cors-allow-headers: "X-Forwarded-For"
   tls:
     - secretName: nextcloud-tls
       hosts:
