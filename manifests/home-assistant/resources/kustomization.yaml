@@ -13,5 +13,4 @@ resources:
   - service-auth.yaml
   - victoria-ocirepository.yaml
   - victoria-helmrelease.yaml
-  - victoria-ingress.yaml
   - poddisruptionbudget.yaml

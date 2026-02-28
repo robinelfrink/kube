@@ -9,11 +9,12 @@ spec:
     matchLabels:
       app.kubernetes.io/name: zigbee2mqtt
   ingress:
-  # Ingress controller
+  # Ingress via Authentik proxy
   - fromEndpoints:
     - matchLabels:
-        "k8s:io.kubernetes.pod.namespace": haproxy-ingress
-        app.kubernetes.io/name: haproxy-ingress
+        "k8s:io.kubernetes.pod.namespace": authentik
+        app.kubernetes.io/name: authentik-outpost-proxy
+        goauthentik.io/outpost-name: zigbee2mqtt
     toPorts:
     - ports:
       - port: "8080"

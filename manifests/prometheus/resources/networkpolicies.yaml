@@ -9,11 +9,12 @@ spec:
     matchLabels:
       app.kubernetes.io/name: prometheus
   ingress:
-  # Ingress controller
+  # Ingress via Authentik proxy
   - fromEndpoints:
     - matchLabels:
-        "k8s:io.kubernetes.pod.namespace": haproxy-ingress
-        app.kubernetes.io/name: haproxy-ingress
+        "k8s:io.kubernetes.pod.namespace": authentik
+        app.kubernetes.io/name: authentik-outpost-proxy
+        goauthentik.io/outpost-name: prometheus
     toPorts:
     - ports:
       - port: "9090"
@@ -65,11 +66,12 @@ spec:
         protocol: TCP
       - port: "9093"
         protocol: TCP
-  # Ingress controller
+  # Ingress via Authentik proxy
   - fromEndpoints:
     - matchLabels:
-        "k8s:io.kubernetes.pod.namespace": haproxy-ingress
-        app.kubernetes.io/name: haproxy-ingress
+        "k8s:io.kubernetes.pod.namespace": authentik
+        app.kubernetes.io/name: authentik-outpost-proxy
+        goauthentik.io/outpost-name: alertmanager
     toPorts:
     - ports:
       - port: "9093"
