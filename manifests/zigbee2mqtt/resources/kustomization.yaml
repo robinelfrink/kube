@@ -6,5 +6,4 @@ resources:
   - schedule.yaml
   - pvc.yaml
   - service-auth.yaml
-  - ingress.yaml
   - networkpolicies.yaml
