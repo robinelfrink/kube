@@ -6,31 +6,22 @@ ingress:
   enabled: true
   annotations:
     cert-manager.io/cluster-issuer: letsencrypt
+    haproxy-ingress.github.io/config-backend: |
+      acl url_discovery path /.well-known/caldav /.well-known/carddav
+      http-request redirect location /remote.php/dav/ code 301 if url_discovery
   tls:
     - secretName: nextcloud-tls
       hosts:
         - ${hostname}
 nextcloud:
   host: ${hostname}
-  configs:
-    extra.config.php: |-
-      <?php
-        $CONFIG = array(
-          'overwriteprotocol' => 'https',
-          'default_phone_region' => 31,
-          'maintenance_window_start' => 11,
-        );
-      ?>
-    proxy.config.php: |-
-      <?php
-        $CONFIG=array(
-          'trusted_proxies' => array(
-            0 => '127.0.0.1',
-            1 => '10.0.0.0/8',
-          ),
-          'forwarded_for_headers' => array('HTTP_X_FORWARDED_FOR'),
-        );
-      ?>
+  extraEnv:
+    - name: OVERWRITEPROTOCOL
+      value: https
+    - name: TRUSTED_PROXIES
+      value: 127.0.0.1 10.0.0.0/8
+    - name: FORWARDED_FOR_HEADERS
+      value: HTTP_X_FORWARDED_FOR
   mail:
     enabled: true
     fromAddress: ${mailfrom}

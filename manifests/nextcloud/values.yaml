@@ -5,17 +5,10 @@ image:
 ingress:
   enabled: true
   annotations:
-    kubernetes.io/ingress.class: haproxy
     cert-manager.io/cluster-issuer: letsencrypt
-    ingress.kubernetes.io/proxy-body-size: 128m
-    ingress.kubernetes.io/cors-allow-headers: "X-Forwarded-For"
     haproxy-ingress.github.io/config-backend: |
-        acl bad1 path_beg /cool/getMetrics
-        http-request deny if bad1
-        acl bad2 path_beg /cool/adminws
-        http-request deny if bad2
-        acl bad3 path_beg /browser/dist/admin/admin.html
-        http-request deny if bad3
+      acl url_discovery path /.well-known/caldav /.well-known/carddav
+      http-request redirect location /remote.php/dav/ code 301 if url_discovery
   tls:
     - secretName: nextcloud-tls
       hosts:
