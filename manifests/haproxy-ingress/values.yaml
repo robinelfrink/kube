@@ -7,6 +7,7 @@ controller:
   kind: DaemonSet
   config:
     use-proxy-protocol: "true"
+  extraArgs:
     watch-ingress-without-class: "true"
   service:
     type: NodePort
