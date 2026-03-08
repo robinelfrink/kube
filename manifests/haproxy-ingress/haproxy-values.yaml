@@ -25,7 +25,7 @@ config: |
     option independent-streams
     default_backend https-ingress
 
-  frontent git
+  frontend git
     bind :2222
     option independent-streams
     default_backend git-ingress
