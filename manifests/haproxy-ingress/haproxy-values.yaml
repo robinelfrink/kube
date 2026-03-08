@@ -25,6 +25,11 @@ config: |
     option independent-streams
     default_backend https-ingress
 
+  frontent git
+    bind :2222
+    option independent-streams
+    default_backend git-ingress
+
   backend http-ingress
     mode tcp
     option log-health-checks
@@ -36,3 +41,9 @@ config: |
     option log-health-checks
     option independent-streams
     server haproxy-ingress haproxy-ingress.haproxy-ingress.svc.cluster.local:443 send-proxy
+
+  backend git-ingress
+    mode tcp
+    option log-health-checks
+    option independent-streams
+    server git-ingress gitea-ssh.gitea.svc.cluster.local:22 send-proxy
