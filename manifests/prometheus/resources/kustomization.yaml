@@ -4,3 +4,4 @@ kind: Kustomization
 resources:
   - service-auth.yaml
   - networkpolicies.yaml
+  - scrapeconfigs.yaml

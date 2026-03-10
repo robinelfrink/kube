@@ -1,0 +1,12 @@
+apiVersion: monitoring.coreos.com/v1alpha1
+kind: ScrapeConfig
+metadata:
+  name: scrapeconfig
+  namespace: prometheus
+spec:
+  staticConfigs:
+    - labels:
+        job: node-exporter
+        node: ${scrapehostname}
+      targets:
+        - ${scrapefqdn}:9100
