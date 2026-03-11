@@ -5,3 +5,4 @@ resources:
   - service-auth.yaml
   - networkpolicies.yaml
   - scrapeconfigs.yaml
+  - prometheusrules.yaml
