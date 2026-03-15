@@ -19,6 +19,6 @@ zigbee2mqtt:
     version: 5
   serial:
     adapter: zstack
-    port: /dev/serial/by-id/usb-1a86_USB_Serial-if00-port0
+    port: /dev/ttyUSB0
   availability:
     enabled: true
