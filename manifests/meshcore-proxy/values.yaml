@@ -1,0 +1,44 @@
+---
+applicationName: meshcore-proxy
+deployment:
+  image:
+    repository: ghcr.io/rgregg/meshcore-proxy
+    tag: v0.4.0
+  args:
+    - --serial
+    - /dev/ttyACM0
+    - --log-events-verbose
+  ports:
+    - containerPort: 5000
+      name: meshcore
+      protocol: TCP
+  volumes:
+    radio:
+      hostPath:
+        path: /dev/ttyACM0
+  volumeMounts:
+    radio:
+      mountPath: /dev/ttyACM0
+  containerSecurityContext:
+    privileged: true
+    allowPrivilegeEscalation: true
+    capabilities:
+      drop:
+      - ALL
+      add:
+      - SYS_ADMIN
+    readOnlyRootFilesystem: true
+    runAsNonRoot: true
+    runAsUser: 1000
+    seccompProfile:
+      type: RuntimeDefault
+  nodeSelector:
+    kubernetes.io/hostname: ${nodename}
+service:
+  type: NodePort
+  ports:
+    - port: 5000
+      name: meshcore
+      protocol: TCP
+      targetPort: 5000
+      nodePort: 32500

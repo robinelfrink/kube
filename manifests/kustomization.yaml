@@ -12,6 +12,7 @@ resources:
   - haproxy-ingress
   - home-assistant
   - k8up
+  - meshcore-proxy
   - metrics-server
   - mikrotik-exporter
   - mochi-mqtt
