@@ -4,7 +4,7 @@ daemonset:
   useHostNetwork: true
   useHostPort: true
 dnsPolicy: ClusterFirstWithHostNet
-config: |
+config: |+
   global
     log stdout format raw local0
     maxconn 1024
@@ -47,3 +47,5 @@ config: |
     option log-health-checks
     option independent-streams
     server git-ingress gitea-ssh.gitea.svc.cluster.local:22 send-proxy
+
+  #
