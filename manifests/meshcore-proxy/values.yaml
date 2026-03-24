@@ -21,7 +21,6 @@ deployment:
       mountPath: /dev/ttyACM0
   strategy:
     type: Recreate
-    rollingUpdate: null
   containerSecurityContext:
     privileged: true
     allowPrivilegeEscalation: true
