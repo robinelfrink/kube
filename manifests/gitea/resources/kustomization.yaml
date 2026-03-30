@@ -4,3 +4,4 @@ kind: Kustomization
 resources:
   - postgresql.yaml
   - poddisruptionbudget.yaml
+  - schedule.yaml
