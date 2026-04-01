@@ -19,6 +19,8 @@ spec:
   storageNamespace: k8up
   dependsOn:
     - name: prometheus
+  upgrade:
+    crds: CreateReplace
   valuesFrom:
     - kind: ConfigMap
       name: k8up
