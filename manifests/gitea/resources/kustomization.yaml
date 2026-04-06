@@ -5,3 +5,4 @@ resources:
   - postgresql.yaml
   - poddisruptionbudget.yaml
   - schedule.yaml
+  - secret.yaml
