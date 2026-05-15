@@ -27,3 +27,10 @@ spec:
       - ports:
         - port: "1883"
           protocol: TCP
+  # LAN
+  - fromCIDR:
+    - ${lan}
+    toPorts:
+      - ports:
+        - port: "1883"
+          protocol: TCP

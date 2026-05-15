@@ -6,6 +6,7 @@ resources:
   - config.yaml
   - helmrepository.yaml
   - helmrelease.yaml
+  - secrets.yaml
   - resources.yaml
 configMapGenerator:
 - name: mochi-mqtt
