@@ -54,10 +54,13 @@ service:
       name: tcp
       protocol: TCP
       targetPort: 1883
+      nodePort: 31883
     - port: 1882
       name: ws
       protocol: TCP
       targetPort: 1882
+      nodePort: 31882
+  type: NodePort
 configMap:
   enabled: true
   files:
