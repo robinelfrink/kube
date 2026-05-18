@@ -33,7 +33,7 @@ spec:
         summary: "{{ $labels.friendly_name }} is low."
         description: "{{ $labels.friendly_name }} pressure is below 1.1 bar."
     - alert: Heating Pressure Low
-      expr: hass_sensor_pressure_bar{entity="sensor.opentherm_ketel_waterdruk_centrale_verwarming"} < 1.3
+      expr: hass_sensor_unit_bar{entity="sensor.opentherm_gateway_otgw_water_pressure_in_ch_circuit"} < 1.3
       for: 24h
       labels:
         severity: critical
@@ -41,10 +41,18 @@ spec:
         summary: "{{ $labels.friendly_name }} is low."
         description: "{{ $labels.friendly_name }} pressure is below 1.3 bar."
     - alert: Heating Pressure High
-      expr: hass_sensor_pressure_bar{entity="sensor.opentherm_ketel_waterdruk_centrale_verwarming"} > 1.8
+      expr: hass_sensor_unit_bar{entity="sensor.opentherm_gateway_otgw_water_pressure_in_ch_circuit"} > 1.8
       for: 30m
       labels:
         severity: critical
       annotations:
         summary: "{{ $labels.friendly_name }} is high."
         description: "{{ $labels.friendly_name }} pressure is over 1.8 bar."
+    - alert: No Heating Pressure data
+      expr: time() - hass_last_updated_time_seconds{entity="sensor.opentherm_gateway_otgw_water_pressure_in_ch_circuit"} > (60*60*4)
+      for: 15m
+      labels:
+        severity: critical
+      annotations:
+        summary: "No Heating Pressure data."
+        description: "No Heating Pressure data has been received for over 4 hours."
