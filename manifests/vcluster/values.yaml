@@ -8,8 +8,8 @@ controlPlane:
     scheduling:
       nodeSelector:
         kubernetes.io/hostname: ${nodename}
-      highAvailability:
-        replicas: 0
+    highAvailability:
+      replicas: 0
     persistence:
       volumeClaimTemplates:
         - metadata:
