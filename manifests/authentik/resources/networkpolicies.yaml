@@ -38,6 +38,9 @@ spec:
     - ports:
       - port: "53"
         protocol: ANY
+      rules:
+        dns:
+        - matchPattern: "*"
   # Valkey
   - toEndpoints:
     - matchLabels:
@@ -110,6 +113,9 @@ spec:
     - ports:
       - port: "53"
         protocol: ANY
+      rules:
+        dns:
+        - matchPattern: "*"
   # Offsite backup
   - toFQDNs:
     - matchName: ${backuphost}

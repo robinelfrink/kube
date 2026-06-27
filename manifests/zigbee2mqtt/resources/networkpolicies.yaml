@@ -29,6 +29,9 @@ spec:
     - ports:
       - port: "53"
         protocol: ANY
+      rules:
+        dns:
+        - matchPattern: "*"
   # Mochi MQTT
   - toEndpoints:
     - matchLabels:
@@ -63,6 +66,9 @@ spec:
     - ports:
       - port: "53"
         protocol: ANY
+      rules:
+        dns:
+        - matchPattern: "*"
   # Offsite backup
   - toFQDNs:
     - matchName: ${backuphost}
