@@ -1,0 +1,23 @@
+vars:
+
+  # Bootstrap cluster vars.
+  - values:
+      config: {{ stringData.config | from_yaml if stringData is defined else {} }}
+    noOverride: true
+    when: stringData is defined
+
+  # Detect if we want Cilium
+  - values:
+      # Detect if we want Cilium
+      want:
+        cilium: {{ info.kubeproxyversion | select('==', '') | list | length > 0 }}
+      # Detect availability of specific deployments
+      have:
+        cilium: {{ info.ciliumnetworkpolicies | string == 'ciliumnetworkpolicies' }}
+        prometheus: {{ info.servicemonitors | string == 'servicemonitors' }}
+        cloudnative-pg: {{ info.clusters | string == 'clusters' }}
+        k8up: {{ info.schedules | string == 'schedules' }}
+
+deployments:
+  - include: base
+  - include: apps

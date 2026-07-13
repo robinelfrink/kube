@@ -1,0 +1,22 @@
+apiVersion: gitops.kluctl.io/v1beta1
+kind: KluctlDeployment
+metadata:
+  name: manifests
+  namespace: cluster
+spec:
+  interval: 5m
+  source:
+    git:
+      url: https://github.com/robinelfrink/kube.git
+      ref:
+        branch: {{ config.git_branch }}
+  excludeTags:
+    - clusters/
+  decryption:
+    provider: sops
+    secretRef:
+      name: sops
+  timeout: 2m
+  target: {{ target.name }}
+  prune: true
+  delete: true

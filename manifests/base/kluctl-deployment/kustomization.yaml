@@ -1,0 +1,12 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - config.yaml
+  - manifests.yaml
+secretGenerator:
+  - name: sops
+    namespace: cluster
+    options:
+      disableNameSuffixHash: true
+    literals:
+      - age.agekey={{ config.sops['age.agekey'] }}

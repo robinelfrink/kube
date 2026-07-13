@@ -1,0 +1,5 @@
+deployments:
+  - include: ../base
+  - barrier: true
+  - include: ../clusters
+  - include: ../apps

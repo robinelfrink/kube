@@ -1,0 +1,19 @@
+deployments:
+  - include: cilium
+    when: want.cilium
+  - git:
+      url: https://github.com/kluctl/kluctl.git
+      subDir: install/controller
+      ref:
+        tag: v2.28.2
+    args:
+      controller_resources:
+        limits:
+          cpu: "1"
+          memory: 1Gi
+        requests:
+          cpu: 500m
+          memory: 512Mi
+  - path: kluctl-deployment
+  - include: cloudnative-pg
+  - include: haproxy-ingress

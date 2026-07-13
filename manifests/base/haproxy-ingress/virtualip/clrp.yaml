@@ -1,0 +1,60 @@
+---
+apiVersion: cilium.io/v2
+kind: CiliumLocalRedirectPolicy
+metadata:
+  name: haproxy-ingress-http
+  namespace: haproxy-ingress
+spec:
+  redirectFrontend:
+    addressMatcher:
+      ip: {{ config.haproxy.ip }}
+      toPorts:
+        - port: "80"
+          protocol: TCP
+  redirectBackend:
+    localEndpointSelector:
+      matchLabels:
+        app.kubernetes.io/name: haproxy-ingress
+    toPorts:
+      - port: "8081"
+        protocol: TCP
+---
+apiVersion: cilium.io/v2
+kind: CiliumLocalRedirectPolicy
+metadata:
+  name: haproxy-ingress-https
+  namespace: haproxy-ingress
+spec:
+  redirectFrontend:
+    addressMatcher:
+      ip: {{ config.haproxy.ip }}
+      toPorts:
+        - port: "443"
+          protocol: TCP
+  redirectBackend:
+    localEndpointSelector:
+      matchLabels:
+        app.kubernetes.io/name: haproxy-ingress
+    toPorts:
+      - port: "8444"
+        protocol: TCP
+---
+apiVersion: cilium.io/v2
+kind: CiliumLocalRedirectPolicy
+metadata:
+  name: haproxy-ingress-git
+  namespace: haproxy-ingress
+spec:
+  redirectFrontend:
+    addressMatcher:
+      ip: {{ config.haproxy.ip }}
+      toPorts:
+        - port: "2222"
+          protocol: TCP
+  redirectBackend:
+    localEndpointSelector:
+      matchLabels:
+        app.kubernetes.io/name: haproxy-ingress
+    toPorts:
+      - port: "2222"
+        protocol: TCP

@@ -1,0 +1,5 @@
+deployments:
+  - path: namespace
+  - path: helm
+  - path: networkpolicies
+    when: have.cilium

@@ -1,0 +1,11 @@
+apiVersion: cilium.io/v2
+kind: CiliumLoadBalancerIPPool
+metadata:
+  name: haproxy-ingress
+spec:
+  blocks:
+    - cidr: {{ config.haproxy.ip }}/32
+  serviceSelector:
+    matchLabels:
+      io.kubernetes.service.namespace: haproxy-ingress
+      io.kubernetes.service.name: haproxy-ingress

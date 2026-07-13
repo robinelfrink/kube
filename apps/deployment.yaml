@@ -1,0 +1,4 @@
+deployments:
+{%- for app in vars.apps %}
+  - path: {{ app.name }}
+{%- endfor %}

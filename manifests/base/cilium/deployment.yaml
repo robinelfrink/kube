@@ -1,0 +1,4 @@
+deployments:
+  - path: namespace
+  - path: helm
+  - path: networkpolicies

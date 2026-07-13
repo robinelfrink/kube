@@ -1,0 +1,4 @@
+targets:
+  - name: test
+  - name: prod
+discriminator: cluster-{{ target.name }}

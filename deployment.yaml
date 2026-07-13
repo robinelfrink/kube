@@ -1,0 +1,58 @@
+vars:
+
+  # The target cluster vars
+  - clusterSecret:
+      name: config
+      namespace: cluster
+      key: config
+    targetPath: config
+    ignoreMissing: true
+
+  # Bootstrap cluster vars
+  - file: clusters/{{ target.name }}/config.yaml
+    when: config is not defined or config == {}
+
+  # Check for kube-proxy to see if we want Cilium
+  - clusterObject:
+      kind: Node
+      labels:
+        kubernetes.io/os: linux
+      list: true
+      path: status.nodeInfo.kubeProxyVersion
+    targetPath: info.kubeproxyversion
+    ignoreMissing: true
+
+  # Check CRD's for availability of specific deployments
+  - clusterObject:
+      kind: CustomResourceDefinition
+      name: ciliumnetworkpolicies.cilium.io
+      path: status.acceptedNames.plural
+    targetPath: info.ciliumnetworkpolicies
+    ignoreMissing: true
+  - clusterObject:
+      kind: CustomResourceDefinition
+      name: servicemonitors.monitoring.coreos.com
+      path: status.acceptedNames.plural
+    targetPath: info.servicemonitors
+    ignoreMissing: true
+  - clusterObject:
+      kind: CustomResourceDefinition
+      name: clusters.postgresql.cnpg.io
+      path: status.acceptedNames.plural
+    targetPath: info.clusters
+    ignoreMissing: true
+  - clusterObject:
+      kind: CustomResourceDefinition
+      name: schedules.k8up.io
+      path: status.acceptedNames.plural
+    targetPath: info.schedules
+    ignoreMissing: true
+
+deployments:
+  - path: manifests/base/namespace
+  - barrier: true
+    waitReadinessObjects:
+      - kind: Namespace
+        name: cluster
+  - path: clusters/{{ target.name }}
+  - include: manifests

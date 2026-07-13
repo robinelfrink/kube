@@ -1,0 +1,9 @@
+{%- if config.apps | default([]) | length > 0 %}
+deployments:
+{%- for app in config.apps | default([]) %}
+  - include: {{ app.app }}
+    vars:
+      - values:
+          app: {{ app }}
+{%- endfor %}
+{%- endif %}
