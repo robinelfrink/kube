@@ -1,9 +1,0 @@
----
-apiVersion: source.toolkit.fluxcd.io/v1
-kind: HelmRepository
-metadata:
-  name: haproxy-ingress
-  namespace: flux
-spec:
-  interval: 1h
-  url: https://haproxy-ingress.github.io/charts

@@ -1,0 +1,4 @@
+deployments:
+  - path: kubevirt-operator
+  - path: cdi-operator
+  - path: kubevirt-manager

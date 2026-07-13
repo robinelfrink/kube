@@ -1,0 +1,5 @@
+---
+monitoring:
+  podMonitorEnabled: {{ 'true' if have.prometheus else 'false' }}
+  grafanaDashboard:
+    create: true

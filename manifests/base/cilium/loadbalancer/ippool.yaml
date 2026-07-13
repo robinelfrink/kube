@@ -1,0 +1,7 @@
+apiVersion: cilium.io/v2
+kind: CiliumLoadBalancerIPPool
+metadata:
+  name: loadbalancer
+spec:
+  blocks:
+    {{ config.base.loadbalancer.blocks | to_yaml | indent(4) }}

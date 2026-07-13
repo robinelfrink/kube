@@ -1,0 +1,13 @@
+deployments:
+  - path: namespace
+  - barrier: true
+    waitReadinessObjects:
+      - kind: Namespace
+        name: cert-manager
+  - path: helm
+  - barrier: true
+    waitReadinessObjects:
+      - kind: CustomResourceDefinition
+        name: clusterissuers.cert-manager.io
+  - path: issuers
+  - path: networkpolicies

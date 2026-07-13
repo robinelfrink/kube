@@ -1,0 +1,3 @@
+deployments:
+  - include: haproxy-ingress
+  - include: cert-manager

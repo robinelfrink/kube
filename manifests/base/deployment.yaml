@@ -1,0 +1,28 @@
+deployments:
+  - include: cilium
+  - git:
+      url: https://github.com/kluctl/kluctl.git
+      subDir: install/controller
+      ref:
+        tag: v2.28.2
+    args:
+      controller_resources:
+        limits:
+          cpu: "1"
+          memory: 1Gi
+        requests:
+          cpu: 500m
+          memory: 512Mi
+  - barrier: true
+    waitReadinessObjects:
+      - kind: CustomResourceDefinition
+        name: kluctldeployments.gitops.kluctl.io
+  - path: kluctl-deployment
+  - include: metrics-server
+  - include: storage
+  - include: ingress
+    when: config.base.ingress.enabled
+  - include: cloudnative-pg
+    when: config.base['cloudnative-pg'].enabled
+  - include: kubevirt
+    when: config.base.kubevirt.enabled

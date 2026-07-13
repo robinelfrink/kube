@@ -1,0 +1,11 @@
+vars:
+
+  # Bootstrap cluster vars.
+  - values:
+      config: {{ stringData.config | from_yaml if stringData is defined else {} }}
+    noOverride: {{ true if args.inCluster | default('false') == 'true' else false }}
+    when: stringData is defined
+
+deployments:
+  - include: base
+  - include: apps

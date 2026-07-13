@@ -1,0 +1,37 @@
+# Default cluster vars
+config:
+
+  # Required
+  cluster: <cluster name>
+  git_branch: main
+  sops:
+    age.agekey: <age secret key>
+  admin:
+    email: <cluster administrator address>
+
+  # Base deployments
+  base:
+    storage: []
+      # - name: local
+      #   type: local
+      #   path: /var/mnt/LOCAL
+      #   default: true
+      # - name: seaweed
+      #   type: seaweed
+      #   path: /var/mnt/SEAWEED
+    loadbalancer:
+      enabled: false
+      blocks:
+      # - 192.168.1.96/28
+    ingress:
+      enabled: false
+      # Virtual IP address to use for ingress
+      # ip: 192.168.1.96
+    cloudnative-pg:
+      enabled: false
+    kubevirt:
+      enabled: false
+      manager:
+        hostname: <hostname>
+        # ingressclass: <ingress class>
+        # issuer: <cert-manager issuer>

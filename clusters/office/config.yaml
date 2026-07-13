@@ -1,0 +1,32 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: config
+  namespace: cluster
+type: Opaque
+stringData:
+  config: ENC[AES256_GCM,data:4iFa3m5zktkZTLSouDfKaItB2o10Cil0Rz42Cd1Azw4ibjY6V3w1EcHoMsNqFKiupzBKJ9kkBFz0/gmzxQwhAAf/NcHZz8ud2XsG8iIShSvs9TevsD848SXBiugAEQznVHleH4Cz/29s2ZgfOmQAlJc5hjyzIOwXHFCStd3GlgVd4cZHJuU18DmvtLNoH47RSprrLeXbFIbpDeezmL8kpAywFyigpiD/Q8zHW9g8NggE4R0hvBisK3ERSk0HdRJd8IM+A4KfnPbc7IN4ePeo3jflMfW65m6tywqFNecgGcZ1xxT7MGbTGkuO88JUugURzZupXrNKvbvjtl5UjknuVj0VuRZmdWMv0IKDr/MBcMgvUTFH6IyycpMridLBAhFJHZ5mfqsfd4U3LllSF0uJ+rRIMm/saXLhGQfrIyeGdrD+CjNYldC1vzZB1QnbLk9JW+1pioEdpPeDWSdoDX66jka0kc0NGcjKoA+gO1b8a+1FqIUZK+K8aeISfmXgvoB4Mhx1C9hYTdfJs7jdyNZWb41YSX6c6RYwjpNNjwKS+rjIlNM2Sqi95aju4w0Gban//s081QEQT48fHHplBVNiNUd/5otcqfjy7rHxScl48y/dDd1ATGN2uJ0+aYNnyppHg9bOJ3IXHkWeoQKAYyU3LggiEWqUEKY4T0nnKSvxsKv2t2TqOC31fNLMimT3MXMs6iRJFdakuctOvpfLXmIFYoQUUOGH0ilkXiCBMN0+dElVVKZN6XKQdAEuc2jwcr6HYuh8i6d6mDTxHkXxC/9pWn8KuYW3YSt1+I0qdY+7M8dMfApDWZ4fgNOLKnmS3GB90UpSCczO0YTmJHWFbBz2SlZf+MNOlvl1cOvW3oQiAdDVYg==,iv:obe5PDAxFYug7t8NBDQEqmuEIpmDEAGSePCThhleEX8=,tag:0Hf3E965h9nqKiH6XT8UUw==,type:str]
+#    apps:
+#      - app: nextcloud
+#        name: cloud
+#        namespace: cloud
+#        hostname: cloud.example.com
+#      - name: nextcloud
+#        name: silo
+#        namespace: silo
+#        hostname: silo.example.com
+sops:
+  age:
+    - enc: |
+        -----BEGIN AGE ENCRYPTED FILE-----
+        YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBhdTNva2gyY205a0E4TXp0
+        N2RjRWlVNHNiK2gyNGFGMmdQZmJlNUpnbTFVCnNaczE4cGVvY3p3cFpWM2dudXBw
+        aDd5dC9BMGc0SzdRRFFYWnJ5UXgwNzgKLS0tIHdzaE9zbjZBclFHZUdIb0tobWo5
+        N1ZVRUc1SGNxSWhFQkJobjJDT01CRUUKp1dNQSrilTOYmCthTqqyeEUqQqQ3NQTN
+        3s8EtYhi5bSlm6FxLE4w8V+ueSmHF4i+qJhL0590PZ2VYGZ1ju4J8w==
+        -----END AGE ENCRYPTED FILE-----
+      recipient: age1z8y632jh4pyvhtu34n324xaea6zzsclvagz9a92g8hds5xr9wpes44ty3w
+  encrypted_regex: ^(data|stringData)$
+  lastmodified: "2026-08-05T16:54:27Z"
+  mac: ENC[AES256_GCM,data:Jgt/DQMpY607pkMepDLjKnGU6fE7bwbtE95pPH0EMiwFFpnJSL/Y4ib1kSYNYR7wC5K4W7f/05fX3l8BwJS3mSd06khrDcGPQof4mC9Fx9SH60jEO5mWOW9Yi1mz+7WY0oA488rHc9XkgETqCxi6bFaq2GGuzcrhzn+2j5ieAc4=,iv:nCr+65XSZUT7d4pW9yeF6S0u9ApgteC8t8iBxJJ+3f4=,tag:Ckcj0P1UbV2B2P+SvV6h8A==,type:str]
+  version: 3.13.3

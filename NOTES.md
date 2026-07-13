@@ -1,3 +1,9 @@
+## Fetch node's MachineConfig
+
+```shell
+$ talosctl --nodes <node address> get machineconfig v1alpha1 --output jsonpath='{.spec}'
+```
+
 ## Watch packet drop events cluster-wide
 
 ```shell

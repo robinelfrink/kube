@@ -1,0 +1,35 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: config
+  namespace: cluster
+type: Opaque
+stringData:
+  config: ENC[AES256_GCM,data:wdFQuXEOTJIGyyXtb+MmOc2pvpJR9aQTQZKhwWIP181rXlNoHLK4VWDbF6DomcpP/00wwi0FC/ryA2yzyU/G4eNeVA6s+4KtcGEErP8beRTq/fne6T2AyMRS+JT0GQ5GyxVxNYPGLiowRDOejUqTLf1Qz/h8EH913d8xd6Ok0C+iBxF93rqa+zUju0Y/w1Erzi8MS1BcNvQUMVoK61V7YUm2sjjFKYCGbumtMwcE3BfsPNULtT7sWd/kR36CCUY6VMUJ+08=,iv:8AHKGqK+Nd+Jyrd4faToKxgGM7u+6gw4P4v8IPR400U=,tag:HA9Bn6krGK7ngO58Ojl2Uw==,type:str]
+#    apps:
+#      - app: cloudnative-pg
+#        name: cloudnative-pg
+#        namespace: cloudnative-pg
+#      - app: nextcloud
+#        name: cloud
+#        namespace: cloud
+#        hostname: cloud.example.com
+#      - name: nextcloud
+#        name: silo
+#        namespace: silo
+#        hostname: silo.example.com
+sops:
+  age:
+    - enc: |
+        -----BEGIN AGE ENCRYPTED FILE-----
+        YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBOb05ob2kyWk0zZlhMOFls
+        WUlBSXlLUEVWcENtT0hEVzd3S1ZJL2l6WXl3CnVKdUdwc2U2aEdOTDlpNWtBYTRx
+        VFBrSWdwaDYxMDRReW1xc2w1WnNJNHcKLS0tIEU0OUV6aFF2bm1TL0VCS0ZzMVJT
+        Qm4wbVNPSVNqOHBHeEVVRG9ZRFBXVG8KZ1BKY60NghyabQyYBpxdj4LSKKNwOj4D
+        NibQujiMMAJ0SwDYJpJHaTgZeQ4hDNSQ9szhjSj+VkEti2G21kv+rQ==
+        -----END AGE ENCRYPTED FILE-----
+      recipient: age17ek4wa64lwdkn8xu6suz94jp73qpxj2mr9gaa40wecayy8lsrg3qcxhwv4
+  encrypted_regex: ^(data|stringData)$
+  lastmodified: "2026-07-21T16:49:05Z"
+  mac: ENC[AES256_GCM,data:/j8VEuI6vaqilKdQYGS8bohwbSIjQbKalCEGigB19UHFfRg37mETfTwKwkKP1azQbl0df+FujgKQhPhaI43k5/qdcSgLdqlCQeo8fpvS3wytrOhQvepxCXVQ6o+vbskDsuKr69DX0Oq1DsO6FoCrYkEE9BQKEFvuZ1C/ml42GAY=,iv:i/O7X3jMN1IHpgeSpSnKc+XuVX6xad8zfYnmr1CIfLg=,tag:8KvR6DVAB0Nzf+5XoYIpdA==,type:str]
+  version: 3.13.2

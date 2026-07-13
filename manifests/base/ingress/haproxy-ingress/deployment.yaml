@@ -1,0 +1,10 @@
+deployments:
+  - path: namespace
+  - barrier: true
+    waitReadinessObjects:
+      - kind: Namespace
+        name: haproxy-ingress
+  - path: helm
+  - path: virtualip
+    when: "'ip' in config.base.ingress"
+  - path: networkpolicies

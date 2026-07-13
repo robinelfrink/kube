@@ -1,0 +1,26 @@
+vars:
+
+  # Default cluster vars
+  - file: clusters/default.yaml
+    targetPath: config
+
+  # The target cluster vars
+  - clusterSecret:
+      name: config
+      namespace: cluster
+      key: config
+    targetPath: config
+    ignoreMissing: true
+
+  # Bootstrap cluster vars
+  - file: clusters/{{ target.name }}/config.yaml
+    when: args.inCluster | default('false') == 'false'
+
+deployments:
+  - path: manifests/base/namespace
+  - barrier: true
+    waitReadinessObjects:
+      - kind: Namespace
+        name: cluster
+  - path: clusters/{{ target.name }}
+  - include: manifests

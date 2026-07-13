@@ -98,14 +98,10 @@ $ talosctl apply-config \
 $ talosctl config node <ip addresses of all nodes, separated by space>
 ```
 
-### Bootstrap Cilium and Flux
+### Bootstrap Kluctl deployment
 
 ```shell
-$ kubectl kustomize \
-      --enable-helm \
-      --load-restrictor=LoadRestrictionsNone \
-      bootstrap | \
-  kubectl apply --filename -
+$ SOPS_AGE_KEY_FILE=~/.age-opzes kluctl deploy --target test --dry-run
 ```
 
 ## SOPS

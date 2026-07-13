@@ -1,0 +1,4 @@
+targets:
+  - name: test
+  - name: office
+discriminator: cluster-{{ target.name }}

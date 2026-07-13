@@ -1,0 +1,15 @@
+deployments:
+  - path: namespace
+  - barrier: true
+    waitReadinessObjects:
+      - kind: Namespace
+        name: cilium
+  - path: helm
+  - barrier: true
+    waitReadinessObjects:
+      - kind: CustomResourceDefinition
+        name: ciliumnetworkpolicies.cilium.io
+  - path: networkpolicies
+{% if config.base.loadbalancer.enabled | default(false) %}
+  - path: loadbalancer
+{% endif %}
