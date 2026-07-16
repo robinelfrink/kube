@@ -2,7 +2,12 @@
 sync:
   toHost:
     persistentVolumeClaims:
-      enabled: false
+      enabled: true
+    persistentVolumes:
+      enabled: true
+  fromHost:
+    storageClasses:
+      enabled: true
 controlPlane:
   statefulSet:
     scheduling:
