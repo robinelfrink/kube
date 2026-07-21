@@ -16,11 +16,9 @@ controller:
     httpPorts:
       - port: 8080
         targetPort: http
-        nodePort: 31080
     httpsPorts:
       - port: 8443
         targetPort: https
-        nodePort: 31443
   haproxy:
     enabled: true
   metrics:
