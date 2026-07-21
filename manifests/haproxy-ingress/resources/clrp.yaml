@@ -42,7 +42,7 @@ spec:
 apiVersion: cilium.io/v2
 kind: CiliumLocalRedirectPolicy
 metadata:
-  name: haproxy-ingress-https
+  name: haproxy-ingress-git
   namespace: haproxy-ingress
 spec:
   redirectFrontend:
