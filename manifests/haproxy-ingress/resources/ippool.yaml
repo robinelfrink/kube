@@ -3,5 +3,5 @@ kind: CiliumLoadBalancerIPPool
 metadata:
   name: haproxy-ingress
 spec:
-  cidrs:
+  blocks:
     - cidr: ${ip}/32
