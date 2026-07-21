@@ -1,7 +1,0 @@
----
-kind: DaemonSet
-daemonset:
-  useHostNetwork: true
-  useHostPort: true
-dnsPolicy: ClusterFirstWithHostNet
-config: ""

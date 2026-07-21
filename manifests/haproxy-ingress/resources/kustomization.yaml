@@ -6,5 +6,4 @@ resources:
   - l2announcement.yaml
   - ippool.yaml
   - clrp.yaml
-  - configmap.yaml
   - networkpolicies.yaml
