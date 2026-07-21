@@ -5,3 +5,7 @@ metadata:
 spec:
   blocks:
     - cidr: ${ip}/32
+  serviceSelector:
+    matchLabels:
+      io.kubernetes.service.namespace: haproxy-ingress
+      io.kubernetes.service.name: haproxy-ingress
