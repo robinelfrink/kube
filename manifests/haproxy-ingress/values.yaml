@@ -10,13 +10,15 @@ controller:
   extraArgs:
     watch-ingress-without-class: "true"
   service:
-    type: NodePort
+    type: LoadBalancer
+    annotations:
+      lbipam.cilium.io/ips: ${ip}
     httpPorts:
-      - port: 80
+      - port: 8080
         targetPort: http
         nodePort: 31080
     httpsPorts:
-      - port: 443
+      - port: 8443
         targetPort: https
         nodePort: 31443
   haproxy:

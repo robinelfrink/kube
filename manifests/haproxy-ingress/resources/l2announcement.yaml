@@ -1,0 +1,9 @@
+apiVersion: cilium.io/v2alpha1
+kind: CiliumL2AnnouncementPolicy
+metadata:
+  name: haproxy-ingress
+spec:
+  serviceSelector:
+    matchLabels:
+      app.kubernetes.io/name: haproxy-ingress
+  loadBalancerIPs: true

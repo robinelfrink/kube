@@ -20,3 +20,7 @@ spec:
   valuesFrom:
     - kind: ConfigMap
       name: haproxy-ingress
+    - kind: Secret
+      name: haproxy-ingress
+      valuesKey: ip
+      targetPath: controller.service.annotations.lbipam\.cilium\.io/ips

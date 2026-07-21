@@ -18,7 +18,19 @@ spec:
     - ports:
       - port: "80"
         protocol: TCP
+      - port: "81"
+        protocol: TCP
+      - port: "8080"
+        protocol: TCP
+      - port: "8081"
+        protocol: TCP
       - port: "443"
+        protocol: TCP
+      - port: "444"
+        protocol: TCP
+      - port: "8443"
+        protocol: TCP
+      - port: "8444"
         protocol: TCP
   # Prometheus
   - fromEndpoints:
