@@ -2,6 +2,10 @@
 k8sServiceHost: localhost
 k8sServicePort: 7445
 rollOutCiliumPods: true
+l2announcements:
+  enabled: true
+localRedirectPolicies:
+  enabled: true
 securityContext:
   privileged: false
   seLinuxOptions:
