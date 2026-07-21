@@ -22,7 +22,7 @@ controller:
   tcp:
     8081: "haproxy-ingress/haproxy-ingress:8080::PROXY-V2"
     8444: "haproxy-ingress/haproxy-ingress:8443::PROXY-V2"
-    2222: "gitea/git-ingress:22::PROXY-V2"
+    2222: "gitea/git-ssh:22::PROXY-V2"
   haproxy:
     enabled: true
   metrics:
