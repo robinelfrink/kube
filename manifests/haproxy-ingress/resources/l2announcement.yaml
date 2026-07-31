@@ -3,8 +3,4 @@ kind: CiliumL2AnnouncementPolicy
 metadata:
   name: haproxy-ingress
 spec:
-  serviceSelector:
-    matchLabels:
-      io.kubernetes.service.namespace: haproxy-ingress
-      io.kubernetes.service.name: haproxy-ingress
   loadBalancerIPs: true

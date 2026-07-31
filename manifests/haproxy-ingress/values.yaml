@@ -11,6 +11,7 @@ controller:
     watch-ingress-without-class: "true"
   service:
     type: LoadBalancer
+    loadBalancerClass: io.cilium/l2-announcer
     annotations:
       lbipam.cilium.io/ips: ${ip}
     httpPorts:
