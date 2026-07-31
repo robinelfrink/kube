@@ -6,3 +6,4 @@ resources:
   - schedule.yaml
   - postgresql.yaml
   - poddisruptionbudget.yaml
+  - cronjob.yaml

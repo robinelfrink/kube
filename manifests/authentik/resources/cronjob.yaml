@@ -1,0 +1,26 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: dump-database
+  namespace: authentik
+spec:
+  schedule: "@daily"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+            - name: dump-database
+              image: quay.io/giantswarm/docker-kubectl:1.32.3
+              args:
+                - exec
+                - postgresql-1
+                - --container
+                - postgres
+                - --
+                - sh
+                - -c
+                - pg_dumpall -U postgres --clean --verbose --file=/var/lib/postgresql/data/dump.sql --verbose
+          serviceAccount: pod-executor
+          serviceAccountName: pod-executor
+          restartPolicy: OnFailure

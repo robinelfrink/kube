@@ -6,3 +6,4 @@ resources:
   - poddisruptionbudget.yaml
   - schedule.yaml
   - secret.yaml
+  - cronjob.yaml

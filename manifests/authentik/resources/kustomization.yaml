@@ -9,3 +9,4 @@ resources:
   - schedule.yaml
   - poddisruptionbudget.yaml
   - ldap-nodeport.yaml
+  - cronjob.yaml
