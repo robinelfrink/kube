@@ -38,23 +38,3 @@ spec:
     toPorts:
       - port: "8444"
         protocol: TCP
----
-apiVersion: cilium.io/v2
-kind: CiliumLocalRedirectPolicy
-metadata:
-  name: haproxy-ingress-git
-  namespace: haproxy-ingress
-spec:
-  redirectFrontend:
-    addressMatcher:
-      ip: ${ip}
-      toPorts:
-        - port: "2222"
-          protocol: TCP
-  redirectBackend:
-    localEndpointSelector:
-      matchLabels:
-        app.kubernetes.io/name: haproxy-ingress
-    toPorts:
-      - port: "2222"
-        protocol: TCP
