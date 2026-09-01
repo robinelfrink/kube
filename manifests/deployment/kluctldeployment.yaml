@@ -1,0 +1,25 @@
+{% if get_var('config.'+component+'.enabled', true) %}
+apiVersion: gitops.kluctl.io/v1beta1
+kind: KluctlDeployment
+metadata:
+  name: {{ component }}
+  namespace: config
+spec:
+  interval: 1h
+  source:
+    git:
+      url: https://github.com/robinelfrink/kube.git
+      ref:
+        branch: {{ config.git_branch }}
+      path: /{{ '' if component=='base' else 'manifests' }}
+  decryption:
+    provider: sops
+    secretRef:
+      name: config
+  timeout: 2m
+  prune: true
+  delete: true
+  args:
+    cluster: {{ args.cluster }}
+    component: {{ component }}
+{% endif %}

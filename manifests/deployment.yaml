@@ -1,0 +1,23 @@
+vars:
+  # Example cluster vars, used as defaults as well
+  - file: ../clusters/example.yaml
+    targetPath: config
+  # Cluster vars
+  - file: ../clusters/{{ args.cluster }}.yaml
+    targetPath: config
+  # The in-cluster secrets
+  - clusterSecret:
+      name: config
+      namespace: config
+      key: config
+    targetPath: config
+  # CRD availability
+  - clusterObject:
+      kind: CustomResourceDefinition
+      name: servicemonitors.monitoring.coreos.com
+      path: spec.names.singular
+    targetPath: crds.servicemonitor
+    ignoreMissing: true
+
+deployments:
+  - include: {{ component | default(args.component) }}

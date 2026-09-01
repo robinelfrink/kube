@@ -1,0 +1,6 @@
+{% if get_var('crds.servicemonitor', false) %}
+monitoring:
+  podMonitorEnabled: true
+  grafanaDashboard:
+    create: true
+{% endif %}

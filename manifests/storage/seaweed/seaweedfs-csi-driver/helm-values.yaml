@@ -1,0 +1,3 @@
+seaweedfsFiler: seaweed-seaweedfs-filer:8888
+storageClassName: seaweed
+isDefaultStorageClass: {{ 'true' if storage.default | default(false) else 'false' }}

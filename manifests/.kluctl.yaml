@@ -1,0 +1,1 @@
+discriminator: "{{ args.component }}"

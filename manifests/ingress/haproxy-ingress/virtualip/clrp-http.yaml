@@ -1,0 +1,19 @@
+apiVersion: cilium.io/v2
+kind: CiliumLocalRedirectPolicy
+metadata:
+  name: haproxy-ingress-http
+  namespace: ingress
+spec:
+  redirectFrontend:
+    addressMatcher:
+      ip: {{ config.ingress.ip }}
+      toPorts:
+        - port: "80"
+          protocol: TCP
+  redirectBackend:
+    localEndpointSelector:
+      matchLabels:
+        app.kubernetes.io/name: haproxy-ingress
+    toPorts:
+      - port: "8081"
+        protocol: TCP

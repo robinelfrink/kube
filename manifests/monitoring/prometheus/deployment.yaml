@@ -1,0 +1,6 @@
+deployments:
+  - include: helm
+  - include: auth
+  - include: scrapeconfigs
+  - include: prometheusrules
+  - include: networkpolicies

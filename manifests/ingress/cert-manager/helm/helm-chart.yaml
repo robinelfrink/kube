@@ -1,0 +1,8 @@
+helmChart:
+  repo: https://charts.jetstack.io
+  chartName: cert-manager
+  # renovate: datasource=github-tags depName=cert-manager/cert-manager
+  chartVersion: v1.21.1
+  releaseName: cert-manager
+  namespace: ingress
+  skipPrePull: true

@@ -1,0 +1,17 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: postfix
+  namespace: monitoring
+spec:
+  groups:
+  - name: postfix
+    rules:
+    - alert: PostfixHighQueueSize
+      expr: sum by(instance) (postfix_showq_message_size_bytes_count) > 30
+      for: 1m
+      labels:
+        severity: warning
+      annotations:
+        summary: Postfix message size is high (instance {{'{{'}} $labels.instance {{'}}'}})
+        description: "The total size of messages in the Postfix queue on {{'{{'}} $labels.instance {{'}}'}} is high (> 30)"

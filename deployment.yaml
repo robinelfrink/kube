@@ -1,0 +1,39 @@
+vars:
+  # Example cluster vars, used as defaults as well
+  - file: clusters/example.yaml
+    targetPath: config
+  # Cluster vars
+  - file: clusters/{{ args.cluster }}.yaml
+    targetPath: config
+
+deployments:
+  - path: manifests/config
+  - include: manifests/cilium
+  - git:
+      url: https://github.com/kluctl/kluctl.git
+      subDir: install/controller
+      ref:
+        # renovate: datasource=github-tags depName=kluctl/kluctl
+        tag: v2.28.2
+    args:
+      controller_resources:
+        limits:
+          cpu: "1"
+          memory: 1Gi
+        requests:
+          cpu: 500m
+          memory: 512Mi
+  - barrier: true
+    waitReadinessObjects:
+      - kind: CustomResourceDefinition
+        name: kluctldeployments.gitops.kluctl.io
+      - kind: Secret
+        name: config
+        namespace: config
+{% for component in ['base', 'storage', 'metrics-server', 'monitoring',
+                     'ingress', 'cloudnative-pg'] %}
+  - path: manifests/deployment
+    vars:
+      - values:
+          component: {{ component }}
+{% endfor %}

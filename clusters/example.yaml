@@ -1,0 +1,55 @@
+sops_age_key: <sops age key>
+git_branch: main
+admin:
+  email: <admin email>
+
+storage: []
+# - name: local
+#   type: local
+#   path: /var/mnt/LOCAL
+#   default: true
+
+loadbalancer:
+  enabled: false
+  # blocks:
+  #   - cids: 192.168.100.64/29
+
+ingress:
+  enabled: false
+  ## Use loadbalancer address for ingress
+  # ip: 192.168.100.65
+
+cloudnative-pg:
+  enabled: false
+
+monitoring:
+  enabled: false
+  ## Issuer used for ingress certificates
+  issuer: letsencrypt-staging
+  ## Node on which to run the monitoring stack:
+  # node: controlplane1
+  storageclass: <storageclass>
+  smtp:
+    hello: <smtp hello hostname>
+    host: <smtp relay host>
+    from: <email sender address>
+    username: <smtp username>
+    password: <smtp password>
+  prometheus:
+    hostname: <prometheus hostname>
+    ## Extra monitoring targets to add to prometheus
+    # extraTargets:
+    #   othernode:
+    #     fqdn: othernode.example.com
+    #     scrapes:
+    #       - node-exporter
+    #       - postfix
+  alertmanager:
+    hostname: <alertmanager hostname>
+    ## Receipient for alerts, defaults to admin.email
+    # email: <altermanager email recipient>
+  grafana:
+    hostname: <grafana hostname>
+    password: <grafana admin password>
+    ## Optional authentication block
+    # auth:

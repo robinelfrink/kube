@@ -1,0 +1,58 @@
+controller:
+  ingressClassResource:
+    enabled: true
+    default: true
+    controllerClass: haproxy
+  kind: DaemonSet
+  podSecurityContext:
+    runAsUser: 99
+  securityContext:
+    allowPrivilegeEscalation: false
+    capabilities:
+      drop:
+        - ALL
+    runAsNonRoot: true
+    seccompProfile:
+      type: RuntimeDefault
+  legacySecurityContext: false
+  securityContextInitContainer:
+    allowPrivilegeEscalation: false
+    capabilities:
+      drop:
+        - ALL
+    runAsNonRoot: true
+    seccompProfile:
+      type: RuntimeDefault
+  config:
+    use-proxy-protocol: "true"
+  extraArgs:
+    watch-ingress-without-class: "true"
+  service:
+{% if config.loadbalancer.enabled %}
+    type: LoadBalancer
+    loadBalancerClass: io.cilium/l2-announcer
+    annotations:
+      lbipam.cilium.io/ips: {{ config.ingress.ip }}
+{% endif %}
+    httpPorts:
+      - port: 8080
+        targetPort: http
+    httpsPorts:
+      - port: 8443
+        targetPort: https
+  tcp:
+    8081: "haproxy-ingress/haproxy-ingress:8080::PROXY-V2"
+    8444: "haproxy-ingress/haproxy-ingress:8443::PROXY-V2"
+    2222: "gitea/gitea-ssh:22::PROXY-V2"
+  haproxy:
+    enabled: true
+    securityContext:
+      allowPrivilegeEscalation: false
+      capabilities:
+        drop:
+          - ALL
+      runAsNonRoot: true
+      seccompProfile:
+        type: RuntimeDefault
+  metrics:
+    enabled: true

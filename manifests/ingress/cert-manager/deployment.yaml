@@ -1,0 +1,12 @@
+deployments:
+  - path: helm
+  - barrier: true
+    waitReadinessObjects:
+      - kind: CustomResourceDefinition
+        name: clusterissuers.cert-manager.io
+  - path: issuers
+  - barrier: true
+    waitReadinessObjects:
+      - kind: CustomResourceDefinition
+        name: ciliumnetworkpolicies.cilium.io
+  - path: networkpolicies

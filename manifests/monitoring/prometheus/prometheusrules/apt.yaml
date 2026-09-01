@@ -1,0 +1,23 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: apt
+  namespace: monitoring
+spec:
+  groups:
+  - name: apt
+    rules:
+    - alert: AptAutoremovePending
+      expr: apt_autoremove_pending > 0
+      for: 5m
+      labels:
+        severity: warning
+      annotations:
+        summary: "There are {{'{{'}} $value {{'}}'}} unused packages on {{'{{'}} $labels.instance {{'}}'}}"
+    - alert: NodeRequiresReboot
+      expr: node_reboot_required > 0
+      for: 4h
+      labels:
+        severity: info
+      annotations:
+        summary: Host requires reboot (instance {{'{{'}} $labels.instance {{'}}'}})

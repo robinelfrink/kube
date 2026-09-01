@@ -1,0 +1,9 @@
+deployments:
+  - path: helm
+  - path: virtualip
+    when: config.loadbalancer.enabled
+  - barrier: true
+    waitReadinessObjects:
+      - kind: CustomResourceDefinition
+        name: ciliumnetworkpolicies.cilium.io
+  - path: networkpolicies

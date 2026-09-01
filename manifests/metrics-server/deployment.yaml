@@ -1,0 +1,8 @@
+deployments:
+  - path: namespace
+  - barrier: true
+    waitReadinessObjects:
+      - kind: Namespace
+        name: metrics-server
+  - path: helm
+  - path: networkpolicies

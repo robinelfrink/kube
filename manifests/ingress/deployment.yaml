@@ -1,0 +1,8 @@
+deployments:
+  - path: namespace
+  - barrier: true
+    waitReadinessObjects:
+      - kind: Namespace
+        name: ingress
+  - include: haproxy-ingress
+  - include: cert-manager

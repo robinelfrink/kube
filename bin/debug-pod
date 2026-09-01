@@ -71,6 +71,9 @@ kubectl run debug-pod \
     "hostIPC": true,
     "hostNetwork": true,
     "hostPID": true,
+    "tolerations": [{
+      "operator": "Exists"
+    }],
     "volumes": [{
       "name": "host",
       "hostPath": {

@@ -1,0 +1,8 @@
+helmChart:
+  repo: https://haproxy-ingress.github.io/charts
+  chartName: haproxy-ingress
+  # renovate: datasource=github-tags depName=haproxy-ingress/charts
+  chartVersion: 0.16.1
+  releaseName: haproxy-ingress
+  namespace: ingress
+  skipPrePull: true

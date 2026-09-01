@@ -25,9 +25,10 @@ fi
 # Check for non-encrypted secrets
 unencrypted=$(
     git diff --cached --name-only --diff-filter=AM $against | \
-        xargs --no-run-if-empty grep --files-with-matches --extended-regexp --ignore-case '^kind:\s+secret' | \
-        xargs --no-run-if-empty grep --files-without-match 'ENC.AES256' | \
-        xargs --no-run-if-empty grep --files-without-match '^    gitops/encrypt: false'
+	xargs --no-run-if-empty grep --files-without-match 'ENC.AES256' | \
+        xargs --no-run-if-empty grep --files-without-match '^    gitops/encrypt: false' | \
+	grep '^clusters/' | \
+        grep -v '/example.yaml'
 )
 if [ "$unencrypted" != "" ]; then
     echo "Error: Found unencrypted secrets:"

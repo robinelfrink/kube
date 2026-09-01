@@ -1,0 +1,17 @@
+{% for target in config.monitoring.extraTargets | default({}) }}
+{%   if 'postfix' in config.monitoring.extraTargets[target].scrapes | default([]) %}
+---
+apiVersion: monitoring.coreos.com/v1alpha1
+kind: ScrapeConfig
+metadata:
+  name: postfix
+  namespace: monitoring
+spec:
+  staticConfigs:
+    - labels:
+        job: postfix
+        node: {{ target }}
+      targets:
+        - {{ config.monitoring.extraTargets[target].fqdn }}:9154
+{%   endif %}
+{% endfor %}

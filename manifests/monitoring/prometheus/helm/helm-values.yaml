@@ -1,0 +1,215 @@
+nameOverride: prometheus
+defaultRules:
+  create: true
+  rules:
+    etcd: false
+    k8sContainerCpuUsageSecondsTotal: false
+    k8sContainerMemoryCache: false
+    k8sContainerMemoryRss: false
+    k8sContainerMemorySwap: false
+    kubeApiserverBurnrate: false
+    kubeApiserverHistogram: false
+    kubeApiserverSlos: false
+    kubeProxy: false
+    kubePrometheusNodeRecording: false
+    kubeSchedulerRecording: false
+    kubernetesResources: false
+    nodeExporterRecording: false
+    windows: false
+alertmanager:
+  config:
+    global:
+      smtp_hello: {{ config.monitoring.smtp.hello }}
+      smtp_from: {{ config.monitoring.smtp.from }}
+      smtp_smarthost: {{ config.monitoring.smtp.host }}
+      smtp_auth_username: {{ config.monitoring.smtp.username }}
+      smtp_auth_password: {{ config.monitoring.smtp.password }}
+      smtp_require_tls: true
+    route:
+      receiver: admin
+      routes:
+        - match:
+            alertname: Watchdog
+          receiver: "null"
+    receivers:
+      - name: "null"
+      - name: admin
+        email_configs:
+          - to: {{ config.monitoring.alertmanager.email | default(config.admin.email) }}
+            send_resolved: true
+  alertmanagerSpec:
+    externalUrl: https://{{ config.monitoring.alertmanager.hostname }}
+grafana:
+  adminPassword: {{ config.monitoring.grafana.password }}
+  defaultDashboardsEditable: false
+{% if config.monitoring.node | default(false) %}
+  nodeSelector:
+    kubernetes.io/hostname: {{ config.monitoring.node }}
+{% endif %}
+  ingress:
+    enabled: true
+    annotations:
+      kubernetes.io/ingress.class: haproxy
+      cert-manager.io/cluster-issuer: {{ config.monitoring.issuer }}
+    hosts:
+      - {{ config.monitoring.grafana.hostname }}
+    tls:
+      - secretName: grafana-tls
+        hosts:
+          - {{ config.monitoring.grafana.hostname }}
+    extraPaths:
+      - path: /metrics
+        pathType: Prefix
+        backend:
+          service:
+            name: non-existing
+            port:
+              number: 12345
+  persistence:
+    enabled: true
+    storageClassName: {{ config.monitoring.storageclass }}
+    annotations:
+      helm.sh/resource-policy: keep
+{% if config.monitoring.node | default(false) %}
+      volume.kubernetes.io/selected-node: {{ config.monitoring.node }}
+{% endif %}
+  grafana.ini:
+    server:
+      root_url: https://{{ config.monitoring.grafana.hostname }}
+{% if config.monitoring.grafana.auth | default(false) %}
+    {{ config.monitoring.grafana.auth | indent(4) }}
+{% endif %}
+  assertNoLeakedSecrets: false
+  initChownData:
+    securityContext:
+      capabilities:
+        drop: []
+      readOnlyRootFilesystem: false
+kubeEtcd:
+  enabled: false
+kubeControllerManager:
+  service:
+    selector:
+      k8s-app: kube-controller-manager
+kubeScheduler:
+  service:
+    selector:
+      k8s-app: kube-scheduler
+kubeProxy:
+  enabled: false
+nodeExporter:
+  operatingSystems:
+    aix:
+      enabled: false
+    darwin:
+      enabled: false
+prometheus-node-exporter:
+  extraArgs:
+    - --collector.filesystem.mount-points-exclude=^/(dev|proc|sys|var/lib/docker/.+|var/lib/kubelet/.+)($|/)
+    - --collector.filesystem.fs-types-exclude=^(efivars|autofs|binfmt_misc|bpf|cgroup2?|configfs|debugfs|devpts|devtmpfs|fusectl|hugetlbfs|iso9660|mqueue|nsfs|overlay|proc|procfs|pstore|rpc_pipefs|securityfs|selinuxfs|squashfs|sysfs|tracefs)$
+prometheus:
+  prometheusSpec:
+{% if config.monitoring.node | default(false) %}
+    nodeSelector:
+      kubernetes.io/hostname: {{ config.monitoring.node }}
+{% endif %}
+    externalUrl: https://{{ config.monitoring.prometheus.hostname }}
+    retention: 10d
+    storageSpec:
+      disableMountSubPath: true
+      volumeClaimTemplate:
+        metadata:
+          annotations:
+            kustomize.toolkit.fluxcd.io/prune: disabled
+{% if config.monitoring.node | default(false) %}
+            volume.kubernetes.io/selected-node: {{ config.monitoring.node }}
+{% endif %}
+        spec:
+          storageClassName: hdd
+          accessModes:
+            - ReadWriteOnce
+          resources:
+            requests:
+              storage: 20Gi
+    scrapeInterval: 60s
+    ruleSelectorNilUsesHelmValues: false
+    serviceMonitorSelectorNilUsesHelmValues: false
+    podMonitorSelectorNilUsesHelmValues: false
+    probeSelectorNilUsesHelmValues: false
+    scrapeConfigSelectorNilUsesHelmValues: false
+    additionalScrapeConfigs:
+      - job_name: 'kubernetes-service-endpoints'
+        honor_labels: true
+        kubernetes_sd_configs:
+          - role: endpoints
+        relabel_configs:
+          - source_labels: [__meta_kubernetes_service_annotation_prometheus_io_scrape]
+            action: keep
+            regex: true
+          - source_labels: [__meta_kubernetes_service_annotation_prometheus_io_scrape_slow]
+            action: drop
+            regex: true
+          - source_labels: [__meta_kubernetes_service_annotation_prometheus_io_scheme]
+            action: replace
+            target_label: __scheme__
+            regex: (https?)
+          - source_labels: [__meta_kubernetes_service_annotation_prometheus_io_path]
+            action: replace
+            target_label: __metrics_path__
+            regex: (.+)
+          - source_labels: [__address__, __meta_kubernetes_service_annotation_prometheus_io_port]
+            action: replace
+            target_label: __address__
+            regex: (.+?)(?::\d+)?;(\d+)
+            replacement: $1:$2
+          - action: labelmap
+            regex: __meta_kubernetes_service_annotation_prometheus_io_param_(.+)
+            replacement: __param_$1
+          - action: labelmap
+            regex: __meta_kubernetes_service_label_(.+)
+          - source_labels: [__meta_kubernetes_namespace]
+            action: replace
+            target_label: namespace
+          - source_labels: [__meta_kubernetes_service_name]
+            action: replace
+            target_label: service
+          - source_labels: [__meta_kubernetes_pod_node_name]
+            action: replace
+            target_label: node
+cleanPrometheusOperatorObjectNames: true
+kube-state-metrics:
+  rbac:
+    extraRules:
+      - apiGroups:
+          - source.toolkit.fluxcd.io
+          - kustomize.toolkit.fluxcd.io
+          - helm.toolkit.fluxcd.io
+        resources:
+          - gitrepositories
+          - kustomizations
+          - helmreleases
+        verbs: [ "list", "watch" ]
+  customResourceState:
+    enabled: true
+    config:
+      spec:
+        resources:
+          - groupVersionKind:
+              group: kustomize.toolkit.fluxcd.io
+              version: v1
+              kind: Kustomization
+            metricNamePrefix: gotk
+            metrics:
+              - name: "resource_info"
+                help: "The current state of a Flux Kustomization resource."
+                each:
+                  type: Info
+                  info:
+                    labelsFromPath:
+                      name: [ metadata, name ]
+                labelsFromPath:
+                  exported_namespace: [ metadata, namespace ]
+                  ready: [ status, conditions, "[type=Ready]", status ]
+                  suspended: [ spec, suspend ]
+                  revision: [ status, lastAppliedRevision ]
+                  source_name: [ spec, sourceRef, name ]

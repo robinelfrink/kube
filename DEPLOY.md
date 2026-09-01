@@ -100,6 +100,13 @@ $ talosctl config node <ip addresses of all nodes, separated by space>
 
 ### Bootstrap Cilium and Flux
 
+TODO
+
+SOPS_AGE_KEY_FILE=~/.age-vriendenrack.txt kluctl render --arg cluster=office --print-all
+SOPS_AGE_KEY_FILE=~/.age-vriendenrack.txt kluctl deploy --arg cluster=office
+SOPS_AGE_KEY_FILE=~/.age-vriendenrack.txt kluctl render --arg cluster=office --arg component=storage --print-all --project-dir manifests/
+SOPS_AGE_KEY_FILE=~/.age-vriendenrack.txt kluctl deploy --arg cluster=office --arg component=ingress --project-dir manifests/
+
 ```shell
 $ kubectl kustomize \
       --enable-helm \

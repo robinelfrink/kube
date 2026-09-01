@@ -29,6 +29,26 @@
         "# renovate: datasource=(?<datasource>[a-z-]+)(?: depName=(?<depName>[a-zA-Z0-9-\\/]+))?(?: versioning=(?<versioning>[a-z-]+))?\\s[A-Z]+_VERSION=(?<currentValue>.+)\\s"
       ],
       "versioningTemplate": "{{#if versioning}}{{{versioning}}}{{else}}semver{{/if}}"
+    },
+    {
+      "customType": "regex",
+      "managerFilePatterns": [
+        "/(^|/)helm-chart.yaml$/"
+      ],
+      "matchStrings": [
+        "# renovate: datasource=(?<datasource>[a-z-]+)(?: depName=(?<depName>[a-zA-Z0-9-\\/]+))?(?: versioning=(?<versioning>[a-z-]+))?\\s+chartVersion: [\"]?(?<currentValue>.+)[\"]?\\s"
+      ],
+      "versioningTemplate": "{{#if versioning}}{{{versioning}}}{{else}}semver{{/if}}"
+    },
+    {
+      "customType": "regex",
+      "managerFilePatterns": [
+        "/(^|/)deployment.yaml$/"
+      ],
+      "matchStrings": [
+        "# renovate: datasource=(?<datasource>[a-z-]+)(?: depName=(?<depName>[a-zA-Z0-9-\\/]+))?(?: versioning=(?<versioning>[a-z-]+))?\\s+tag: [\"]?(?<currentValue>.+)[\"]?\\s"
+      ],
+      "versioningTemplate": "{{#if versioning}}{{{versioning}}}{{else}}semver{{/if}}"
     }
   ]
 }
