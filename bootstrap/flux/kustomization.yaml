@@ -19,3 +19,11 @@ helmCharts:
     namespace: flux
     valuesFile: ../../manifests/flux/values.yaml
     includeCRDs: true
+patches:
+    # Workaround for https://github.com/kubernetes-sigs/kustomize/issues/6058
+  - target:
+      kind: (Deployment|Job|Service|ServiceAccount)
+    patch: |
+      - op: add
+        path: /metadata/namespace
+        value: flux
