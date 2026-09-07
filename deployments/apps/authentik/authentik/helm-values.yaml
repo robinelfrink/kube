@@ -1,0 +1,56 @@
+global:
+  env:
+    - name: AUTHENTIK_POSTGRESQL__PASSWORD
+      valueFrom:
+        secretKeyRef:
+          name: postgresql-app
+          key: password
+authentik:
+  secret_key: {{ app.secret_key }}
+  email:
+    host: {{ config.global.smtp.relay }}
+    username: {{ config.global.smtp.username }}
+    password: {{ config.global.smtp.password }}
+    use_tls: true
+    from: {{ get_var('app.sender', config.global.admin.email) }}
+  metrics:
+    enabled: true
+{% if 'monitoring.coreos.com' in apigroups %}
+    serviceMonitor:
+      enabled: true
+{% endif %}
+  postgresql:
+    host: postgresql-rw.authentik-{{ app.name }}.svc.cluster.local
+  redis:
+    host: valkey.authentik-{{ app.name }}.svc.cluster.local
+server:
+{% if get_var('app.node') %}
+  nodeSelector:
+    kubernetes.io/hostname: {{ app.node }}
+{% endif %}
+  deploymentStrategy:
+    type: Recreate
+  ingress:
+    enabled: true
+{% if get_var('app.issuer') %}
+    annotations:
+      cert-manager.io/cluster-issuer: {{ app.issuer }}
+{% endif %}
+    hosts:
+      - {{ app.hostname }}
+    tls:
+      - secretName: authentik-tls
+        hosts:
+          - {{ app.hostname }}
+  volumes:
+    - name: media
+      persistentVolumeClaim:
+        claimName: authentik-media
+  volumeMounts:
+    - name: media
+      mountPath: /media
+{% if 'monitoring.coreos.com' in apigroups %}
+prometheus:
+  rules:
+    enabled: true
+{% endif %}

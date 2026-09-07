@@ -1,0 +1,189 @@
+crds:
+  enabled: false
+defaultRules:
+  create: true
+  rules:
+    etcd: false
+    k8sContainerCpuUsageSecondsTotal: false
+    k8sContainerMemoryCache: false
+    k8sContainerMemoryRss: false
+    k8sContainerMemorySwap: false
+    kubeApiserverBurnrate: false
+    kubeApiserverHistogram: false
+    kubeApiserverSlos: false
+    kubeProxy: false
+    kubePrometheusNodeRecording: false
+    kubeSchedulerRecording: false
+    kubernetesResources: false
+    nodeExporterRecording: false
+    windows: false
+alertmanager:
+{% if get_var('config.base.monitoring.alertmanager.enabled', false) %}
+  config:
+    global:
+      smtp_hello: {{ config.global.smtp.helo }}
+      smtp_from: {{ get_var('config.base.monitoring.alertmanager.sender', config.global.admin.email) }}
+      smtp_smarthost: {{ config.global.smtp.relay }}
+      smtp_auth_username: {{ config.global.smtp.username }}
+      smtp_auth_password: {{ config.global.smtp.password }}
+      smtp_require_tls: true
+    route:
+      receiver: admin
+      routes:
+        - match:
+            alertname: Watchdog
+          receiver: "null"
+    receivers:
+      - name: "null"
+      - name: admin
+        email_configs:
+          - to: {{ config.global.admin.email }}
+            send_resolved: true
+  alertmanagerSpec:
+    externalUrl: https://{{ config.base.monitoring.alertmanager.hostname }}
+{% else %}
+  enabled: false
+{% endif %}
+grafana:
+{% if get_var('config.base.monitoring.alertmanager.enabled', false) %}
+  defaultDashboardsEditable: false
+{%   if get_var('config.base.monitoring.node') %}
+  nodeSelector:
+    kubernetes.io/hostname: {{ config.base.monitoring.node }}
+{%   endif %}
+  ingress:
+    enabled: true
+{%   if get_var('config.base.monitoring.issuer') %}
+    annotations:
+      cert-manager.io/cluster-issuer: {{ config.base.monitoring.issuer }}
+{%   endif %}
+    hosts:
+      - {{ config.base.monitoring.grafana.hostname }}
+    tls:
+      - secretName: grafana-tls
+        hosts:
+          - {{ config.base.monitoring.grafana.hostname }}
+    extraPaths:
+      - path: /metrics
+        pathType: Prefix
+        backend:
+          service:
+            name: non-existing
+            port:
+              number: 12345
+  persistence:
+    enabled: true
+    storageClassName: {{ config.base.monitoring.storage_class }}
+    annotations:
+{%   if get_var('config.base.monitoring.node') %}
+      volume.kubernetes.io/selected-node: {{ config.base.monitoring.node }}
+{%   endif %}
+  grafana.ini:
+    server:
+      root_url: https://{{ config.base.monitoring.grafana.hostname }}
+    auth:
+      disable_login_form: true
+      disable_signout_menu: false
+    auth.generic_oauth:
+      name: Single Sign On
+      icon: signin
+      enabled: true
+      client_id: ${grafanaclientid}
+      client_secret: ${grafanaclientsecret}
+      scopes: openid profile email
+      empty_scopes: false
+      auth_url: ${grafanaauthurl}
+      signout_redirect_url: ${grafanasignoutredirecturl}
+      token_url: ${grafanatokenurl}
+      api_url: ${grafanaapiurl}
+      allow_sign_up: true
+      use_pkce: true
+      role_attribute_path: contains(groups, 'admin') && 'Admin' || 'Viewer'
+  assertNoLeakedSecrets: false
+  initChownData:
+    securityContext:
+      capabilities:
+        drop: []
+      readOnlyRootFilesystem: false
+{% else %}
+  enabled: false
+{% endif %}
+kubeEtcd:
+  enabled: false
+kubeControllerManager:
+  service:
+    selector:
+      k8s-app: kube-controller-manager
+kubeScheduler:
+  service:
+    selector:
+      k8s-app: kube-scheduler
+kubeProxy:
+  enabled: false
+nodeExporter:
+  operatingSystems:
+    aix:
+      enabled: false
+    darwin:
+      enabled: false
+prometheus-node-exporter:
+  extraArgs:
+    - --collector.filesystem.mount-points-exclude=^/(dev|proc|sys|var/lib/docker/.+|var/lib/kubelet/.+)($|/)
+    - --collector.filesystem.fs-types-exclude=^(efivars|autofs|binfmt_misc|bpf|cgroup2?|configfs|debugfs|devpts|devtmpfs|fusectl|hugetlbfs|iso9660|mqueue|nsfs|overlay|proc|procfs|pstore|rpc_pipefs|securityfs|selinuxfs|squashfs|sysfs|tracefs)$
+  hostNetwork: false
+prometheus:
+{% if get_var('config.base.monitoring.prometheus.ingress.enabled') %}
+{%   if get_var('config.base.monitoring.prometheus.ingress.authentication.enabled') %}
+  extraSecret:
+    data:
+      auth: |
+        {{ config.base.monitoring.prometheus.ingress.authentication.auth | indent(8) }}
+{%   endif %}
+  ingress:
+    enabled: true
+{%   if get_var('config.base.monitoring.issuer') or get_var('config.base.monitoring.prometheus.ingress.authentication.enabled') %}
+    annotations:
+{%     if get_var('config.base.monitoring.issuer') %}
+      cert-manager.io/cluster-issuer: {{ config.base.monitoring.issuer }}
+{%     endif %}
+{%     if get_var('config.base.monitoring.prometheus.ingress.authentication.enabled', false) %}
+      haproxy-ingress.github.io/auth-realm: Access Limited
+      haproxy-ingress.github.io/auth-secret: prometheus-kube-prometheus-stack-extra
+{%     endif %}
+{%   endif %}
+    hosts:
+      - {{ config.base.monitoring.prometheus.hostname }}
+    tls:
+      - secretName: prometheus-tls
+        hosts:
+          - {{ config.base.monitoring.prometheus.hostname }}
+{% endif %}
+  prometheusSpec:
+{%   if get_var('config.base.monitoring.node') %}
+    nodeSelector:
+      kubernetes.io/hostname: {{ config.base.monitoring.node }}
+{%   endif %}
+    externalUrl: https://{{ config.base.monitoring.prometheus.hostname }}
+    retention: 10d
+    storageSpec:
+      disableMountSubPath: true
+      volumeClaimTemplate:
+{%   if get_var('config.base.monitoring.node') %}
+        metadata:
+          annotations:
+            volume.kubernetes.io/selected-node: {{ config.base.monitoring.node }}
+{%   endif %}
+        spec:
+          storageClassName: {{ config.base.monitoring.storage_class }}
+          accessModes:
+            - ReadWriteOnce
+          resources:
+            requests:
+              storage: 20Gi
+    scrapeInterval: 60s
+    ruleSelectorNilUsesHelmValues: false
+    serviceMonitorSelectorNilUsesHelmValues: false
+    podMonitorSelectorNilUsesHelmValues: false
+    probeSelectorNilUsesHelmValues: false
+    scrapeConfigSelectorNilUsesHelmValues: false
+cleanPrometheusOperatorObjectNames: true

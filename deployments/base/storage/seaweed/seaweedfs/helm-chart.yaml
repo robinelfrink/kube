@@ -1,0 +1,7 @@
+helmChart:
+  repo: https://seaweedfs.github.io/seaweedfs/helm
+  chartName: seaweedfs
+  chartVersion: "4.40.0"
+  releaseName: {{ storage.name }}
+  namespace: storage
+  skipPrePull: true

@@ -1,0 +1,7 @@
+helmChart:
+  repo: https://kubernetes-sigs.github.io/metrics-server/
+  chartName: metrics-server
+  chartVersion: 3.13.1
+  releaseName: metrics-server
+  namespace: metrics-server
+  skipPrePull: true

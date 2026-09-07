@@ -1,0 +1,8 @@
+deployments:
+  - path: namespace
+    waitReadiness: true
+  - path: prometheus-operator-crds
+  - include: kube-prometheus-stack
+    when: "'monitoring.coreos.com' in apigroups"
+  - include: prometheus-pushgateway
+    when: "'monitoring.coreos.com' in apigroups and get_var('config.base.monitoring.prometheus-pushgateway.enabled')"

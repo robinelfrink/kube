@@ -1,0 +1,4 @@
+deployments:
+  - path: helm
+  - path: networkpolicies
+    when: "'cilium.io' in apigroups"
