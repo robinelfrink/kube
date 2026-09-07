@@ -1,0 +1,27 @@
+applicationName: gs1200-exporter
+deployment:
+  image:
+    repository: ghcr.io/robinelfrink/gs1200-exporter
+    tag: v2.11.14
+  ports:
+    - containerPort: 9934
+      name: metrics
+      protocol: TCP
+  env:
+    GS1200_ADDRESS:
+      value: {{ app.address }}
+    GS1200_PASSWORD:
+      value: {{ app.password }}
+  securityContext:
+    runAsNonRoot: true
+    seccompProfile:
+      type: RuntimeDefault
+service:
+  annotations:
+    prometheus.io/port: "9934"
+    prometheus.io/scrape: "true"
+  ports:
+    - port: 9934
+      name: metrics
+      protocol: TCP
+      targetPort: 9934

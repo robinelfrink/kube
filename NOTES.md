@@ -55,3 +55,9 @@ $ kubectl exec --stdin --tty --namespace kube-system emergency -- bash
 [...]
 $ kubectl delete pod --namespace kube-system kube-system emergency
 ```
+
+## Fetch Talos machine config
+
+```
+$ talosctl --nodes <node> get machineconfig v1alpha1 --output jsonpath="{.spec}"
+```

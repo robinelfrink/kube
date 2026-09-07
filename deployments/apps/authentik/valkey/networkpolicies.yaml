@@ -1,0 +1,25 @@
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
+  name: valkey
+  namespace: authentik-{{ app.name }}
+spec:
+  endpointSelector:
+    matchLabels:
+      app.kubernetes.io/name: valkey
+  ingress:
+  - fromEndpoints:
+    - matchLabels:
+        app.kubernetes.io/name: authentik
+    toPorts:
+    - ports:
+      - port: "6379"
+        protocol: TCP
+  - fromEndpoints:
+    - matchLabels:
+        "k8s:io.kubernetes.pod.namespace": monitoring
+        app.kubernetes.io/name: prometheus
+    toPorts:
+    - ports:
+      - port: "9121"
+        protocol: TCP

@@ -1,0 +1,53 @@
+{% for component in ['base'] + components %}
+{%   if component.startswith('base') and get_var(['config', component | replace('/', '.'), 'enabled'] | join('.'), true) %}
+---
+apiVersion: gitops.kluctl.io/v1beta1
+kind: KluctlDeployment
+metadata:
+  name: {{ component | slugify }}
+  namespace: config
+spec:
+  interval: 1h
+  source:
+    git:
+      url: https://github.com/robinelfrink/kube.git
+      ref:
+        branch: {{ config.source.branch }}
+  decryption:
+    provider: sops
+    secretRef:
+      name: config
+  prune: {{ component not in ['base', 'base-config'] }}
+  delete: {{ component not in ['base', 'base-config'] }}
+  args:
+    cluster: {{ args.cluster }}
+    component: {{ component }}
+{%   else %}
+{%     for app in get_var(['config', component | replace('/', '.')] | join('.')) %}
+---
+apiVersion: gitops.kluctl.io/v1beta1
+kind: KluctlDeployment
+metadata:
+  name: {{ component | slugify }}-{{ app.name }}
+  namespace: config
+spec:
+  interval: 1h
+  source:
+    git:
+      url: https://github.com/robinelfrink/kube.git
+      ref:
+        branch: {{ config.source.branch }}
+  decryption:
+    provider: sops
+    secretRef:
+      name: config
+  prune: true
+  delete: true
+  args:
+    cluster: {{ args.cluster }}
+    component: {{ component }}
+    name: {{ app.name }}
+    discriminator: {{ component | slugify }}-{{ app.name }}
+{%     endfor %}
+{%   endif %}
+{% endfor %}

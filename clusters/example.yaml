@@ -1,0 +1,114 @@
+source:
+  branch: main
+  sops:
+    age_key: |
+      < sops age key >
+
+# Global settings, used all over the place
+global:
+  admin:
+    email: <admin email address>
+  smtp:
+    helo: <smtp helo name>
+    relay: <smtp relay server>
+    username: <smtp relay username>
+    password: <smtp relay password>
+
+base:
+  cilium:
+    # direct_routing_device: eth2
+    loadbalancer:
+      enabled: false
+      blocks: []
+      # - 192.168.1.96/28
+
+  metrics-server:
+    enabled: true
+
+  node-exporter:
+    enabled: true
+
+  kube-state-metrics:
+    enabled: true
+
+  storage:
+    enabled: false
+    # classes:
+    #   - name: local
+    #     type: local
+    #     path: /var/mnt/LOCAL
+    #     default: true
+
+  ingress:
+    enabled: false
+    # ip: 192.168.1.97
+    # ports:
+    #   - port: 3434
+    #     target: "namespace/service:8000::PROXY-V2"
+
+  cloudnative-pg:
+    enabled: false
+
+  k8up:
+    enabled: false
+    # host: <backup hostname>
+    # username: <backup username>
+    # password: <backup password>
+
+  observability:
+    monitoring:
+      enabled: false
+      # node: <node to deploy on>
+      # storage_class: <storage class to use>
+      # issuer: <issuer for certificates>
+      # ingress:
+      #   enabled: false
+      #   hostname: <metrics ui hostname>
+      #   authentication:
+      #     enabled: false
+      #     username: <username>
+      #     password: <password>
+
+  kubevirt:
+    enabled: false
+    # storage_class: <storage class to use for vm storage>
+    # manager:
+    #   hostname: <kubevirt-manager hostname>
+    #   issuer: <issuer for certificates>
+    #   authentication:
+    #     enabled: false
+    #     username: <username>
+    #     password: <password>
+
+apps:
+  authentik: []
+  # - name: authentik
+  #   hostname: <authentik hostname>
+  #   issuer: <issuer for certificates>
+  #   secret_key: <authentik secret key>
+  #   storage_class: <storage class to use>
+  #   node: <node to deploy on>
+  #   ldap:
+  #     enabled: false
+  #     nodeport: <nodeport to use, defaults to 32389>
+  #     nodeport_tls: <nodeport to use with tls, defaults to 32636>
+  #   sender: <email sender address, defaults to admin address>
+
+  gitea: []
+  # - name: gitea
+  #   hostname: <gitea hostname>
+  #   issuer: <issuer for certificates>
+  #   password: <initial admin password>
+  #   ssh:
+  #     enabled: false
+  #     nodeport: 32323
+  #     proxy_protocol: false
+  #   storage_class: <storage class to use>
+  #   node: <node to deploy on>
+  #   oauth: []
+  #   sender: <email sender address, defaults to admin address>
+
+  gs1200-exporter: []
+  # - name: home-kitchen
+  #   address: <gs1200 address or hostname>
+  #   password: <gs1200 password>

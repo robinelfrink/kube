@@ -1,0 +1,12 @@
+deployments:
+  - path: namespace
+    waitReadiness: true
+  - path: victoria-metrics-operator-crds
+  - barrier: true
+    waitReadinessObjects:
+      - kind: CustomResourceDefinition
+        name: vmsingles.operator.victoriametrics.com
+  - path: victoria-metrics-operator
+  - path: metrics
+    recursive: true
+    when: get_var('config.base.observability.metrics.enabled')

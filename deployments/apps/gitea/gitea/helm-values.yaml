@@ -1,0 +1,107 @@
+strategy:
+  type: Recreate
+  rollingUpdate: null
+{% if get_var('app.ssh.enabled') %}
+service:
+  ssh:
+    type: NodePort
+    nodePort: {{ app.ssh.nodeport }}
+    externalTrafficPolicy: Local
+{% endif %}
+ingress:
+  enabled: true
+{% if get_var('app.issuer') %}
+  annotations:
+    cert-manager.io/cluster-issuer: {{ app.issuer }}
+{% endif %}
+  hosts:
+    - host: {{ app.hostname }}
+      paths:
+        - path: /
+  tls:
+    - secretName: gitea-tls
+      hosts:
+        - {{ app.hostname }}
+{% if get_var('app.node') %}
+nodeSelector:
+  kubernetes.io/hostname: {{ app.node }}
+{% endif %}
+persistence:
+{% if get_var('app.storage_class') %}
+  storageClass: {{ app.storage_class }}
+{% endif %}
+{% if get_var('app.node') %}
+  annotations:
+    volume.kubernetes.io/selected-node: {{ app.node }}
+{% endif %}
+gitea:
+  admin:
+    password: {{ app.password }}
+    passwordMode: initialOnlyRequireReset
+  metrics:
+    enabled: true
+{% if get_var('app.oauth') %}
+  oauth:
+    {{ app.oauth | to_yaml | indent(4) }}
+{% endif %}
+  config:
+    repository:
+      FORCE_PRIVATE: true
+      DEFAULT_REPO_UNITS: repo.code,repo.releases,repo.issues,repo.pulls
+{% if get_var('app.ssh.enabled') %}
+    server:
+      SSH_PORT: 2222
+      SSH_SERVER_USE_PROXY_PROTOCOL: {{ get_var('app.ssh.proxy_protocol') }}
+{% endif %}
+    database:
+      DB_TYPE: postgres
+      HOST: postgresql-rw.gitea.svc.cluster.local
+      NAME: gitea
+      USER: gitea
+    admin:
+      DEFAULT_EMAIL_NOTIFICATIONS: onmention
+      USER_DISABLED_FEATURES: deletion,manage_mfa,manage_credentials,change_username,change_full_name
+    security:
+      INSTALL_LOCK: true
+    openid:
+      ENABLE_OPENID_SIGNIN: false
+      ENABLE_OPENID_SIGNUP: false
+    oauth2_client:
+      ENABLE_AUTO_REGISTRATION: true
+      ACCOUNT_LINKING: auto
+      OPENID_CONNECT_SCOPES: email profile gitea
+    service:
+      DISABLE_REGISTRATION: true
+      REQUIRE_SIGNIN_VIEW: true
+      ENABLE_NOTIFY_MAIL: true
+      ENABLE_PASSWORD_SIGNIN_FORM: false
+      ENABLE_PASSKEY_AUTHENTICATION: false
+    service.explore:
+      REQUIRE_SIGNIN_VIEW: true
+    ssh.minimum_key_sizes:
+      RSA: 2048
+    mailer:
+      ENABLED: true
+      PROTOCOL: smtps
+      SMTP_ADDR: {{ config.global.smtp.relay }}
+      SMTP_PORT: 465
+      USER: {{ config.global.smtp.username }}
+      PASSWD: {{ config.global.smtp.password }}
+      FROM: {{ get_var('app.sender', config.global.admin.email) }}
+      ENVELOPE_FROM: {{ get_var('app.sender', config.global.admin.email) }}
+    session:
+      PROVIDER: db
+  additionalConfigFromEnvs:
+    - name: GITEA__DATABASE__PASSWD
+      valueFrom:
+        secretKeyRef:
+          name: postgresql-app
+          key: password
+valkey-cluster:
+  enabled: false
+valkey:
+  enabled: false
+postgresql-ha:
+  enabled: false
+postgresql:
+  enabled: false

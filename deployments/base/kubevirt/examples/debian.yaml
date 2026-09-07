@@ -1,0 +1,59 @@
+apiVersion: kubevirt.io/v1
+kind: VirtualMachine
+metadata:
+  name: debian
+  namespace: virtualmachines
+spec:
+  runStrategy: Always
+  dataVolumeTemplates:
+    - metadata:
+        name: debian-boot
+      spec:
+        source:
+          registry:
+            url: "docker://quay.io/containerdisks/debian:13"
+        storage:
+          storageClassName: seaweed
+          accessModes:
+            - ReadWriteMany
+          resources:
+            requests:
+              storage: 80Gi
+  template:
+    metadata:
+      labels:
+        kubevirt.io/domain: debian
+    spec:
+      networks:
+        - name: default
+          pod: {}
+      domain:
+        devices:
+          disks:
+            - name: bootdisk
+              disk:
+                bus: virtio
+            - name: cloudinitdisk
+              disk:
+                bus: virtio
+          interfaces:
+            - name: default
+              masquerade: {}
+        ioThreadsPolicy: auto
+        resources:
+          requests:
+            memory: 16Gi
+        cpu:
+          cores: 4
+        memory:
+          guest: 16Gi
+      volumes:
+        - name: bootdisk
+          dataVolume:
+            name: debian-boot
+        - name: cloudinitdisk
+          cloudInitNoCloud:
+            userData: |-
+              #cloud-config
+              ssh_authorized_keys:
+                - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCixA3AzLT0Ado3CgKafmVIa3E4ybPCxVBw45wugo1zmcjMdWNAAmSkE0KvUe0l9d0OcjyjCdMZH8gV/bOAAyk4dVA943nMt+YmXR7bY4SKm2Uz5CWypwVHR1HG1KGBYCFnpGRBiOROmz3AchgDqnbGcR6F6W5bf80THOT5VtPb1wGbn/TchllnTOaa9UwXYqC+sdODGMccBKm5YIVZr7ciJH6wa51YWsP+VbGaZjcGsUdQ+p4m1Xzmgled2/WmtJPdhunB2kw8mS89WRUKKlrptSJ3gBd8wcv8QttQn/X/QbhRsv2jKj66Opz1w9aeZiO/Ra1GFXwYEEKJzPKjaY/l

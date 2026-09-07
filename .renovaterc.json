@@ -9,28 +9,19 @@
     ":disableDependencyDashboard"
   ],
   "configMigration": true,
-  "flux": {
-    "managerFilePatterns": [
-      "/(^|/).*\\.ya?ml$/"
-    ]
-  },
   "helm-values": {
     "enabled": true,
-    "managerFilePatterns": [
-      "/(^|/|.*-)values\\.ya?ml$/"
-    ]
+    "managerFilePatterns": ["/(^|/|.*-)values\\.ya?ml$/"]
   },
   "customManagers": [
     {
       "customType": "regex",
-      "managerFilePatterns": [
-        "/.envrc/"
-      ],
+      "managerFilePatterns": ["/.envrc/"],
       "matchStrings": [
         "# renovate: datasource=(?<datasource>[a-z-]+)(?: depName=(?<depName>[a-zA-Z0-9-\\/]+))?(?: versioning=(?<versioning>[a-z-]+))?\\s[A-Z]+_VERSION=(?<currentValue>.+)\\s"
       ],
       "versioningTemplate": "{{#if versioning}}{{{versioning}}}{{else}}semver{{/if}}"
-     },
+    },
     {
       "customType": "regex",
       "managerFilePatterns": ["/(^|/|.*-)chart\\.ya?ml$/"],

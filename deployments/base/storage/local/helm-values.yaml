@@ -1,0 +1,27 @@
+storageClass:
+  create: false
+storageClassConfigs:
+  {{ storage.name }}:
+    storageClass:
+      create: true
+      defaultClass: {{ 'true' if storage.default | default(false) else 'false' }}
+      defaultVolumeType: hostPath
+      reclaimPolicy: Delete
+    nodePathMap:
+      - node: DEFAULT_PATH_FOR_NON_LISTED_NODES
+        paths:
+          - {{ storage.path }}
+nodePathMap: []
+configmap:
+  name: local-path-config-{{ storage.name }}
+  setup: |-
+    #!/bin/sh
+    set -eu
+    echo "Creating $VOL_DIR"
+    mkdir -m 0777 -p "$VOL_DIR"
+  teardown: |-
+    #!/bin/sh
+    set -eu
+    ARCHIVED_DIR="$(dirname $VOL_DIR)/archived-$(basename $VOL_DIR)"
+    echo "Renaming $VOL_DIR to $ARCHIVED_DIR"
+    mv "$VOL_DIR" "$ARCHIVED_DIR"
