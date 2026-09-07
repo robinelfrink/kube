@@ -1,0 +1,41 @@
+vars:
+  - values:
+      components:
+        # Components installed during bootstrap
+        - base/config
+        - base/cilium
+        - base/kluctl-controller
+        # Base components for any cluster
+        - base/metrics-server
+        - base/storage
+        - base/ingress
+        - base/cloudnative-pg
+        - base/k8up
+        - base/monitoring
+        # Applications
+        - apps/authentik
+#        - apps/gitea
+#        - apps/gs1200-exporter
+#        - apps/home-assistant
+#        - apps/meshcore-proxy
+#        - apps/mikrotik-exporter
+#        - apps/mochi-mqtt
+#        - apps/nextcloud
+#        - apps/nextcloud2
+#        - apps/rest-server
+#        - apps/unifi-ap-exporter
+#        - apps/vaultwarden
+#        - apps/vcluster
+#        - apps/zigbee2mqtt
+
+deployments:
+
+{% if get_var('args.bootstrap') %}
+  - include: bootstrap
+    when: get_var('args.bootstrap')
+{% else %}
+  - include: deployments
+    when: get_var('args.component', 'base') != 'base'
+  - include: deployments/kluctl-deployments
+    when: get_var('args.component', 'base') == 'base'
+{% endif %}

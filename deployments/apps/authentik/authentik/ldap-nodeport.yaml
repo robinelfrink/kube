@@ -1,0 +1,24 @@
+{% if get_var('app.ldap.enabled') %}
+apiVersion: v1
+kind: Service
+metadata:
+  name: ldap-nodeport
+  namespace: authentik {{ app.name }}
+spec:
+  ports:
+  - name: ldap
+    port: 389
+    protocol: TCP
+    targetPort: 3389
+    nodePort: {{ get_var('app.ldap.nodeport', 32389) }}
+  - name: ldaps
+    port: 636
+    protocol: TCP
+    targetPort: 6636
+    nodePort: {{ get_var('app.ldap.nodeport_tls', 32636) }}
+  selector:
+    app.kubernetes.io/name: authentik-outpost-ldap
+    goauthentik.io/outpost-name: ldap
+    goauthentik.io/outpost-type: ldap
+  type: NodePort
+{% endif %}

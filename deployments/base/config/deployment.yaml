@@ -1,0 +1,4 @@
+deployments:
+  - path: namespace
+    waitReadiness: true
+  - path: secret

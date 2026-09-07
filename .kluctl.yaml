@@ -1,0 +1,1 @@
+discriminator: "{{ args.discriminator | default(args.component | default('base')) | slugify }}"

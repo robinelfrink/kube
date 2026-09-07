@@ -1,0 +1,22 @@
+vars:
+  - file: ../clusters/example.yaml
+    targetPath: config
+  - file: ../clusters/{{ args.cluster }}.yaml
+    targetPath: config
+
+deployments:
+  - include: ../deployments/base/cilium
+  - include: ../deployments/base/kluctl-controller
+  - barrier: true
+    waitReadinessObjects:
+      - kind: CustomResourceDefinition
+        name: kluctldeployments.gitops.kluctl.io
+  - include: ../deployments/base/config
+    waitReadinessObjects:
+      - kind: Secret
+        name: config
+        namespace: config
+  - path: ../deployments/kluctl-deployments/kluctl-deployment
+    vars:
+      - values:
+          components: []

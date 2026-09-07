@@ -1,0 +1,89 @@
+source:
+  branch: main
+  sops:
+    age_key: |
+      < sops age key >
+
+# Global settings, used all over the place
+global:
+  admin:
+    email: <admin email address>
+  smtp:
+    helo: <smtp helo name>
+    relay: <smtp relay server>
+    username: <smtp relay username>
+    password: <smtp relay password>
+
+base:
+  cilium:
+    loadbalancer:
+      enabled: false
+      blocks: []
+      # - 192.168.1.96/28
+
+  metrics-server:
+    enabled: true
+
+  storage:
+    enabled: false
+    # classes:
+    #   - name: local
+    #     type: local
+    #     path: /var/mnt/LOCAL
+    #     default: true
+
+  ingress:
+    enabled: false
+    # ip: 192.168.1.97
+    # ports:
+    #   - port: 3434
+    #     target: "namespace/service:8000::PROXY-V2"
+
+  cloudnative-pg:
+    enabled: false
+
+  k8up:
+    enabled: false
+    # host: <backup hostname>
+    # username: <backup username>
+    # password: <backup password>
+
+  monitoring:
+    enabled: false
+    # node: <node to deploy on>
+    # storage_class: <storage class to use>
+    # issuer: <issuer for certificates>
+    prometheus:
+      # ingress:
+      #   enabled: false
+      #   authentication:
+      #     enabled: false
+      #     auth: |
+      #       <username>::<password>
+      #       ...
+      hostname: <prometheus hostname>
+    # prometheus-pushgateway:
+    #   enabled: false
+    # alertmanager:
+    #   enabled: false
+    #   hostname: <alertmanager hostname>
+    #   sender: <email sender address, defaults to admin address>
+    # grafana:
+    #   enabled: false
+    #   hostname: <grafana hostname>
+    #   extra_ini:
+    #     <key>: <value>
+
+apps:
+  authentik: []
+  # - name: authentik
+  #   hostname: <authentik hostname>
+  #   issuer: <issuer for certificates>
+  #   secret_key: <authentik secret key>
+  #   storage_class: <storage class to use>
+  #   node: <node to deploy on>
+  #   ldap:
+  #     enabled: false
+  #     nodeport: <nodeport to use, defaults to 32389>
+  #     nodeport_tls: <nodeport to use with tls, defaults to 32636>
+  #   sender: <email sender address, defaults to admin address>

@@ -1,0 +1,19 @@
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+{% if get_var('app.node') %}
+  annotations:
+    volume.kubernetes.io/selected-node: {{ app.node }}
+{% endif %}
+  name: authentik-media
+  namespace: authentik-{{ app.name }}
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+{% if get_var('app.storage_class') %}
+  storageClassName: {{ app.storage_class }}
+{% endif %}

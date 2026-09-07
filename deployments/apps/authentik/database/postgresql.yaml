@@ -1,0 +1,25 @@
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
+metadata:
+  annotations:
+    kustomize.toolkit.fluxcd.io/prune: disabled
+  name: postgresql
+  namespace: authentik-{{ app.name }}
+spec:
+{% if get_var('app.node') %}
+  affinity:
+    nodeSelector:
+      kubernetes.io/hostname: {{ app.node }}
+  inheritedMetadata:
+    annotations:
+      volume.kubernetes.io/selected-node: {{ app.node }}
+{% endif %}
+  instances: 1
+  storage:
+    size: 5Gi
+{% if get_var('app.storage_class') %}
+    storageClass: {{ app.storage_class }}
+{% endif %}
+  bootstrap:
+    initdb:
+      database: authentik

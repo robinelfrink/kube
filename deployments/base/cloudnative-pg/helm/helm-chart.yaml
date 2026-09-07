@@ -1,0 +1,7 @@
+helmChart:
+  repo: https://cloudnative-pg.github.io/charts
+  chartName: cloudnative-pg
+  chartVersion: 0.29.0
+  releaseName: cloudnative-pg
+  namespace: cloudnative-pg
+  skipPrePull: true

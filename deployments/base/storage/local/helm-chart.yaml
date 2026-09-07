@@ -1,0 +1,9 @@
+helmChart:
+  git:
+    url: https://github.com/rancher/local-path-provisioner
+    ref:
+      tag: v0.0.37
+    subDir: deploy/chart/local-path-provisioner
+  releaseName: {{ storage.name }}
+  namespace: storage
+  skipPrePull: true

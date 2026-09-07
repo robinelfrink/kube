@@ -1,0 +1,5 @@
+deployments:
+  - path: helm
+  - path: virtualip
+    when: "'ip' in config.base.ingress"
+  - path: networkpolicies

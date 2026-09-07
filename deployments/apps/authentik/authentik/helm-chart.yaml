@@ -1,0 +1,7 @@
+helmChart:
+  repo: https://charts.goauthentik.io
+  chartVersion: 2026.8.2
+  chartName: authentik
+  releaseName: authentik
+  namespace: authentik-{{ app.name }}
+  skipPrePull: true

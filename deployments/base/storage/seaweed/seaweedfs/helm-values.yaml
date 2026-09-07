@@ -1,0 +1,23 @@
+master:
+  data:
+    type: "hostPath"
+    hostPathPrefix: {{ storage.path }}
+  logs:
+    type: "hostPath"
+    hostPathPrefix: {{ storage.path }}
+filer:
+  data:
+    type: "hostPath"
+    hostPathPrefix: {{ storage.path }}
+  logs:
+    type: "hostPath"
+    hostPathPrefix: {{ storage.path }}
+volume:
+  dataDirs:
+    - name: data1
+      type: "hostPath"
+      hostPathPrefix: {{ storage.path }}
+      maxVolumes: 0
+  logs:
+    type: "hostPath"
+    hostPathPrefix: {{ storage.path }}

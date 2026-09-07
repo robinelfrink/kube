@@ -1,0 +1,7 @@
+helmChart:
+  repo: https://valkey.io/valkey-helm/
+  chartVersion: 0.12.0
+  chartName: valkey
+  releaseName: valkey
+  namespace: authentik-{{ app.name }}
+  skipPrePull: true
