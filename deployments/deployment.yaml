@@ -1,0 +1,22 @@
+vars:
+  - file: ../clusters/example.yaml
+    targetPath: config
+  - clusterSecret:
+      name: config
+      namespace: config
+      key: config
+    targetPath: config
+  - file: ../clusters/{{ args.cluster }}.yaml
+    targetPath: config
+    when: get_var('args.component') == 'base/config'
+
+  - clusterObject:
+      kind: APIService
+      labels:
+        kube-aggregator.kubernetes.io/automanaged: "true"
+      path: spec.group
+      list: true
+    targetPath: apigroups
+
+deployments:
+  - include: {{ args.component }}
