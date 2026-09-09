@@ -61,3 +61,7 @@ spec:
         protocol: TCP
       - port: "443"
         protocol: TCP
+      - port: "8081"
+        protocol: TCP
+      - port: "8444"
+        protocol: TCP
