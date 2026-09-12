@@ -74,6 +74,10 @@ base:
     #   extra_ini:
     #     <key>: <value>
 
+  kubevirt:
+    enabled: false
+    # storage_class: <storage class to use>
+
 apps:
   authentik: []
   # - name: authentik
