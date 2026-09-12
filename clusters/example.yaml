@@ -77,6 +77,9 @@ base:
   kubevirt:
     enabled: false
     # storage_class: <storage class to use>
+    # manager:
+    #   hostname: <kubevirt-manager hostname>
+    #   issuer: <issuer for certificates>
 
 apps:
   authentik: []
