@@ -86,6 +86,9 @@ base:
     manager:
       hostname: ENC[AES256_GCM,data:fK4nNX/emrwaCHUgZg==,iv:oyaBjnNfAdmQhTy31rS4/Tx9Sf7AY4mIR3djzL/AsWQ=,tag:Ze99109VG6SGE2TKGyVpRQ==,type:str]
       issuer: ENC[AES256_GCM,data:/ZLpmw/83JutQ8h6bG8VXohObA==,iv:VVqRUSt9cUqYZ6TYt81kybB0tc1h8E6VpazriuLdK+k=,tag:fPX7mZbf/li8fzpgPlDveg==,type:str]
+      authentication:
+        enabled: ENC[AES256_GCM,data:VKmZmg==,iv:zOvMVlyAYBwcYnGIkFoRvRbO+fjUsxbAbNoIpVB5QsE=,tag:Q+P2p2uRoNkb+7+h5hPxmA==,type:bool]
+        auth: ENC[AES256_GCM,data:YLSuEdTIGkOl79TFAXc=,iv:59aqhEJ+AwPxJDlK4qQlbpkWYw3SsWHo7Gjw/veFdSs=,tag:fSbNfKn/04BJhFjgbR2e5g==,type:str]
 apps:
   authentik:
     - name: ENC[AES256_GCM,data:Mmo9itI=,iv:KNtWq2SnCwCF21HgWa3DJkgy/OwHEF9erhhPTj/1xOg=,tag:OqSf+3ATTsA5+ihoE5Mfig==,type:str]
@@ -106,7 +109,7 @@ sops:
         3moK0CZ2AyuBmL/dQS16dJr4WzzougTBeWgO1NDTZQoy2ueKewXHYA==
         -----END AGE ENCRYPTED FILE-----
       recipient: age1z8y632jh4pyvhtu34n324xaea6zzsclvagz9a92g8hds5xr9wpes44ty3w
-  lastmodified: "2026-09-12T09:18:11Z"
-  mac: ENC[AES256_GCM,data:uHv0OrpWP/FGkHe511GzhZyQza9LGl7P+ByQZWR211gGhQEGWVtDG+X4CjBg67T+VuTwDlQz90tAx13ICGL0vC1xJ3bdkVxZh8wcayMRZI71nb7utOojV8HjICZ6jpwdxvWt1ZyFK0id7XOy1oJKrc7nt61qPx7g59z0vkVOhIA=,iv:qk8Y/b9hXdVZ3dY0Ckc/HiGTOzZl/l02lVYYLH3fg8g=,tag:i3b7ZKca+Q95obwlw1zuaQ==,type:str]
+  lastmodified: "2026-09-12T10:05:18Z"
+  mac: ENC[AES256_GCM,data:y460Vo3hr4xKHTMkEtGJYagGCKKGE5bB/Nc/MieI4sE7URozlvbLqGWYHQleGsAz889dEKJd3/ZFnFGUBl/kf9G27rJbNqPVW80dbbxniSj9YRzBJ2daa0R92VjGGDwyGsth/LjHaAPD5KNqJ3N8e3nDd6sDBVsaLwznWmBeonA=,iv:VABSkBObTqAT0y22+/bnpX/umSDWWqSX8Z6NWlUuZug=,tag:IEFpsJh8Dz/xPXi5bBhKeg==,type:str]
   unencrypted_suffix: _unencrypted
   version: 3.13.3

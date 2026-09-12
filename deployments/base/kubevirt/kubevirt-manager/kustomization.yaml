@@ -3,4 +3,5 @@ kind: Kustomization
 namespace: kubevirt
 resources:
   - https://github.com/kubevirt-manager/kubevirt-manager/releases/download/v1.5.4/bundled-v1.5.4.yaml
+  - secret.yaml
   - ingress.yaml

@@ -6,13 +6,15 @@ metadata:
   labels:
     app: kubevirt-manager
     kubevirt-manager.io/version: v1.5.4
+{% if get_var('config.base.kubevirt.manager.authentication.enabled') or 'issuer' in config.base.kubevirt.manager %}
   annotations:
-    # If you are using OAUTH, make sure Proxy Buffers are big enougth
-    nginx.org/location-snippets: |
-      proxy_set_header Upgrade $http_upgrade;
-      proxy_set_header Connection $connection_upgrade;
-{% if 'issuer' in config.base.kubevirt.manager %}
+{%   if get_var('config.base.kubevirt.manager.authentication.enabled') %}
+    haproxy-ingress.github.io/auth-realm: Access Limited
+    haproxy-ingress.github.io/auth-secret: kubevirt-manager
+{%   endif %}
+{%   if 'issuer' in config.base.kubevirt.manager %}
     cert-manager.io/cluster-issuer: {{ config.base.kubevirt.manager.issuer }}
+{%   endif %}
 {% endif %}
 spec:
   tls:

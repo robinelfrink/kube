@@ -80,6 +80,10 @@ base:
     # manager:
     #   hostname: <kubevirt-manager hostname>
     #   issuer: <issuer for certificates>
+    #   authentication:
+    #     enabled: false
+    #     auth: |
+    #       <username>::<password>
 
 apps:
   authentik: []
