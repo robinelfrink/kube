@@ -76,7 +76,7 @@ base:
 
   kubevirt:
     enabled: false
-    # storage_class: <storage class to use>
+    # storage_class: <storage class to use for vm storage>
     # manager:
     #   hostname: <kubevirt-manager hostname>
     #   issuer: <issuer for certificates>

@@ -12,4 +12,4 @@ deployments:
       - kind: CustomResourceDefinition
         name: cdis.cdi.kubevirt.io
   - path: cdi
-#  - path: kubevirt-manager
+  - path: kubevirt-manager
