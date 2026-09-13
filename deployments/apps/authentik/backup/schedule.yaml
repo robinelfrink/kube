@@ -9,7 +9,7 @@ spec:
       name: backup
       key: password
     rest:
-      url: http://{{ config.base.k8up.username | urlencode }}:{{ config.base.k8up.password | urlencode }}@{{ config.base.k8up.host }}:8765/{{ config.base.k8up.username | urlencode }}
+      url: http://{{ config.base.k8up.host }}:8765/{{ config.base.k8up.username | urlencode }}
       userSecretRef:
         name: backup
         key: username
@@ -21,13 +21,13 @@ spec:
     activeDeadlineSeconds: 14400
     failedJobsHistoryLimit: 2
     successfulJobsHistoryLimit: 2
-    promURL: http://prometheus-pushgateway.prometheus-pushgateway.svc.cluster.local:9091
+    promURL: http://prometheus-pushgateway.monitoring.svc.cluster.local:9091
   check:
     schedule: "@daily-random"
     activeDeadlineSeconds: 14400
     failedJobsHistoryLimit: 2
     successfulJobsHistoryLimit: 2
-    promURL: http://prometheus-pushgateway.prometheus-pushgateway.svc.cluster.local:9091
+    promURL: http://prometheus-pushgateway.monitoring.svc.cluster.local:9091
   prune:
     schedule: "@weekly-random"
     activeDeadlineSeconds: 14400
