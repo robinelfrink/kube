@@ -9,13 +9,13 @@ spec:
       name: backup
       key: password
     rest:
-      url: ${backupurl}
+      url: http://{{ config.base.k8up.username | urlencode }}:{{ config.base.k8up.password | urlencode }}@{{ config.base.k8up.host }}:8765/{{ config.base.k8up.username | urlencode }}
       userSecretRef:
         name: backup
         key: username
       passwordSecretReg:
         name: backup
-        key: passwordEncoded
+        key: password
   backup:
     schedule: "@daily-random"
     activeDeadlineSeconds: 14400
