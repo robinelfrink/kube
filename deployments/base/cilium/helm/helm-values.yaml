@@ -5,6 +5,8 @@ l2announcements:
   enabled: true
 localRedirectPolicies:
   enabled: true
+socketLB:
+  hostNamespaceOnly: true
 securityContext:
   privileged: false
   seLinuxOptions:
