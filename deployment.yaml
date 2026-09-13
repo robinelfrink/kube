@@ -12,7 +12,7 @@ vars:
         - base/cloudnative-pg
         - base/k8up
         - base/monitoring
-        - base/kubevirt
+        # - base/kubevirt
         # Applications
         - apps/authentik
 #        - apps/gitea
