@@ -1,15 +1,11 @@
 deployments:
-  - path: kubevirt-operator
+  - path: operators
   - barrier: true
     waitReadinessObjects:
       - kind: CustomResourceDefinition
         name: kubevirts.kubevirt.io
-  - path: kubevirt
-    waitReadiness: true
-  - path: cdi-operator
-  - barrier: true
-    waitReadinessObjects:
       - kind: CustomResourceDefinition
         name: cdis.cdi.kubevirt.io
-  - path: cdi
-  - path: kubevirt-manager
+  - path: resources
+    waitReadiness: true
+#  - path: kubevirt-manager

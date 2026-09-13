@@ -4,14 +4,8 @@ metadata:
   name: kubevirt
   namespace: kubevirt
 spec:
-  certificateRotateStrategy: {}
   configuration:
-    developerConfiguration:
-      featureGates: []
     imagePullPolicy: IfNotPresent
 {% if get_var('config.base.kubevirt.storage_class') %}
     vmStateStorageClass: {{ config.base.kubevirt.storage_class }}
 {% endif %}
-  customizeComponents: {}
-  imagePullPolicy: IfNotPresent
-  workloadUpdateStrategy: {}
