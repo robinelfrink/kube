@@ -38,9 +38,9 @@ base:
     enabled: ENC[AES256_GCM,data://2EOw==,iv:kutcEgkxlrmOK+rqf95QXWIOMPuCPzNlzkhc2wOnFYQ=,tag:aGV3B9KBMI2aYR3RSbZLOQ==,type:bool]
   k8up:
     enabled: ENC[AES256_GCM,data:80b91Q==,iv:A8wdEpb+xf/P2refNuwA94Yi4CruaPmIdvklkNDZIzc=,tag:OWHHZ9zs2Y5pKHY9qlpCkw==,type:bool]
-    host: ENC[AES256_GCM,data:GSnf807Ib3TUc67nUqpBD2XqloKwqY7FjvXPPjPN,iv:3yXLOr4OH4gOMqOBfQVXf1iDAbKI4sRfHc9WHtI2GyQ=,tag:TkX+W9GLhp011Ntsl2fvxw==,type:str]
-    username: ENC[AES256_GCM,data:WuiaiDi0JRU=,iv:g4TPLEQ+CwKzJLXDWr1Es0/PdotIRnqPmKQYumvBASg=,tag:oR1ZeLpfLkG1fIxXipf6sg==,type:str]
-    password: ENC[AES256_GCM,data:AChyNMH57mY5ycdc,iv:3hfxtmDu95zRX+IQa/P40KbGEa9kMAF1clv+kwHr+o4=,tag:Hm0gc6gaCU9bgC+M5Ea69A==,type:str]
+    host: ENC[AES256_GCM,data:cYKQsqSK5u31jyJCtVNGGMEzvw==,iv:wWARMDJGFTDa7PljKCoN36YKVKt6W6mtyKdgifpwkhk=,tag:6VGPRkaCZX1RHwauPSHh5w==,type:str]
+    username: ENC[AES256_GCM,data:0oxufGTWqEJI7Bn3,iv:WyUT4reAALTs6MXo9PbzEYvQn8RblV7BpGQEUM9w3nU=,tag:lKJXRIb6VyztabHxfRTP7A==,type:str]
+    password: ENC[AES256_GCM,data:nlqMyNYRcRMfGKeKZPhX2/ulCLI=,iv:l7WQb+ZvQRwttgSeT/lH/0EzHLhJjIEAi++oHKOCqD0=,tag:RexhdJRpRpK9B3LqHQA9nA==,type:str]
   monitoring:
     enabled: ENC[AES256_GCM,data:KeOH/A==,iv:EXrnxoxQ8qcw5JzirfEKbndcJwZFzT0cjvjod5KX53I=,tag:MpkpnGAetUPbUydESFF4kQ==,type:bool]
     storage_class: ENC[AES256_GCM,data:IuPYuA6cyg==,iv:UC1jaMxHvKeGNHKeZXCN+DaoNk/rSwXmbxLLuGapEZE=,tag:+56j+fJDVxqx02xbXZnKew==,type:str]
@@ -109,7 +109,7 @@ sops:
         3moK0CZ2AyuBmL/dQS16dJr4WzzougTBeWgO1NDTZQoy2ueKewXHYA==
         -----END AGE ENCRYPTED FILE-----
       recipient: age1z8y632jh4pyvhtu34n324xaea6zzsclvagz9a92g8hds5xr9wpes44ty3w
-  lastmodified: "2026-09-12T10:05:18Z"
-  mac: ENC[AES256_GCM,data:y460Vo3hr4xKHTMkEtGJYagGCKKGE5bB/Nc/MieI4sE7URozlvbLqGWYHQleGsAz889dEKJd3/ZFnFGUBl/kf9G27rJbNqPVW80dbbxniSj9YRzBJ2daa0R92VjGGDwyGsth/LjHaAPD5KNqJ3N8e3nDd6sDBVsaLwznWmBeonA=,iv:VABSkBObTqAT0y22+/bnpX/umSDWWqSX8Z6NWlUuZug=,tag:IEFpsJh8Dz/xPXi5bBhKeg==,type:str]
+  lastmodified: "2026-09-13T06:57:27Z"
+  mac: ENC[AES256_GCM,data:OKYahXXMxGg3O5eGpk3022YLaUhSVW37bTucYw1vONgQHLWLQmjG6cVFbwy3064B0tZcqzMHAkVMG/59pYB+NZRz3LkkbfW3zA/5LZCDpmBjgszbBS9Y69Uq7pX+/wJKz9Mcsf0iBcKgmuMoqsCYprjkjPrnfJTddL5o1Ja5a6w=,iv:frzKDZGEBR7dOq6CJXB5c/Fvl0xMG5hIN/iXsLUO/4g=,tag:N0pu+cjUDuyPaWg4R9pphA==,type:str]
   unencrypted_suffix: _unencrypted
   version: 3.13.3
