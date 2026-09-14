@@ -18,7 +18,7 @@ spec:
             - ReadWriteMany
           resources:
             requests:
-              storage: 60Gi
+              storage: 80Gi
   template:
     metadata:
       labels:
@@ -39,6 +39,7 @@ spec:
           interfaces:
             - name: default
               masquerade: {}
+        ioThreadsPolicy: auto
         resources:
           requests:
             memory: 16Gi
