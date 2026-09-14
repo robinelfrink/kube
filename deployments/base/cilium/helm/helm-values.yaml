@@ -7,6 +7,14 @@ localRedirectPolicies:
   enabled: true
 socketLB:
   hostNamespaceOnly: true
+{% if get_var('config.base.cilium.direct_routing_device') %}
+nodePort:
+  directRoutingDevice: {{ config.base.cilium.direct_routing_device }}
+{% endif %}
+endpointRoutes:
+  enabled: true
+bpf:
+  masquerade: true
 securityContext:
   privileged: false
   seLinuxOptions:

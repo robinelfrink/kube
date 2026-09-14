@@ -16,6 +16,7 @@ global:
 
 base:
   cilium:
+    # direct_routing_device: eth2
     loadbalancer:
       enabled: false
       blocks: []
