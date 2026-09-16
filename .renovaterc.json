@@ -1,7 +1,8 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "baseBranchPatterns": [
-    "main"
+    "main",
+    "kluctl"
   ],
   "extends": [
     "config:recommended",
