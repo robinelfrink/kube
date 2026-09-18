@@ -30,6 +30,22 @@
         "# renovate: datasource=(?<datasource>[a-z-]+)(?: depName=(?<depName>[a-zA-Z0-9-\\/]+))?(?: versioning=(?<versioning>[a-z-]+))?\\s[A-Z]+_VERSION=(?<currentValue>.+)\\s"
       ],
       "versioningTemplate": "{{#if versioning}}{{{versioning}}}{{else}}semver{{/if}}"
+     },
+    {
+      "customType": "regex",
+      "managerFilePatterns": ["/(^|/|.*-)chart\\.ya?ml$/"],
+      "matchStrings": [
+        "repo:\\s*oci://(?<depName>[^\\s\\n]+)\\s+chartVersion:\\s*[\"']?(?<currentValue>[^\"'\\s\\n]+)[\"']?"
+      ],
+      "datasourceTemplate": "docker"
+    },
+    {
+      "customType": "regex",
+      "managerFilePatterns": ["/(^|/|.*-)chart\\.ya?ml$/"],
+      "matchStrings": [
+        "repo:\\s*(?<registryUrl>https?://[^\\s\\n]+)\\s+chartName:\\s*(?<depName>[^\\s\\n]+)\\s+chartVersion:\\s*[\"']?(?<currentValue>[^\"'\\s\\n]+)[\"']?"
+      ],
+      "datasourceTemplate": "helm"
     }
   ]
 }
