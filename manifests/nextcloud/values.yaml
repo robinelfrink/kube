@@ -56,7 +56,7 @@ nextcloud:
         - -f
         - -v
         - -p
-        - ${website_one_port}
+        - "${website_one_port}"
       workingDir: /html
       ports:
         - containerPort: ${website_one_port}
