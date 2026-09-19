@@ -7,3 +7,5 @@ resources:
   - postgresql.yaml
   - poddisruptionbudget.yaml
   - cronjob.yaml
+  - website-one-service.yaml
+  - website-one-ingress.yaml

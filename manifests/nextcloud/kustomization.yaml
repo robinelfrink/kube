@@ -9,8 +9,6 @@ resources:
   - resources.yaml
   - valkey-helmrepository.yaml
   - valkey-helmrelease.yaml
-  - website-one-service.yaml
-  - website-one-ingress.yaml
 configMapGenerator:
 - name: nextcloud
   namespace: flux
