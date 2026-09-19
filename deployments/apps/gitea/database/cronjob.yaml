@@ -2,7 +2,7 @@ apiVersion: batch/v1
 kind: CronJob
 metadata:
   name: dump-database
-  namespace: gitea
+  namespace: gitea-{{ app.name }}
 spec:
   schedule: "@daily"
   jobTemplate:

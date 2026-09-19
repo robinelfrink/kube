@@ -1,49 +1,58 @@
 strategy:
   type: Recreate
   rollingUpdate: null
+{% if get_var('app.ssh.enabled') %}
 service:
   ssh:
     type: NodePort
-    nodePort: 32222
+    nodePort: {{ app.ssh.nodeport }}
     externalTrafficPolicy: Local
+{% endif %}
 ingress:
   enabled: true
-  className: haproxy
+{% if get_var('app.issuer') %}
   annotations:
-    cert-manager.io/cluster-issuer: letsencrypt
+    cert-manager.io/cluster-issuer: {{ app.issuer }}
+{% endif %}
   hosts:
-    - host: ${hostname}
+    - host: {{ app.hostname }}
       paths:
         - path: /
   tls:
     - secretName: gitea-tls
       hosts:
-        - ${hostname}
+        - {{ app.hostname }}
+{% if get_var('app.node') %}
 nodeSelector:
-  kubernetes.io/hostname: ${nodename}
+  kubernetes.io/hostname: {{ app.node }}
+{% endif %}
 persistence:
-  storageClass: hdd
+{% if get_var('app.storage_class') %}
+  storageClass: {{ app.storage_class }}
+{% endif %}
+{% if get_var('app.node') %}
   annotations:
-    volume.kubernetes.io/selected-node: ${nodename}
+    volume.kubernetes.io/selected-node: {{ app.node }}
+{% endif %}
 gitea:
   admin:
-    password: ${adminpassword}
-    passwordMode: initialOnlyNoReset
+    password: {{ app.password }}
+    passwordMode: initialOnlyRequireReset
   metrics:
     enabled: true
+{% if get_var('app.oauth') %}
   oauth:
-    - name: 'authentik'
-      provider: openidConnect
-      key: ${oauthkey}
-      secret: ${oauthsecret}
-      autoDiscoverUrl: ${oauthdiscover}
+    {{ app.oauth | to_yaml | indent(4) }}
+{% endif %}
   config:
     repository:
       FORCE_PRIVATE: true
       DEFAULT_REPO_UNITS: repo.code,repo.releases,repo.issues,repo.pulls
+{% if get_var('app.ssh.enabled') %}
     server:
       SSH_PORT: 2222
-      SSH_SERVER_USE_PROXY_PROTOCOL: true
+      SSH_SERVER_USE_PROXY_PROTOCOL: {{ get_var('app.ssh.proxy_protocol') }}
+{% endif %}
     database:
       DB_TYPE: postgres
       HOST: postgresql-rw.gitea.svc.cluster.local
@@ -74,12 +83,12 @@ gitea:
     mailer:
       ENABLED: true
       PROTOCOL: smtps
-      SMTP_ADDR: ${smtphost}
+      SMTP_ADDR: {{ config.global.smtp.relay }}
       SMTP_PORT: 465
-      USER: ${smtpuser}
-      PASSWD: ${smtppassword}
-      FROM: ${smtpfrom}
-      ENVELOPE_FROM: ${smtpenvelope}
+      USER: {{ config.global.smtp.username }}
+      PASSWD: {{ config.global.smtp.password }}
+      FROM: {{ get_var('app.sender', config.global.admin.email) }}
+      ENVELOPE_FROM: {{ get_var('app.sender', config.global.admin.email) }}
     session:
       PROVIDER: db
   additionalConfigFromEnvs:

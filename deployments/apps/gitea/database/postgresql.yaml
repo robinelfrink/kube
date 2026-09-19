@@ -4,7 +4,7 @@ metadata:
   labels:
     kluctl.io/skip-delete: "true"
   name: postgresql
-  namespace: authentik-{{ app.name }}
+  namespace: gitea-{{ app.name }}
 spec:
 {% if get_var('app.node') %}
   affinity:
@@ -19,8 +19,8 @@ spec:
   storage:
     size: 5Gi
 {% if get_var('app.storage_class') %}
-    storageClass: {{ app.storage_class }}
+    storageClass: hdd
 {% endif %}
   bootstrap:
     initdb:
-      database: authentik
+      database: gitea

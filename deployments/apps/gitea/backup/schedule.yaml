@@ -1,16 +1,15 @@
----
 apiVersion: k8up.io/v1
 kind: Schedule
 metadata:
   name: backup
-  namespace: gitea
+  namespace: gitea-{{ app.name }}
 spec:
   backend:
     repoPasswordSecretRef:
       name: backup
       key: password
     rest:
-      url: ${backupurl}
+      url: {{ config.base.k8up.host }}:8765/{{ config.base.k8up.username | urlencode }}
       userSecretRef:
         name: backup
         key: username
@@ -22,13 +21,13 @@ spec:
     activeDeadlineSeconds: 43200
     failedJobsHistoryLimit: 1
     successfulJobsHistoryLimit: 1
-    promURL: http://prometheus-pushgateway.prometheus-pushgateway.svc.cluster.local:9091
+    promURL: http://prometheus-pushgateway.monitoring.svc.cluster.local:9091
   check:
     schedule: "@weekly-random"
     activeDeadlineSeconds: 14400
     failedJobsHistoryLimit: 1
     successfulJobsHistoryLimit: 1
-    promURL: http://prometheus-pushgateway.prometheus-pushgateway.svc.cluster.local:9091
+    promURL: http://prometheus-pushgateway.monitoring.svc.cluster.local:9091
   prune:
     schedule: "@monthly-random"
     activeDeadlineSeconds: 14400
