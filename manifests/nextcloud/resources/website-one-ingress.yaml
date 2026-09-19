@@ -12,7 +12,7 @@ metadata:
   namespace: nextcloud
 spec:
   rules:
-  - host: ${website_one_host}
+  - host: ${website_one_hostname}
     http:
       paths:
       - backend:
@@ -24,5 +24,5 @@ spec:
         pathType: Prefix
   tls:
   - hosts:
-    - ${website_one_host}
+    - ${website_one_hostname}
     secretName: website-one-tls
