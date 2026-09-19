@@ -55,7 +55,7 @@ nextcloud:
         - containerPort: 8080
           name: http
       volumeMounts:
-        - name: nextcloud-data
+        - name: nextcloud-main
           mountPath: /usr/share/nginx/html/
           subPath: ${website_one_path}
 cronjob:
