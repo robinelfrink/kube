@@ -61,3 +61,7 @@ spec:
       name: nextcloud
       valuesKey: nodename
       targetPath: mariadb.primary.nodeSelector.kubernetes\.io/hostname
+    - kind: Secret
+      name: nextcloud
+      valuesKey: website_one_path
+      targetPath: extraSidecarContainers[0].volumeMounts.subPath
