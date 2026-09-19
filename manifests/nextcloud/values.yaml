@@ -58,11 +58,8 @@ nextcloud:
         - -p
         - ${website_one_port}
       workingDir: /html
-      env:
-        - name: NGINX_PORT
-          value: "8080"
       ports:
-        - containerPort: 8080
+        - containerPort: ${website_one_port}
           name: http
       volumeMounts:
         - name: nextcloud-main
