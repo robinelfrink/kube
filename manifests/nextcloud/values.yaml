@@ -50,7 +50,7 @@ nextcloud:
     rollingUpdate: null
   extraSidecarContainers:
     - name: website-one
-      image: busybox:1.36
+      image: busybox:1.38
       args:
         - sh
         - -c
