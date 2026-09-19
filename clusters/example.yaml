@@ -99,3 +99,17 @@ apps:
   #     nodeport: <nodeport to use, defaults to 32389>
   #     nodeport_tls: <nodeport to use with tls, defaults to 32636>
   #   sender: <email sender address, defaults to admin address>
+
+  gitea: []
+  # - name: gitea
+  #   hostname: <gitea hostname>
+  #   issuer: <issuer for certificates>
+  #   password: <initial admin password>
+  #   ssh:
+  #     enabled: false
+  #     nodeport: 32323
+  #     proxy_protocol: false
+  #   storage_class: <storage class to use>
+  #   node: <node to deploy on>
+  #   oauth: []
+  #   sender: <email sender address, defaults to admin address>
