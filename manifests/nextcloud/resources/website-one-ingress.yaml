@@ -4,8 +4,8 @@ metadata:
   annotations:
     cert-manager.io/cluster-issuer: letsencrypt
     haproxy-ingress.github.io/config-backend: |
-      acl dot path_start /.
-      http-request deny if dot
+      acl dotgit path_beg /.git
+      http-request deny if dotgit
   labels:
     app.kubernetes.io/name: website-one
   name: website-one
@@ -19,7 +19,7 @@ spec:
           service:
             name: website-one
             port:
-              number: 8080
+              number: 8081
         path: /
         pathType: Prefix
   tls:

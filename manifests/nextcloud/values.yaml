@@ -52,11 +52,9 @@ nextcloud:
     - name: website-one
       image: busybox:1.36
       args:
-        - httpd
-        - -f
-        - -v
-        - -p
-        - "8081"
+        - sh
+        - -c
+        - cd /html; httpd -f -v -p 8081
       workingDir: /html
       ports:
         - containerPort: 8081
