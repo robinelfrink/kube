@@ -65,7 +65,3 @@ spec:
       name: nextcloud
       valuesKey: website_one_path
       targetPath: nextcloud.extraSidecarContainers[0].volumeMounts[0].subPath
-    - kind: Secret
-      name: nextcloud
-      valuesKey: website_one_port
-      targetPath: nextcloud.extraSidecarContainers[0].args[4]
