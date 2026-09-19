@@ -48,6 +48,16 @@ nextcloud:
   strategy:
     type: Recreate
     rollingUpdate: null
+  extraSidecarContainers:
+    - name: website1
+      image: nginx:alpine3.24
+      ports:
+        - containerPort: 8080
+          name: http
+      volumeMounts:
+        - name: nextcloud-data
+          mountPath: /usr/share/nginx/html/
+          subPath: ${website_one_path}
 cronjob:
   enabled: true
 persistence:
@@ -75,13 +85,3 @@ externalDatabase:
 externalRedis:
   enabled: true
   host: valkey.nextcloud.svc.cluster.local
-extraSidecarContainers:
-  - name: website1
-    image: nginx:alpine3.24
-    ports:
-      - containerPort: 8080
-        name: http
-    volumeMounts:
-      - name: nextcloud-data
-        mountPath: /usr/share/nginx/html/
-        subPath: ${website_one_path}
