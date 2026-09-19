@@ -56,10 +56,10 @@ nextcloud:
         - -f
         - -v
         - -p
-        - "${website_one_port}"
+        - "8081"
       workingDir: /html
       ports:
-        - containerPort: ${website_one_port}
+        - containerPort: 8081
           name: http
       volumeMounts:
         - name: nextcloud-main

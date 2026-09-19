@@ -10,7 +10,7 @@ spec:
   - name: http
     port: 8080
     protocol: TCP
-    targetPort: ${website_one_port}
+    targetPort: 8081
   selector:
     app.kubernetes.io/component: app
     app.kubernetes.io/instance: nextcloud
