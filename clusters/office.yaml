@@ -98,7 +98,7 @@ apps:
       secret_key: ENC[AES256_GCM,data:TtXcVCYhewwGX8gGXpDS3dqtiAcNK7SjMZlY3zBmUHv+n8xiBO7yXKpPmhwoG6X0BZQ=,iv:slR3mXRoy+rRHAgbLlY2ztyX976VOAr+50EXXP2a6Ys=,tag:ndNHUohe7SBwPUvO08cqjQ==,type:str]
       storage_class: ENC[AES256_GCM,data:VgUbaEvydA==,iv:xWEAWL9iD98m7M3c8Da8I4g9o6K1B9Q21IUhEt0+Jo0=,tag:2g4iGfygrf0Kbf5X/Iszdg==,type:str]
       ldap:
-        enabled: ENC[AES256_GCM,data:oDlqToE=,iv:e/LInNNGS2uS+mjUVtR9SQUN4yR8A3MSzc36Pz4aHvA=,tag:zaBAcqH7kD9IYcXVKYJ7dA==,type:bool]
+        enabled: ENC[AES256_GCM,data:v6fuIw==,iv:onG2e9F16XE6RJ9LOXqd6lG7A/Vs9pRfBFg0JeGnmsc=,tag:w8Az6Vhu2xkedgUV7DvlXg==,type:bool]
 sops:
   age:
     - enc: |
@@ -110,7 +110,7 @@ sops:
         3moK0CZ2AyuBmL/dQS16dJr4WzzougTBeWgO1NDTZQoy2ueKewXHYA==
         -----END AGE ENCRYPTED FILE-----
       recipient: age1z8y632jh4pyvhtu34n324xaea6zzsclvagz9a92g8hds5xr9wpes44ty3w
-  lastmodified: "2026-09-14T06:39:01Z"
-  mac: ENC[AES256_GCM,data:RwGQMg57uaoFY0mRmEQBoM0L+7uN4viXf9jxrMOdoG8oGkbNFMEk+AGtjeIBS61rITylO65115DY9Np3kTwATFxOAKEZx9+E+8MywQmSz9UdINUjUwiPMwXUTCBjKDcAdpkR0VF20Y1TdieGkZJqaLSRCJNpyG53/74Ge68tFco=,iv:U03TZkI/n2SByFt6Sn7P8GSA/AtSjvBkpUAcZN6hm5w=,tag:ISkLzkNxRnbmmXtGLEKNyw==,type:str]
+  lastmodified: "2026-09-19T07:52:08Z"
+  mac: ENC[AES256_GCM,data:xLc9kEn2yIvzzgwDnaXxYPHfL8i2qSHxgJXyzs2RLFHK6zPUBXX+YyGm6H1ykYPeQtAypCM2V4YdxvMktxTOjNKBOn8WaO697EOcZjet51z6gSRhqKmNuhCJPjHIK+Q8bStZnmCFHOj/BjJQcrps0MhkcZPkoA6jmKI/F3y4Q3Q=,iv:qWyxV2a4rK0P8TVTp5R3yogaTuzst1cn0tfjcJy90FY=,tag:8Zf9wd8w0jiJkq8g/xFfPg==,type:str]
   unencrypted_suffix: _unencrypted
   version: 3.13.3
