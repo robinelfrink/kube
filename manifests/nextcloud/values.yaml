@@ -49,14 +49,24 @@ nextcloud:
     type: Recreate
     rollingUpdate: null
   extraSidecarContainers:
-    - name: website1
-      image: nginx:alpine3.24
+    - name: website-one
+      image: busybox:1.36
+      args:
+        - httpd
+        - -f
+        - -v
+        - -p
+        - ${website_one_port}
+      workingDir: /html
+      env:
+        - name: NGINX_PORT
+          value: "8080"
       ports:
         - containerPort: 8080
           name: http
       volumeMounts:
         - name: nextcloud-main
-          mountPath: /usr/share/nginx/html/
+          mountPath: /html
           subPath: ${website_one_path}
 cronjob:
   enabled: true
