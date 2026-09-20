@@ -9,3 +9,5 @@ resources:
   - cronjob.yaml
   - website-one-service.yaml
   - website-one-ingress.yaml
+  - website-two-service.yaml
+  - website-two-ingress.yaml

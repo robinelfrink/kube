@@ -1,0 +1,28 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt
+    haproxy-ingress.github.io/config-backend: |
+      acl dotgit path_beg /.git
+      http-request deny if dotgit
+  labels:
+    app.kubernetes.io/name: website-two
+  name: website-two
+  namespace: nextcloud
+spec:
+  rules:
+  - host: ${website_two_hostname}
+    http:
+      paths:
+      - backend:
+          service:
+            name: website-two
+            port:
+              number: 8082
+        path: /
+        pathType: Prefix
+  tls:
+  - hosts:
+    - ${website_two_hostname}
+    secretName: website-two-tls
