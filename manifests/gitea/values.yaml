@@ -5,7 +5,6 @@ service:
   ssh:
     type: NodePort
     nodePort: 32222
-    externalTrafficPolicy: Local
 ingress:
   enabled: true
   className: haproxy
