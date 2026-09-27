@@ -49,18 +49,23 @@ deployment:
       path: /healthcheck
       port: 1880
 service:
+  loadBalancerClass: io.cilium/l2-announcer
+  externalTrafficPolicy: Cluster
+  internalTrafficPolicy: Cluster
+  annotations:
+    lbipam.cilium.io/ips: ${ip}
+    lbipam.cilium.io/sharing-cross-namespace: '*'
+    lbipam.cilium.io/sharing-key: share-${ip}
   ports:
     - port: 1883
       name: tcp
       protocol: TCP
       targetPort: 1883
-      nodePort: 31883
     - port: 1882
       name: ws
       protocol: TCP
       targetPort: 1882
-      nodePort: 31882
-  type: NodePort
+  type: LoadBalancer
 configMap:
   enabled: true
   files:
