@@ -13,8 +13,6 @@ deployment:
     GS1200_PASSWORD:
       value: {{ app.password }}
   securityContext:
-    allowPrivilegeEscalation: false
-    readOnlyRootFilesystem: true
     runAsNonRoot: true
     seccompProfile:
       type: RuntimeDefault
