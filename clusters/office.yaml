@@ -99,10 +99,6 @@ apps:
       storage_class: ENC[AES256_GCM,data:VgUbaEvydA==,iv:xWEAWL9iD98m7M3c8Da8I4g9o6K1B9Q21IUhEt0+Jo0=,tag:2g4iGfygrf0Kbf5X/Iszdg==,type:str]
       ldap:
         enabled: ENC[AES256_GCM,data:v6fuIw==,iv:onG2e9F16XE6RJ9LOXqd6lG7A/Vs9pRfBFg0JeGnmsc=,tag:w8Az6Vhu2xkedgUV7DvlXg==,type:bool]
-  gs1200-exporter:
-    - name: ENC[AES256_GCM,data:JqyQcg==,iv:mW83N3ckXzBuXJpmCQlApKH9DjEf+0qS3TvE7S1fNY8=,tag:SRac+zEI/UeRi4s32FFI5A==,type:str]
-      address: ENC[AES256_GCM,data:P791sIaooioYlknR,iv:6Q8bERevdnXS4s8JUwdSCpugHEBNbvswHuLIAWtPFJc=,tag:Y+pdtXYoV9rF5sNl+wbVog==,type:str]
-      password: ENC[AES256_GCM,data:21+oy/Aw,iv:41hBnRwi4t4FiCl25UnEN13KmxDiHXJtfIPOR2l2hrU=,tag:5Rx3k0hzpW+eeiREDRNpXQ==,type:str]
 sops:
   age:
     - enc: |
@@ -114,7 +110,7 @@ sops:
         3moK0CZ2AyuBmL/dQS16dJr4WzzougTBeWgO1NDTZQoy2ueKewXHYA==
         -----END AGE ENCRYPTED FILE-----
       recipient: age1z8y632jh4pyvhtu34n324xaea6zzsclvagz9a92g8hds5xr9wpes44ty3w
-  lastmodified: "2026-10-04T09:56:03Z"
-  mac: ENC[AES256_GCM,data:+JKKrCEzz/t9XAlg/iPxMzKsMB4z62CtBBECrhHTBMibtWG49IpdyTY2gy/2gcvRD41e3ClV0Ut6mIkY/5nFIRjEv3ByxgHFEp8AJFchxtzThJiTUwdN3JYJUp8sP7bNWePj1AHJiX3g174qUnQ64hyOSycAkWBPpVXbH/hophE=,iv:NVmpwGJm9k0KqBAgFk+JfeIUnW9Tw11NhBSrHGs7gyE=,tag:rQqZBba289hEWXsZOg7CGA==,type:str]
+  lastmodified: "2026-10-04T10:35:37Z"
+  mac: ENC[AES256_GCM,data:oY1HGUzY+601Pmm3SR4Ypa2eLFTPdWe2uXi8Zq4A0jwfra2bw2jllbZxqBSHXG+aldXvCkCLQOzPaRpbUQYeRyc6df7Zaw3yqDN9b124hZdNK810kpFf4wKFUAs+UAL4UgjsZrJ52vUmlr13s+ovhMybVwdEwKPbmlux4oAs1x0=,iv:b6Rvk6uVusd07Y2XJIhloW9gIu64S2xAZlC+MFb55A0=,tag:Yy0K3DYaf193+owEQItDlA==,type:str]
   unencrypted_suffix: _unencrypted
   version: 3.13.3
