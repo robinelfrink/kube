@@ -16,7 +16,7 @@ vars:
         # Applications
         - apps/authentik
         - apps/gitea
-#        - apps/gs1200-exporter
+        - apps/gs1200-exporter
 #        - apps/home-assistant
 #        - apps/meshcore-proxy
 #        - apps/mikrotik-exporter
