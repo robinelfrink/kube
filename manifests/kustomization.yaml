@@ -21,7 +21,6 @@ resources:
   - prometheus
   - prometheus-pushgateway
   - rest-server
-  - samba
   - storage
   - unifi-ap-exporter
   - vaultwarden
