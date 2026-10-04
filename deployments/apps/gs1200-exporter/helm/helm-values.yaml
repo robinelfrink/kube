@@ -14,9 +14,6 @@ deployment:
       value: {{ app.password }}
   securityContext:
     allowPrivilegeEscalation: false
-    capabilities:
-      drop:
-      - ALL
     readOnlyRootFilesystem: true
     runAsNonRoot: true
     seccompProfile:
