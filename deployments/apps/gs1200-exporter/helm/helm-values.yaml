@@ -1,4 +1,3 @@
----
 applicationName: gs1200-exporter
 deployment:
   image:
@@ -10,9 +9,9 @@ deployment:
       protocol: TCP
   env:
     GS1200_ADDRESS:
-      value: ${address}
+      value: {{ app.address }}
     GS1200_PASSWORD:
-      value: ${password}
+      value: {{ app.password }}
   securityContext:
     allowPrivilegeEscalation: false
     capabilities:

@@ -1,0 +1,7 @@
+helmChart:
+  repo: https://stakater.github.io/stakater-charts
+  chartName: application
+  chartVersion: 9.3.2
+  releaseName: gs1200-exporter
+  namespace: gs1200-exporter-{{ app.name }}
+  skipPrePull: true

@@ -1,0 +1,13 @@
+{% for app in get_var('config.apps.gs1200-exporter') %}
+{%   if args.name == app.name %}
+vars:
+  - values:
+      app: {{ app }}
+
+deployments:
+  - path: namespace
+    waitReadiness: true
+  - path: helm
+  - path: networkpolicies
+{%   endif %}
+{% endfor %}

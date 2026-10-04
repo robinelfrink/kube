@@ -1,9 +1,9 @@
----
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-{% if get_var('app.node') %}
   annotations:
+    kluctl.io/skip-delete: "true"
+{% if get_var('app.node') %}
     volume.kubernetes.io/selected-node: {{ app.node }}
 {% endif %}
   name: authentik-media

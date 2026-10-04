@@ -1,19 +1,17 @@
----
 apiVersion: cilium.io/v2
 kind: CiliumNetworkPolicy
 metadata:
   name: gs1200-exporter
-  namespace: gs1200-exporter
+  namespace: gs1200-exporter-{{ app.name }}
 spec:
   endpointSelector:
     matchLabels:
       app.kubernetes.io/name: gs1200-exporter
   ingress:
-  # Prometheus
+  # Monitoring
   - fromEndpoints:
     - matchLabels:
-        "k8s:io.kubernetes.pod.namespace": prometheus
-        app.kubernetes.io/name: prometheus
+        "k8s:io.kubernetes.pod.namespace": Monitoring
     toPorts:
     - ports:
       - port: "9934"

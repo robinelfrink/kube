@@ -113,3 +113,7 @@ apps:
   #   node: <node to deploy on>
   #   oauth: []
   #   sender: <email sender address, defaults to admin address>
+
+  gs1200-exporter: []
+  # - name: home-kitchen
+  #   address: <gs1200 address or hostname>
