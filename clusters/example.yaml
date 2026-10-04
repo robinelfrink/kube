@@ -117,3 +117,4 @@ apps:
   gs1200-exporter: []
   # - name: home-kitchen
   #   address: <gs1200 address or hostname>
+  #   password: <gs1200 password>
