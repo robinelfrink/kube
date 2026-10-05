@@ -49,31 +49,20 @@ base:
     # username: <backup username>
     # password: <backup password>
 
-  monitoring:
-    enabled: false
-    # node: <node to deploy on>
-    # storage_class: <storage class to use>
-    # issuer: <issuer for certificates>
-    prometheus:
+  observability:
+    monitoring:
+      enabled: false
+      # node: <node to deploy on>
+      # storage_class: <storage class to use>
+      # issuer: <issuer for certificates>
       # ingress:
       #   enabled: false
+      #   hostname: <metrics ui hostname>
       #   authentication:
       #     enabled: false
       #     auth: |
       #       <username>::<password>
       #       ...
-      hostname: <prometheus hostname>
-    # prometheus-pushgateway:
-    #   enabled: false
-    # alertmanager:
-    #   enabled: false
-    #   hostname: <alertmanager hostname>
-    #   sender: <email sender address, defaults to admin address>
-    # grafana:
-    #   enabled: false
-    #   hostname: <grafana hostname>
-    #   extra_ini:
-    #     <key>: <value>
 
   kubevirt:
     enabled: false

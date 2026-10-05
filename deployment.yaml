@@ -11,7 +11,7 @@ vars:
         - base/k8up
         - base/kubevirt
         - base/metrics-server
-        - base/monitoring
+        - base/observability
         - base/storage
         # Applications
         - apps/authentik
