@@ -1,6 +1,5 @@
 crds:
-  upgrade:
-    enabled: true
+  enabled: false
 operator:
   disable_prometheus_converter: true
 serviceMonitor:
