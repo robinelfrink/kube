@@ -13,6 +13,7 @@ vars:
         - base/metrics-server
         - base/node-exporter
         - base/observability
+        - base/kube-state-metrics
         - base/storage
         # Applications
         - apps/authentik

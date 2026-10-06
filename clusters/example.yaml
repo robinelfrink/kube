@@ -28,6 +28,9 @@ base:
   node-exporter:
     enabled: true
 
+  kube-state-metrics:
+    enabled: true
+
   storage:
     enabled: false
     # classes:

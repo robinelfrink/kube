@@ -1,0 +1,74 @@
+collectorsExclude:
+  - horizontalpodautoscalers
+  - leases
+  - limitranges
+  - networkpolicies
+  - poddisruptionbudgets
+  - resourcequotas
+rbac:
+  extraRules:
+    - apiGroups:
+        - gitops.kluctl.io
+      resources:
+        - kluctldeployments
+      verbs: ["list", "watch"]
+    - apiGroups:
+        - k8up.io
+      resources:
+        - backups
+        - checks
+      verbs: ["list", "watch"]
+customResourceState:
+  enabled: true
+  config:
+    spec:
+      resources:
+        - groupVersionKind:
+            group: gitops.kluctl.io
+            version: v1beta1
+            kind: KluctlDeployment
+          metricNamePrefix: kluctldeployment
+          metrics:
+            - name: resource_info
+              help: The current state of a KluctlDeployment resource.
+              each:
+               type: Info
+               info:
+                 labelsFromPath:
+                   name: [metadata, name]
+              labelsFromPath:
+                exported_namespace: [metadata, namespace]
+                ready: [status, conditions, "[type=Ready]", status]
+                suspended: [spec, suspend]
+        - groupVersionKind:
+            group: k8up.io
+            version: v1
+            kind: Backup
+          metricNamePrefix: k8up_backup
+          metrics:
+            - name: resource_info
+              help: The current state of a Backup resource.
+              each:
+                type: Info
+                info:
+                  labelsFromPath:
+                    name: [metadata, name]
+              labelsFromPath:
+                exported_namespace: [metadata, namespace]
+                completed: [status, conditions, "[type=Completed]", status]
+        - groupVersionKind:
+            group: k8up.io
+            version: v1
+            kind: Check
+          metricNamePrefix: k8up_check
+          metrics:
+            - name: resource_info
+              help: The current state of a Backup resource.
+              each:
+                type: Info
+                info:
+                  labelsFromPath:
+                    name: [metadata, name]
+              labelsFromPath:
+                exported_namespace: [metadata, namespace]
+                completed: [status, conditions, "[type=Completed]", status]

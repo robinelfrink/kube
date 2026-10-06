@@ -1,0 +1,6 @@
+deployments:
+  - path: namespace
+    waitReadiness: true
+  - path: helm
+  - path: monitoring
+    when: "'operator.victoriametrics.com' in apigroups"
