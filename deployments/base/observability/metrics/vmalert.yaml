@@ -1,0 +1,11 @@
+apiVersion: operator.victoriametrics.com/v1beta1
+kind: VMAlert
+metadata:
+  name: alert
+  namespace: observability
+spec:
+  selectAllByDefault: true
+  datasource:
+    url: http://vmsingle-metrics:8428
+  remoteWrite:
+    url: http://vmsingle-metrics:8428

@@ -7,6 +7,8 @@ spec:
   enableKubernetesAPISelectors: true
   selectAllByDefault: true
   ingestOnlyMode: false
+  extraArgs:
+    vmalert.proxyURL: http://vmalert-alert:8080
   storage:
     resources:
       requests:
