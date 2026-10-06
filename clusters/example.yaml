@@ -25,6 +25,9 @@ base:
   metrics-server:
     enabled: true
 
+  node-exporter:
+    enabled: true
+
   storage:
     enabled: false
     # classes:

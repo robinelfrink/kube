@@ -2,5 +2,5 @@ helmChart:
   repo: oci://ghcr.io/prometheus-community/charts/prometheus-node-exporter
   chartVersion: 4.59.0
   releaseName: node-exporter
-  namespace: observability
+  namespace: node-exporter
   skipPrePull: true
