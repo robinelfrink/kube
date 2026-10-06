@@ -8,6 +8,7 @@ deployments:
         name: vmsingles.operator.victoriametrics.com
   - path: victoria-metrics-operator
   - path: metrics
+    recursive: true
     when: get_var('config.base.observability.metrics.enabled')
 
 #  - path: prometheus-operator-crds

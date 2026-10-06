@@ -1,0 +1,6 @@
+helmChart:
+  repo: oci://ghcr.io/prometheus-community/charts/prometheus-node-exporter
+  chartVersion: 4.59.0
+  releaseName: node-exporter
+  namespace: observability
+  skipPrePull: true

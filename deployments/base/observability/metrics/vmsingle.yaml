@@ -1,19 +1,21 @@
 apiVersion: operator.victoriametrics.com/v1beta1
 kind: VMSingle
 metadata:
-  name: vmsingle
+  name: metrics
   namespace: observability
 spec:
   enableKubernetesAPISelectors: true
+  selectAllByDefault: true
+  ingestOnlyMode: false
   storage:
     resources:
       requests:
         storage: 20Gi
-    storageClassName: {{ config.base.monitoring.storage_class }}
+    storageClassName: {{ config.base.observability.metrics.storage_class }}
   storageMetadata:
-{% if get_var('config.base.monitoring.node') %}
+{% if get_var('config.base.observability.metrics.node') %}
     annotations:
-      volume.kubernetes.io/selected-node: {{ config.base.monitoring.node }}
+      volume.kubernetes.io/selected-node: {{ config.base.observability.metrics.node }}
 {% endif %}
     labels:
       kluctl.io/skip-delete: "true"
