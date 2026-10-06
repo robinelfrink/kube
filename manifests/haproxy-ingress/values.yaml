@@ -28,6 +28,17 @@ controller:
     8081: "haproxy-ingress/haproxy-ingress:8080::PROXY-V2"
     8444: "haproxy-ingress/haproxy-ingress:8443::PROXY-V2"
     2222: "gitea/gitea-ssh:22::PROXY-V2"
+  enableStaticPorts: "false"
+  extraServices:
+    - type: ClusterIP
+      labels:
+        haproxy-ingress-service: local
+      httpPorts:
+        - port: 8082
+          targetPort: 8081
+      httpsPorts:
+        - port: 8445
+          targetPort: 8444
   haproxy:
     enabled: true
   metrics:
