@@ -50,7 +50,6 @@ deployment:
       port: 1880
 service:
   loadBalancerClass: io.cilium/l2-announcer
-  externalTrafficPolicy: Cluster
   internalTrafficPolicy: Cluster
   annotations:
     lbipam.cilium.io/ips: ${ip}
