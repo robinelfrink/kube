@@ -1,0 +1,11 @@
+{% if get_var('config.base.observability.metrics.ingress.enabled') and get_var('config.base.observability.metrics.ingress.authentication.enabled') %}
+apiVersion: v1
+kind: Secret
+metadata:
+  name: metrics-ingress-authentication
+  namespace: observability
+type: Opaque
+stringData:
+  auth: |
+    {{ config.base.observability.metrics.ingress.authentication.auth | indent(4) }}
+{% endif %}

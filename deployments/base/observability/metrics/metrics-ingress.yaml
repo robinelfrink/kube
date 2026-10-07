@@ -1,0 +1,33 @@
+{% if get_var('config.base.observability.metrics.ingress.enabled') %}
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+{%   if get_var('config.base.observability.metrics.ingress.issuer') or get_var('config.base.observability.metrics.ingress.authentication.enabled') %}
+  annotations:
+{%     if get_var('config.base.observability.metrics.ingress.issuer') %}
+    cert-manager.io/cluster-issuer: {{ config.base.observability.metrics.ingress.issuer }}
+{%     endif %}
+{%     if get_var('config.base.observability.metrics.ingress.authentication.enabled') %}
+    haproxy-ingress.github.io/auth-realm: Access Limited
+    haproxy-ingress.github.io/auth-secret: metrics-ingress-authentication
+{%     endif %}
+{%   endif %}
+  name: metrics
+  namespace: observability
+spec:
+  rules:
+  - host: {{ config.base.observability.metrics.ingress.hostname }}
+    http:
+      paths:
+      - backend:
+          service:
+            name: vmsingle-metrics
+            port:
+              number: 8429
+        path: /
+        pathType: Prefix
+  tls:
+  - hosts:
+    - {{ config.base.observability.metrics.ingress.hostname }}
+    secretName: metrics-tls
+{% endif %}
