@@ -12,6 +12,7 @@ controller:
   service:
     type: LoadBalancer
     loadBalancerClass: io.cilium/l2-announcer
+    externalTrafficPolicy: Cluster
     annotations:
       lbipam.cilium.io/ips: ${ip}
       lbipam.cilium.io/sharing-cross-namespace: '*'
