@@ -12,8 +12,6 @@ controller:
   service:
     type: LoadBalancer
     loadBalancerClass: io.cilium/l2-announcer
-    externalTrafficPolicy: Cluster
-    internalTrafficPolicy: Cluster
     annotations:
       lbipam.cilium.io/ips: ${ip}
       lbipam.cilium.io/sharing-cross-namespace: '*'
@@ -24,6 +22,11 @@ controller:
     httpsPorts:
       - port: 8443
         targetPort: https
+    extraPorts:
+      - port: 80
+        targetPort: 8081
+      - port: 443
+        targetPort: 8444
   tcp:
     8081: "haproxy-ingress/haproxy-ingress:8080::PROXY-V2"
     8444: "haproxy-ingress/haproxy-ingress:8443::PROXY-V2"
