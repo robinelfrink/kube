@@ -1,0 +1,7 @@
+apiVersion: operator.victoriametrics.com/v1beta1
+kind: VMRule
+metadata:
+  name: cert-manager
+  namespace: ingress
+spec:
+  {{ rules.certmanager | to_yaml | indent(2) }}

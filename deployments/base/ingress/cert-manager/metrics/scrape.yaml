@@ -1,0 +1,17 @@
+apiVersion: operator.victoriametrics.com/v1beta1
+kind: VMPodScrape
+metadata:
+  name: cert-manager
+  namespace: ingress
+spec:
+  jobLabel: app.kubernetes.io/name
+  selector:
+    matchExpressions:
+      - key: app.kubernetes.io/name
+        operator: In
+        values:
+        - cainjector
+        - cert-manager
+        - webhook
+  podMetricsEndpoints:
+    - port: http-metrics
