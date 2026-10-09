@@ -1,0 +1,10 @@
+apiVersion: operator.victoriametrics.com/v1beta1
+kind: VMRule
+metadata:
+  name: coredns
+  namespace: observability
+spec:
+  groups:
+    - name: coredns
+      rules:
+        {{ rules.coredns.groups[0].rules | to_yaml | indent(8) }}

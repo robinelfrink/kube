@@ -1,3 +1,13 @@
+vars:
+  - http:
+      url: https://github.com/samber/awesome-prometheus-alerts/raw/refs/tags/2026-07-26.1/dist/rules/etcd/embedded-exporter.yml
+    targetPath: rules.etcd
+    when: get_var('config.base.observability.metrics.enabled')
+  - http:
+      url: https://github.com/samber/awesome-prometheus-alerts/raw/refs/tags/2026-07-26.1/dist/rules/coredns/embedded-exporter.yml
+    targetPath: rules.coredns
+    when: get_var('config.base.observability.metrics.enabled')
+
 deployments:
   - path: namespace
     waitReadiness: true

@@ -2,6 +2,7 @@ vars:
   - http:
       url: https://github.com/samber/awesome-prometheus-alerts/raw/refs/tags/2026-07-26.1/dist/rules/cert-manager/embedded-exporter.yml
     targetPath: rules.certmanager
+    when: "'operator.victoriametrics.com' in apigroups"
 
 deployments:
   - path: helm
