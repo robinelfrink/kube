@@ -4,4 +4,7 @@ metadata:
   name: cert-manager
   namespace: ingress
 spec:
-  {{ rules.certmanager | to_yaml | indent(2) }}
+  groups:
+    - name: cert-manager
+      rules:
+        {{ rules.certmanager.groups[0].rules | to_yaml | indent(8) }}
