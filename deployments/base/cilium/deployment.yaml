@@ -1,3 +1,8 @@
+vars:
+  - http:
+      url: https://github.com/samber/awesome-prometheus-alerts/raw/refs/tags/2026-07-26.1/dist/rules/cilium/embedded-exporter.yml
+    targetPath: rules.cilium
+
 deployments:
   - path: namespace
     waitReadiness: true
@@ -10,3 +15,5 @@ deployments:
 {% if config.base.cilium.loadbalancer.enabled | default(false) %}
   - path: loadbalancer
 {% endif %}
+  - path: metrics
+    when: "'operator.victoriametrics.com' in apigroups"

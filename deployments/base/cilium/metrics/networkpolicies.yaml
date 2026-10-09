@@ -1,0 +1,21 @@
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
+  name: cilium-metrics
+  namespace: cilium
+spec:
+  endpointSelector:
+    matchLabels:
+      app.kubernetes.io/part-of: cilium
+  ingress:
+  # Metrics
+  - fromEndpoints:
+    - matchLabels:
+        "k8s:io.kubernetes.pod.namespace": observability
+        app.kubernetes.io/name: vmsingle
+    toPorts:
+    - ports:
+      - port: "9962"
+        protocol: TCP
+      - port: "9963"
+        protocol: TCP

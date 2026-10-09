@@ -1,0 +1,10 @@
+apiVersion: operator.victoriametrics.com/v1beta1
+kind: VMRule
+metadata:
+  name: cilium
+  namespace: cilium
+spec:
+  groups:
+    - name: cilium
+      rules:
+        {{ rules.cilium.groups[0].rules | to_yaml | indent(8) }}
