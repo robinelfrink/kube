@@ -37,6 +37,15 @@
         "repo:\\s*(?<registryUrl>https?://[^\\s\\n]+)\\s+chartName:\\s*(?<depName>[^\\s\\n]+)\\s+chartVersion:\\s*[\"']?(?<currentValue>[^\"'\\s\\n]+)[\"']?"
       ],
       "datasourceTemplate": "helm"
+    },
+    {
+      "customType": "regex",
+      "managerFilePatterns": ["(^|/)deployment\\.ya?ml$/"],
+      "matchStrings": [
+        "^      url: https://github.com/(?<depName>samber/awesome-prometheus-alerts)/raw/refs/tags/(?<currentValue>2026-07-26.1)/dist/rules/etcd/embedded-exporter.yml"
+      ],
+      "versioningTemplate": "{{#if versioning}}{{{versioning}}}{{else}}semver{{/if}}",
+      "datasourceTemplate": "github-tags"
     }
   ]
 }
