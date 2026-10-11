@@ -23,7 +23,7 @@ spec:
     cluster: {{ args.cluster }}
     component: {{ component }}
 {%   else %}
-{%     for app in get_var(['config', component | replace('/', '.')] | join('.')) %}
+{%     for app in get_var(['config', component | replace('/', '.')] | join('.'), []) %}
 ---
 apiVersion: gitops.kluctl.io/v1beta1
 kind: KluctlDeployment
