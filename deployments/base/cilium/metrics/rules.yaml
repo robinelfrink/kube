@@ -7,4 +7,4 @@ spec:
   groups:
     - name: cilium
       rules:
-        {{ rules.cilium.groups[0].rules | to_yaml | indent(8) }}
+        {{ rules.cilium.groups[0].rules | rejectattr('alert', 'equalto', 'CiliumAgentHighDropRate') | list | to_yaml | indent(8) }}
