@@ -1,0 +1,9 @@
+apiVersion: operator.victoriametrics.com/v1beta1
+kind: VMAgent
+metadata:
+  name: metrics
+  namespace: observability
+spec:
+  daemonSetMode: true
+  hostNetwork: true
+  ingestOnlyMode: true

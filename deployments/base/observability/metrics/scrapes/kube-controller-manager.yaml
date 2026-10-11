@@ -1,0 +1,19 @@
+apiVersion: operator.victoriametrics.com/v1beta1
+kind: VMNodeScrape
+metadata:
+  name: kube-controller-manager
+  namespace: observability
+spec:
+  selector:
+    matchLabels:
+      node-role.kubernetes.io/control-plane: ""
+  port: "10257"
+  scheme: https
+  bearerTokenFile: /var/run/secrets/kubernetes.io/serviceaccount/token
+  tlsConfig:
+    caFile: /var/run/secrets/kubernetes.io/serviceaccount/ca.crt
+    insecureSkipVerify: true
+  relabelConfigs:
+    - target_label: job
+      replacement: kube-controller-manager
+      action: replace

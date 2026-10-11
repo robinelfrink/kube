@@ -1,0 +1,19 @@
+apiVersion: operator.victoriametrics.com/v1beta1
+kind: VMNodeScrape
+metadata:
+  name: kube-scheduler
+  namespace: observability
+spec:
+  selector:
+    matchLabels:
+      node-role.kubernetes.io/control-plane: ""
+  port: "10259"
+  scheme: https
+  bearerTokenFile: /var/run/secrets/kubernetes.io/serviceaccount/token
+  tlsConfig:
+    caFile: /var/run/secrets/kubernetes.io/serviceaccount/ca.crt
+    insecureSkipVerify: true
+  relabelConfigs:
+    - target_label: job
+      replacement: kube-scheduler
+      action: replace

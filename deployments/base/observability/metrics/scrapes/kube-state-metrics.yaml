@@ -4,7 +4,7 @@ metadata:
   name: kube-state-metrics
   namespace: observability
 spec:
-  jobLabel: app.kubernetes.io/instance
+  jobLabel: app.kubernetes.io/name
   namespaceSelector:
     matchNames:
       - kube-state-metrics
@@ -13,3 +13,6 @@ spec:
       app.kubernetes.io/name: kube-state-metrics
   endpoints:
     - port: http
+      metricRelabelConfigs:
+      - action: labeldrop
+        regex: (uid|container_id|image_id)
