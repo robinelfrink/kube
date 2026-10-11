@@ -10,7 +10,3 @@ spec:
       app.kubernetes.io/part-of: cilium
   podMetricsEndpoints:
     - port: prometheus
-      metricRelabelConfigs:
-      - sourceLabels: [__name__, reason]
-        regex: 'cilium_drop_count_total;(Unsupported L3 protocol|Unsupported L3 protocol)'
-        action: drop
