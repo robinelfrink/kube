@@ -1,0 +1,27 @@
+apiVersion: operator.victoriametrics.com/v1beta1
+kind: VMRule
+metadata:
+  name: kluctl-controller
+  namespace: kluctl-system
+spec:
+{% raw %}
+  groups:
+  - name: kluctl-controller
+    rules:
+    - alert: KluctlDeploymentNotReady
+      annotations:
+        description: KluctlDeployment {{ $labels.name }} in namespace {{ $labels.namespace }} is not ready.
+        summary: KluctlDeployment is not ready.
+      expr: gotk_reconcile_condition{job="kluctl-controller",kind="KluctlDeployment",type="Ready",status!="True"}
+      for: 15m
+      labels:
+        severity: critical
+    - alert: KluctlDeploymentSuspended
+      annotations:
+        description: KluctlDeployment {{ $labels.name }} in namespace {{ $labels.namespace }} is suspended.
+        summary: KluctlDeployment is suspended.
+      gotk_suspend_status{job="kluctl-controller",kind="KluctlDeployment"} 0
+      for: 1h
+      labels:
+        severity: warning
+{% endraw %}
