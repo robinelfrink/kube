@@ -12,7 +12,7 @@ spec:
       annotations:
         description: KluctlDeployment {{ $labels.name }} in namespace {{ $labels.namespace }} is not ready.
         summary: KluctlDeployment is not ready.
-      expr: gotk_reconcile_condition{job="kluctl-controller",kind="KluctlDeployment",type="Ready",status=="True"} == 0
+      expr: gotk_reconcile_condition{job="kluctl-controller",kind="KluctlDeployment",type="Ready",status="True"} == 0
       for: 15m
       labels:
         severity: critical
