@@ -20,7 +20,7 @@ spec:
       annotations:
         description: KluctlDeployment {{ $labels.name }} in namespace {{ $labels.namespace }} is suspended.
         summary: KluctlDeployment is suspended.
-      gotk_suspend_status{job="kluctl-controller",kind="KluctlDeployment"} 0
+      expr: gotk_suspend_status{job="kluctl-controller",kind="KluctlDeployment"}
       for: 1h
       labels:
         severity: warning

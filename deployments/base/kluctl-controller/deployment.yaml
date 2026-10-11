@@ -13,4 +13,4 @@ deployments:
           cpu: 500m
           memory: 512Mi
   - path: metrics
-    when: "'operator.victoriametrics.com/v1' in apigroups"
+    when: "'operator.victoriametrics.com' in apigroups"
