@@ -31,6 +31,15 @@ vars:
 #        - apps/vcluster
 #        - apps/zigbee2mqtt
 
+  # Fetch list of api groups
+  - clusterObject:
+      kind: APIService
+      labels:
+        kube-aggregator.kubernetes.io/automanaged: "true"
+      path: spec.group
+      list: true
+    targetPath: apigroups
+
 deployments:
 
 {% if get_var('args.bootstrap') %}
