@@ -14,6 +14,12 @@ deployments:
         name: ciliumnetworkpolicies.cilium.io
   - path: networkpolicies
 {% if config.base.cilium.loadbalancer.enabled | default(false) %}
+  - barrier: true
+    waitReadinessObjects:
+      - kind: CustomResourceDefinition
+        name: ciliumloadbalancerippools.cilium.io
+      - kind: CustomResourceDefinition
+        name: ciliuml2announcementpolicies.cilium.io
   - path: loadbalancer
 {% endif %}
   - path: metrics

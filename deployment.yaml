@@ -6,19 +6,19 @@ vars:
         - base/cilium
         - base/kluctl-controller
         # Base components for any cluster
-        - base/cloudnative-pg
-        - base/ingress
-        - base/k8up
-        - base/kubevirt
-        - base/metrics-server
-        - base/node-exporter
-        - base/observability
-        - base/kube-state-metrics
-        - base/storage
+#        - base/cloudnative-pg
+#        - base/ingress
+#        - base/k8up
+#        - base/kubevirt
+#        - base/metrics-server
+#        - base/node-exporter
+#        - base/observability
+#        - base/kube-state-metrics
+#        - base/storage
         # Applications
-        - apps/authentik
-        - apps/gitea
-        - apps/gs1200-exporter
+#        - apps/authentik
+#        - apps/gitea
+#        - apps/gs1200-exporter
 #        - apps/home-assistant
 #        - apps/meshcore-proxy
 #        - apps/mikrotik-exporter
