@@ -7,7 +7,7 @@ vars:
         - base/kluctl-controller
         # Base components for any cluster
 #        - base/cloudnative-pg
-#        - base/ingress
+        - base/ingress
 #        - base/k8up
 #        - base/kubevirt
         - base/metrics-server
