@@ -1,5 +1,8 @@
 crds:
   enabled: false
+podSecurityContext:
+  seccompProfile:
+    type: RuntimeDefault
 operator:
   disable_prometheus_converter: true
 serviceMonitor:
