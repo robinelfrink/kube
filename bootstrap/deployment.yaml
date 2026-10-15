@@ -17,6 +17,3 @@ deployments:
         name: config
         namespace: config
   - path: ../deployments/kluctl-deployments/kluctl-deployment
-    vars:
-      - values:
-          components: []

@@ -10,11 +10,11 @@ vars:
 #        - base/ingress
 #        - base/k8up
 #        - base/kubevirt
-#        - base/metrics-server
-#        - base/node-exporter
+        - base/metrics-server
+        - base/node-exporter
 #        - base/observability
 #        - base/kube-state-metrics
-#        - base/storage
+        - base/storage
         # Applications
 #        - apps/authentik
 #        - apps/gitea
