@@ -12,7 +12,7 @@ vars:
 #        - base/kubevirt
         - base/metrics-server
         - base/node-exporter
-#        - base/observability
+        - base/observability
 #        - base/kube-state-metrics
         - base/storage
         # Applications
