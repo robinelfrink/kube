@@ -5,4 +5,5 @@ resources:
   - helm-rendered.yaml
 {% if 'operator.victoriametrics.com' in apigroups %}
   - scrapes
+  - rules
 {% endif %}
