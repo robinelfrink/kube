@@ -13,7 +13,7 @@ spec:
           registry:
             url: "docker://quay.io/containerdisks/debian:13"
         storage:
-          storageClassName: seaweed
+          storageClassName: seaweedfs
           accessModes:
             - ReadWriteMany
           resources:
