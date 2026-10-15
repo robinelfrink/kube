@@ -38,6 +38,18 @@ base:
     #     type: local
     #     path: /var/mnt/LOCAL
     #     default: true
+    #   - name: seaweedfs
+    #     type: local
+    #     path: /var/mnt/SEAWEEDFS
+    #     default: false
+    #     admin:
+    #       enabled: false
+    #       username: <username>
+    #       password: <password>
+    #       ingress:
+    #         enabled: false
+    #         issuer: <issuer for certificates>
+    #         hostname: <seaweedfs admin hostname>
 
   ingress:
     enabled: false
