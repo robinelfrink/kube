@@ -4,7 +4,6 @@ deployments:
     waitReadiness: true
 {%-   for class in config.base.storage.classes %}
   - path: {{ class.type }}
-    recursive: true
     vars:
       - values:
           storage: {{ class }}
