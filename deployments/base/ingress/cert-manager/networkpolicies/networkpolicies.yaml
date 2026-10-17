@@ -13,11 +13,7 @@ spec:
     - matchLabels:
         "k8s:io.kubernetes.pod.namespace": ingress
   # Webhook
-  - fromEntities:
-    - host
-    - remote-node
-    - kube-apiserver
-    toPorts:
+  - toPorts:
     - ports:
       - port: "443"
         protocol: TCP
