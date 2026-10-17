@@ -11,6 +11,5 @@ deployments:
       - kind: CustomResourceDefinition
         name: clusterissuers.cert-manager.io
   - path: issuers
-  - path: networkpolicies
   - path: metrics
     when: "'operator.victoriametrics.com' in apigroups"
