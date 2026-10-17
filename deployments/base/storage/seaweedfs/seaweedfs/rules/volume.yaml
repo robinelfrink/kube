@@ -5,6 +5,7 @@ metadata:
   namespace: storage
 spec:
   groups:
+{% raw %}
     - name: seaweedfs-volume
       rules:
         - alert: SeaweedFSVolumeServerDown
@@ -42,3 +43,4 @@ spec:
           annotations:
             summary: "SeaweedFS Volume Write Errors Detected"
             description: "Volume server {{ $labels.instance }} is experiencing disk write errors (Rate: {{ $value }}/s). Check underlying hardware logs."
+{% endraw %}

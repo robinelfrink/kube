@@ -5,6 +5,7 @@ metadata:
   namespace: storage
 spec:
   groups:
+{% raw %}
     - name: seaweedfs-master
       rules:
         - alert: SeaweedFSMasterDown
@@ -24,3 +25,4 @@ spec:
           annotations:
             summary: "SeaweedFS Cluster Has No Leader"
             description: "The SeaweedFS master cluster has no elected leader, preventing layout alterations or volume assignments."
+{% endraw %}

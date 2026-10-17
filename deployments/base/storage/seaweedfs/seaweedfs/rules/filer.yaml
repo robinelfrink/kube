@@ -5,6 +5,7 @@ metadata:
   namespace: storage
 spec:
   groups:
+{% raw %}
     - name: seaweedfs-filer
       rules:
         - alert: SeaweedFSFilerDown
@@ -33,3 +34,4 @@ spec:
           annotations:
             summary: "SeaweedFS Filer Sync Lag Growing"
             description: "Filer metadata replication cross-sync is lagging by {{ $value | humanize1024Bytes }}."
+{% endraw %}
