@@ -33,5 +33,5 @@ spec:
             severity: warning
           annotations:
             summary: "SeaweedFS Filer Sync Lag Growing"
-            description: "Filer metadata replication cross-sync is lagging by {{ $value | humanize1024Bytes }}."
+            description: "Filer metadata replication cross-sync is lagging by {{ $value | humanize1024 }}."
 {% endraw %}
