@@ -17,6 +17,7 @@ spec:
   - fromEntities:
     - host
     - remote-node
+    - kube-apiserver
     toPorts:
     - ports:
       - port: "443"
