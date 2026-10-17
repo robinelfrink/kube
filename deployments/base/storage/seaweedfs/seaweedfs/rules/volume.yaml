@@ -1,7 +1,7 @@
 apiVersion: operator.victoriametrics.com/v1beta1
 kind: VMRule
 metadata:
-  name: seaweedfs-filer
+  name: seaweedfs-volume
   namespace: storage
 spec:
   groups:
