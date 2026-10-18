@@ -67,6 +67,9 @@ base:
     # username: <backup username>
     # password: <backup password>
 
+  mochi-mqtt:
+    enabled: false
+
   observability:
     monitoring:
       enabled: false

@@ -50,6 +50,8 @@ base:
     host: ENC[AES256_GCM,data:cYKQsqSK5u31jyJCtVNGGMEzvw==,iv:wWARMDJGFTDa7PljKCoN36YKVKt6W6mtyKdgifpwkhk=,tag:6VGPRkaCZX1RHwauPSHh5w==,type:str]
     username: ENC[AES256_GCM,data:0oxufGTWqEJI7Bn3,iv:WyUT4reAALTs6MXo9PbzEYvQn8RblV7BpGQEUM9w3nU=,tag:lKJXRIb6VyztabHxfRTP7A==,type:str]
     password: ENC[AES256_GCM,data:nlqMyNYRcRMfGKeKZPhX2/ulCLI=,iv:l7WQb+ZvQRwttgSeT/lH/0EzHLhJjIEAi++oHKOCqD0=,tag:RexhdJRpRpK9B3LqHQA9nA==,type:str]
+  mochi-mqtt:
+    enabled: ENC[AES256_GCM,data:pIGDJg==,iv:qRlfwR5aiF0K3FTck8AupTYEfwG3hpDD3CSJFKHdoA4=,tag:bkouM2+WyMexoygsdJtFfg==,type:bool]
   observability:
     metrics:
       enabled: ENC[AES256_GCM,data:FvwcLA==,iv:t27ONTkiign4G/3rPxwlyMBinzOBGKR191bmbzCjrPI=,tag:szt1QoOHNfMKT7Q40MDkAg==,type:bool]
@@ -83,7 +85,7 @@ sops:
         3moK0CZ2AyuBmL/dQS16dJr4WzzougTBeWgO1NDTZQoy2ueKewXHYA==
         -----END AGE ENCRYPTED FILE-----
       recipient: age1z8y632jh4pyvhtu34n324xaea6zzsclvagz9a92g8hds5xr9wpes44ty3w
-  lastmodified: "2026-10-15T13:40:16Z"
-  mac: ENC[AES256_GCM,data:mn4duEfvu6a7sO7vGI5fXC9ChqF/+BW0s1Ba5AcGICaTAh1HF4nud9YHsqYFhcpttzQdIPf8ztcuA2ALfxuFip52xFMTJ4zmFpfQ276DrkpG0mQ9j7EJZN0D/eS/CECnhKlGNgL0pXfJHclmvcqQELIVcn99879TBYp7NHjOsA0=,iv:huvxR+TCjnHfmSlP0ejWGLbw8ViC92wbINKm8OnOAJ4=,tag:O+j7gZM7PAjL5SHjI5Lzvw==,type:str]
+  lastmodified: "2026-10-18T17:18:24Z"
+  mac: ENC[AES256_GCM,data:KtMR8EbuILzn6NXSbiGumj8jl9kx+IClCF17s4gcX9t/0f0ip7pRp5zfkrIbD/+ZYxalqFzQgqiZaLA+b36WEV+X+7wccr6bUhGmRdeB7X1bW4OzRu1xqGgPDI/sdqS1ECH9hgdNPB/UQsv1Enqei27aV21UlXn23q0815c7vKE=,iv:R8zdjV1fTKNsZsx0NMTV5x2mlP2rnmtRF2HbWf4E90k=,tag:3vPNFr4Y0sRcP7X9/j0gYQ==,type:str]
   unencrypted_suffix: _unencrypted
   version: 3.13.3
