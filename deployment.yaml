@@ -23,7 +23,6 @@ vars:
         - apps/home-assistant
 #        - apps/meshcore-proxy
 #        - apps/mikrotik-exporter
-#        - apps/mochi-mqtt
 #        - apps/nextcloud
 #        - apps/nextcloud2
 #        - apps/rest-server
