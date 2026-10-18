@@ -71,27 +71,7 @@ base:
       authentication:
         enabled: ENC[AES256_GCM,data:VKmZmg==,iv:zOvMVlyAYBwcYnGIkFoRvRbO+fjUsxbAbNoIpVB5QsE=,tag:Q+P2p2uRoNkb+7+h5hPxmA==,type:bool]
         auth: ENC[AES256_GCM,data:YLSuEdTIGkOl79TFAXc=,iv:59aqhEJ+AwPxJDlK4qQlbpkWYw3SsWHo7Gjw/veFdSs=,tag:fSbNfKn/04BJhFjgbR2e5g==,type:str]
-apps:
-  home-assistant:
-    - name: ENC[AES256_GCM,data:JQjOuxHFyopyiA==,iv:TMlElq2cq/Bc24lxOqZycE+6D7LoT3FiKEoZUIANxT0=,tag:A638NslpohCuCE8LKCzXww==,type:str]
-      hostname: ENC[AES256_GCM,data:VnqclSmGaAmG1WX0MA==,iv:caVy/zqoQklpDUy5ZHh7QjUOzCj5RSKv9gXMBEj9nGs=,tag:vs8Ncppx8EwECrzZeV47aQ==,type:str]
-      issuer: ENC[AES256_GCM,data:vPVMN+PKe0V4MZ/d1h98p9lTbQ==,iv:5y8xI5QGwxUoU7fs2bPT1dHJeAC85GOUjhJYC/d6wio=,tag:XgDDlqdoCMRQpcWYfe20Bw==,type:str]
-      storage_class: ENC[AES256_GCM,data:ILjQ4wI=,iv:KddTaqhTl4dS2KbE0js9MapTyjmQN+fErHOtWZr8wUw=,tag:4MXVp277HNjj8IJlRRmpCg==,type:str]
-      node: ENC[AES256_GCM,data:V+Y=,iv:tSceExB0RbNHnHOIqxRstrW6V5UyGTt5KiUKKCyd7X4=,tag:CEHhAId8OaXl1cM+Yt6joQ==,type:str]
-      extra_config: {}
-      victoria:
-        #ENC[AES256_GCM,data:5pE8/Nk1aD53lGVYl4fK42g3XAperKNwEpRQNKRsPawmfHtXwgaA0yw5chc4XKSCo+Uay9bldtcu,iv:byNBU4yXddon3mCyxiy4st+zaQCdyDNcn9NZqK1jviw=,tag:9MrB5WBqgGP+5jl982Ejqg==,type:comment]
-        enabled: ENC[AES256_GCM,data:qEHtyQ==,iv:4gK2UImSgpLgvEk2wJKp6cFC1r0FQ4VHfFZDpHV2xXI=,tag:xZfvAmU643HGmBNTVTAWmg==,type:bool]
-        storage_class: ENC[AES256_GCM,data:ALYaDL0=,iv:naajxCLfuANnJldQib40cUm/Q7ovHGjV9gINh+QRCiE=,tag:9hUKtjF3dqff1MXdQw/+Jw==,type:str]
-        node: ENC[AES256_GCM,data:wOg=,iv:ApeewGfeDXT/AsA+LbZzIvpbUJchhLphL5okjlAnYqI=,tag:nrFY1oIG98n6YM/8lbLzww==,type:str]
-        ingress:
-          enabled: ENC[AES256_GCM,data:ODvhDA==,iv:QMxArgjY/3dpmY22/DRL2N190a8G2SPkL09bTIc0pWA=,tag:/Gu6BPd1mM5w934potF04A==,type:bool]
-          hostname: ENC[AES256_GCM,data:pBkKAqsLUj968W68NnI9,iv:PFqXpcVflWgKUFembFwQSVqlEjY/6IAEPo4b1CVcRpo=,tag:+g8D2vglk9CEXbwcJpEaaA==,type:str]
-          issuer: ENC[AES256_GCM,data:eTPkb7sf4sb3sNJ0LO3UNeIXrg==,iv:69DLeDdbkgFMj1KTNrgJWZnxwtEqMjcQ4xcj05OihKg=,tag:f0ffV/Fcffa9cQENFH596A==,type:str]
-          authentication:
-            enabled: ENC[AES256_GCM,data:7G2nkg==,iv:kEMIbM887DfMHvaezUeFVKVLrjwqETOzSMn+r73vWRE=,tag:o36c974mEkxComZyyU056Q==,type:bool]
-            username: ENC[AES256_GCM,data:ynHpN6c=,iv:AVtoOxU9bWwznlivSHMvdQ1bciESiHSH57cxkPn3Bt4=,tag:8UcJoTl6VWkbQ1r4c28ApQ==,type:str]
-            password: ENC[AES256_GCM,data:m8NQFl91,iv:IyknUNq1SY/YAVYHsETBBr4KqeIUE2dPG/zSouvyhtw=,tag:1O9GrXJ0MqMdd8Sok0kXzA==,type:str]
+apps: []
 sops:
   age:
     - enc: |
@@ -103,7 +83,7 @@ sops:
         3moK0CZ2AyuBmL/dQS16dJr4WzzougTBeWgO1NDTZQoy2ueKewXHYA==
         -----END AGE ENCRYPTED FILE-----
       recipient: age1z8y632jh4pyvhtu34n324xaea6zzsclvagz9a92g8hds5xr9wpes44ty3w
-  lastmodified: "2026-10-18T11:07:35Z"
-  mac: ENC[AES256_GCM,data:RwUccuBylx9DBDO5VgVIETa8JyG/+NB7v/naX5Z3TYb+XAkg8McO+HnlOPnlhRzDH3e7k6cQXQtxqX+pk9OQzTkC1TxrbDyz3B+5xb2CXfWd7W8Xphn6lnnCD2IEvLI8SsmWhnpepa5IdLYY80Qlp3lV7EbVBkN4Wc9CQVxGJvA=,iv:L5BlcRSfFgmP3+pNjp5U3EwDxsBZDV25C+BH3i11ltg=,tag:p0GcGgpGaIRbtTCWGxJBzQ==,type:str]
+  lastmodified: "2026-10-15T13:40:16Z"
+  mac: ENC[AES256_GCM,data:mn4duEfvu6a7sO7vGI5fXC9ChqF/+BW0s1Ba5AcGICaTAh1HF4nud9YHsqYFhcpttzQdIPf8ztcuA2ALfxuFip52xFMTJ4zmFpfQ276DrkpG0mQ9j7EJZN0D/eS/CECnhKlGNgL0pXfJHclmvcqQELIVcn99879TBYp7NHjOsA0=,iv:huvxR+TCjnHfmSlP0ejWGLbw8ViC92wbINKm8OnOAJ4=,tag:O+j7gZM7PAjL5SHjI5Lzvw==,type:str]
   unencrypted_suffix: _unencrypted
   version: 3.13.3

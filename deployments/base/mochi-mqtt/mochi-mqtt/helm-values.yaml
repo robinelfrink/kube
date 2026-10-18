@@ -1,4 +1,3 @@
----
 applicationName: mochi-mqtt
 deployment:
   image:
@@ -29,11 +28,6 @@ deployment:
       mountPath: /config.yaml
       subPath: config.yaml
   securityContext:
-    allowPrivilegeEscalation: false
-    capabilities:
-      drop:
-      - ALL
-    readOnlyRootFilesystem: true
     runAsNonRoot: true
     runAsUser: 999
     seccompProfile:
@@ -51,10 +45,12 @@ deployment:
 service:
   loadBalancerClass: io.cilium/l2-announcer
   internalTrafficPolicy: Cluster
+{% if 'ip' in config.base.ingress %}
   annotations:
-    lbipam.cilium.io/ips: ${ip}
+    lbipam.cilium.io/ips: {{ config.base.ingress.ip }}
     lbipam.cilium.io/sharing-cross-namespace: '*'
-    lbipam.cilium.io/sharing-key: share-${ip}
+    lbipam.cilium.io/sharing-key: share-{{ config.base.ingress.ip }}
+{% endif %}
   ports:
     - port: 1883
       name: tcp
