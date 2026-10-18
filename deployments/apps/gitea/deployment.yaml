@@ -1,0 +1,14 @@
+{% for app in get_var('config.apps.gitea') %}
+{%   if args.name == app.name %}
+vars:
+  - values:
+      app: {{ app }}
+
+deployments:
+  - path: namespace
+    waitReadiness: true
+  - path: database
+  - path: gitea
+  - path: backup
+{%   endif %}
+{% endfor %}

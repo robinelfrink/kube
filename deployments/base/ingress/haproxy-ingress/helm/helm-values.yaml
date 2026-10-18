@@ -1,0 +1,41 @@
+controller:
+  extraArgs:
+    watch-ingress-without-class: "true"
+  ingressClassResource:
+    enabled: true
+    default: true
+    controllerClass: haproxy
+  config:
+    use-proxy-protocol: "true"
+  kind: DaemonSet
+  tcp:
+    8081: "ingress/haproxy-ingress:8080::PROXY-V2"
+    8444: "ingress/haproxy-ingress:8443::PROXY-V2"
+{% for port in config.base.ingress.ports | default([]) %}
+    {{ port.port }}: {{ port.target }}
+{% endfor %}
+  service:
+{% if 'ip' in config.base.ingress %}
+    type: LoadBalancer
+    loadBalancerClass: io.cilium/l2-announcer
+    externalTrafficPolicy: Cluster
+    annotations:
+      lbipam.cilium.io/ips: {{ config.base.ingress.ip }}
+      lbipam.cilium.io/sharing-cross-namespace: '*'
+      lbipam.cilium.io/sharing-key: share-{{ config.base.ingress.ip }}
+{% endif %}
+    httpPorts:
+      - port: 8080
+        targetPort: http
+    httpsPorts:
+      - port: 8443
+        targetPort: https
+    extraPorts:
+      - port: 80
+        targetPort: 8081
+      - port: 443
+        targetPort: 8444
+  haproxy:
+    enabled: true
+  metrics:
+    enabled: true

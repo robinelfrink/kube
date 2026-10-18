@@ -1,0 +1,37 @@
+apiVersion: operator.victoriametrics.com/v1beta1
+kind: VMRule
+metadata:
+  name: seaweedfs-filer
+  namespace: storage
+spec:
+  groups:
+{% raw %}
+    - name: seaweedfs-filer
+      rules:
+        - alert: SeaweedFSFilerDown
+          expr: up{job="seaweedfs-services", instance=~".*filer.*"} == 0
+          for: 5m
+          labels:
+            severity: critical
+          annotations:
+            summary: "SeaweedFS Filer Gateway Down"
+            description: "Filer instance {{ $labels.instance }} is unreachable, cutting off filesystem-level metadata access."
+
+        - alert: SeaweedFSFilerHighErrorRate
+          expr: sum(rate(seaweedfs_filer_request_counter{status=~"5.."}[5m])) by (instance) / sum(rate(seaweedfs_filer_request_counter[5m])) by (instance) > 0.05
+          for: 5m
+          labels:
+            severity: warning
+          annotations:
+            summary: "SeaweedFS Filer High HTTP 5xx Error Rate"
+            description: "Filer {{ $labels.instance }} error rate has exceeded 5% over the last 5 minutes."
+
+        - alert: SeaweedFSFilerSyncLagging
+          expr: seaweedfs_filer_sync_lag_bytes > 52428800  # 50MB of lag
+          for: 10m
+          labels:
+            severity: warning
+          annotations:
+            summary: "SeaweedFS Filer Sync Lag Growing"
+            description: "Filer metadata replication cross-sync is lagging by {{ $value | humanize1024 }}."
+{% endraw %}

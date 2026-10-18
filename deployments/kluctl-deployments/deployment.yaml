@@ -1,0 +1,9 @@
+vars:
+  - clusterSecret:
+      name: config
+      namespace: config
+      key: config
+    targetPath: config
+
+deployments:
+  - path: kluctl-deployment

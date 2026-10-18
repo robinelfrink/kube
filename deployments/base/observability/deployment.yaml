@@ -1,0 +1,23 @@
+vars:
+  - http:
+      url: https://github.com/samber/awesome-prometheus-alerts/raw/refs/tags/2026-07-26.1/dist/rules/etcd/embedded-exporter.yml
+    targetPath: rules.etcd
+    when: get_var('config.base.observability.metrics.enabled')
+  - http:
+      url: https://github.com/samber/awesome-prometheus-alerts/raw/refs/tags/2026-07-26.1/dist/rules/coredns/embedded-exporter.yml
+    targetPath: rules.coredns
+    when: get_var('config.base.observability.metrics.enabled')
+
+deployments:
+  - path: namespace
+    waitReadiness: true
+  - path: victoria-metrics-operator-crds
+  - barrier: true
+    waitReadinessObjects:
+      - kind: CustomResourceDefinition
+        name: vmsingles.operator.victoriametrics.com
+  - path: victoria-metrics-operator
+    when: "'operator.victoriametrics.com' in apigroups"
+  - path: metrics
+    recursive: true
+    when: "get_var('config.base.observability.metrics.enabled') and 'operator.victoriametrics.com' in apigroups"

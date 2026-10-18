@@ -1,0 +1,11 @@
+{% if get_var('app.victoria.ingress.authentication.enabled') %}
+apiVersion: v1
+kind: Secret
+metadata:
+  name: victoria-metrics-authentication
+  namespace: home-assistant-{{ app.name }}
+type: Opaque
+stringData:
+  auth: |
+    {{ get_var('app.victoria.ingress.authentication.username') }}::{{ get_var('app.victoria.ingress.authentication.password') }}
+{% endif %}

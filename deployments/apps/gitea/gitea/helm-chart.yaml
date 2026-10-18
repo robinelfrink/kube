@@ -1,0 +1,6 @@
+helmChart:
+  repo: oci://docker.gitea.com/charts/gitea
+  chartVersion: 12.7.0
+  releaseName: gitea
+  namespace: gitea-{{ app.name }}
+  skipPrePull: true

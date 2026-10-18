@@ -1,0 +1,10 @@
+apiVersion: operator.victoriametrics.com/v1beta1
+kind: VMRule
+metadata:
+  name: etcd
+  namespace: observability
+spec:
+  groups:
+    - name: etcd
+      rules:
+        {{ rules.etcd.groups[0].rules | to_yaml | indent(8) }}

@@ -1,0 +1,46 @@
+apiVersion: operator.victoriametrics.com/v1beta1
+kind: VMRule
+metadata:
+  name: seaweedfs-volume
+  namespace: storage
+spec:
+  groups:
+{% raw %}
+    - name: seaweedfs-volume
+      rules:
+        - alert: SeaweedFSVolumeServerDown
+          expr: up{job="seaweedfs-services", instance=~".*volume.*"} == 0
+          for: 5m
+          labels:
+            severity: critical
+          annotations:
+            summary: "SeaweedFS Volume Server Down"
+            description: "Volume server {{ $labels.instance }} is offline. Volumes hosted here are currently unreachable."
+
+        - alert: SeaweedFSDiskNearlyFull
+          expr: seaweedfs_volume_disk_free_bytes / seaweedfs_volume_disk_total_bytes < 0.10
+          for: 10m
+          labels:
+            severity: warning
+          annotations:
+            summary: "SeaweedFS Storage Disk Space Low"
+            description: "Volume server {{ $labels.instance }} has less than 10% disk space remaining (Current: {{ $value | humanizePercentage }})."
+
+        - alert: SeaweedFSDiskCompletelyFull
+          expr: seaweedfs_volume_disk_free_bytes / seaweedfs_volume_disk_total_bytes < 0.02
+          for: 2m
+          labels:
+            severity: critical
+          annotations:
+            summary: "SeaweedFS Storage Disk Exhausted"
+            description: "Volume server {{ $labels.instance }} is critically low on space (< 2%). Write operations will fail."
+
+        - alert: SeaweedFSVolumeWriteErrors
+          expr: rate(seaweedfs_volume_write_error_counter_total[5m]) > 0
+          for: 1m
+          labels:
+            severity: warning
+          annotations:
+            summary: "SeaweedFS Volume Write Errors Detected"
+            description: "Volume server {{ $labels.instance }} is experiencing disk write errors (Rate: {{ $value }}/s). Check underlying hardware logs."
+{% endraw %}

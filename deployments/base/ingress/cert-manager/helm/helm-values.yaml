@@ -1,0 +1,6 @@
+global:
+  leaderElection:
+    namespace: ingress
+installCRDs: true
+extraArgs:
+  - --enable-certificate-owner-ref=true

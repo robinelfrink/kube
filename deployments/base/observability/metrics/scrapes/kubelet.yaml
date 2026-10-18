@@ -1,0 +1,23 @@
+apiVersion: operator.victoriametrics.com/v1beta1
+kind: VMNodeScrape
+metadata:
+  name: kubelet
+  namespace: observability
+spec:
+  selector:
+    matchLabels:
+      node-role.kubernetes.io/control-plane: ""
+  port: "10250"
+  scheme: https
+  bearerTokenFile: /var/run/secrets/kubernetes.io/serviceaccount/token
+  tlsConfig:
+    caFile: /var/run/secrets/kubernetes.io/serviceaccount/ca.crt
+    insecureSkipVerify: true
+  relabelConfigs:
+    - target_label: job
+      replacement: kubelet
+      action: replace
+    - sourceLabels:
+        - __metrics_path__
+      action: replace
+      targetLabel: metrics_path

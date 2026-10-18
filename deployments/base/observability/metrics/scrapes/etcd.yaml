@@ -1,0 +1,14 @@
+apiVersion: operator.victoriametrics.com/v1beta1
+kind: VMNodeScrape
+metadata:
+  name: etcd
+  namespace: observability
+spec:
+  selector:
+    matchLabels:
+      node-role.kubernetes.io/control-plane: ""
+  port: "2381"
+  relabelConfigs:
+    - target_label: job
+      replacement: etcd
+      action: replace

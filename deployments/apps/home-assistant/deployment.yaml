@@ -1,0 +1,19 @@
+{% for app in get_var('config.apps.home-assistant') %}
+{%   set app=app %}
+{%   if args.name == app.name %}
+vars:
+  - values:
+      app: {{ app }}
+
+deployments:
+  - path: namespace
+    waitReadiness: true
+  - path: home-assistant
+{%     if get_var('app.victoria.enabled') %}
+  - path: victoria-metrics
+{%     endif %}
+{%     if 'k8up.io' in apigroups %}
+  - path: backup
+{%     endif %}
+{%   endif %}
+{% endfor %}

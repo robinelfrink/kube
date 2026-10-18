@@ -1,0 +1,15 @@
+{% for app in get_var('config.apps.authentik') %}
+{%   if args.name == app.name %}
+vars:
+  - values:
+      app: {{ app }}
+
+deployments:
+  - path: namespace
+    waitReadiness: true
+  - path: valkey
+  - path: database
+  - path: authentik
+  - path: backup
+{%   endif %}
+{% endfor %}

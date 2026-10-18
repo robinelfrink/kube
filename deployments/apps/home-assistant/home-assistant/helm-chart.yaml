@@ -1,0 +1,7 @@
+helmChart:
+  repo: https://pajikos.github.io/home-assistant-helm-chart
+  chartName: home-assistant
+  chartVersion: 0.3.87
+  releaseName: home-assistant
+  namespace: home-assistant-{{ app.name }}
+  skipPrePull: true

@@ -1,0 +1,6 @@
+helmChart:
+  repo: oci://ghcr.io/victoriametrics/helm-charts/victoria-metrics-single
+  chartVersion: 0.49.0
+  releaseName: victoria-metrics
+  namespace: home-assistant-{{ app.name }}
+  skipPrePull: true

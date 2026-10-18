@@ -1,0 +1,53 @@
+{% if get_var('app.node') %}
+nodeSelector:
+  kubernetes.io/hostname: {{ app.node }}
+{% endif %}
+ingress:
+  enabled: true
+  annotations:
+{% if get_var('app.issuer') %}
+    cert-manager.io/cluster-issuer: {{ app.issuer }}
+{% endif %}
+    haproxy-ingress.github.io/config-backend: |
+      acl bad path_beg /api/prometheus
+      http-request deny if bad
+  hosts:
+    - host: {{ app.hostname }}
+      paths:
+        - path: /
+          pathType: ImplementationSpecific
+  tls:
+    - secretName: home-assistant-tls
+      hosts:
+        - {{ app.hostname }}
+persistence:
+  enabled: true
+{% if get_var('app.node') %}
+  annotations:
+    volume.kubernetes.io/selected-node: {{ app.node }}
+{% endif %}
+{% if get_var('app.storage_class') %}
+  storageClass: {{ app.storage_class }}
+{% endif %}
+configuration:
+  enabled: true
+  forceInit: true
+  templateConfig: |
+    default_config:
+    prometheus:
+      namespace: home-assistant-{{ app.name }}
+      requires_auth: false
+      filter:
+        include_domains:
+          - light
+          - weather
+          - person
+          - sensor
+          - binary_sensor
+          - update
+{% if get_var('app.extra_config') %}
+    {{ app.extra_config | to_yaml | indent(4) }}
+{% endif %}
+    automation: !include automations.yaml
+    script: !include scripts.yaml
+    scene: !include scenes.yaml

@@ -1,0 +1,41 @@
+master:
+  data:
+    type: "hostPath"
+    hostPathPrefix: {{ storage.path }}
+  logs:
+    type: "hostPath"
+    hostPathPrefix: {{ storage.path }}
+filer:
+  data:
+    type: "hostPath"
+    hostPathPrefix: {{ storage.path }}
+  logs:
+    type: "hostPath"
+    hostPathPrefix: {{ storage.path }}
+volume:
+  replicas: 2
+  dataDirs:
+    - name: data1
+      type: "hostPath"
+      hostPathPrefix: {{ storage.path }}
+      maxVolumes: 0
+  logs:
+    type: "hostPath"
+    hostPathPrefix: {{ storage.path }}
+admin:
+  enabled: {{ get_var('storage.admin.enabled') }}
+  secret:
+    adminUser: "{{ get_var('storage.admin.username') }}"
+    adminPassword: "{{ get_var('storage.admin.password') }}"
+  ingress:
+    enabled: {{ get_var('storage.admin.ingress.enabled') }}
+    className: ""
+    host: {{ get_var('storage.admin.ingress.hostname') }}
+{% if get_var('storage.admin.ingress.issuer') %}
+    annotations:
+      cert-manager.io/cluster-issuer: {{ storage.admin.ingress.issuer }}
+{% endif %}
+    tls:
+      - hosts:
+          - {{ get_var('storage.admin.ingress.hostname') }}
+        secretName: seaweedfs-ingress-tls

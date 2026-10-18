@@ -1,0 +1,28 @@
+apiVersion: operator.victoriametrics.com/v1beta1
+kind: VMRule
+metadata:
+  name: seaweedfs-master
+  namespace: storage
+spec:
+  groups:
+{% raw %}
+    - name: seaweedfs-master
+      rules:
+        - alert: SeaweedFSMasterDown
+          expr: up{job="seaweedfs-services", instance=~".*master.*"} == 0
+          for: 5m
+          labels:
+            severity: critical
+          annotations:
+            summary: "SeaweedFS Master Down"
+            description: "A SeaweedFS Master instance ({{ $labels.instance }}) has been unreachable for more than 5 minutes."
+
+        - alert: SeaweedFSNoLeader
+          expr: seaweedfs_master_leader_changes_total == 0
+          for: 2m
+          labels:
+            severity: critical
+          annotations:
+            summary: "SeaweedFS Cluster Has No Leader"
+            description: "The SeaweedFS master cluster has no elected leader, preventing layout alterations or volume assignments."
+{% endraw %}

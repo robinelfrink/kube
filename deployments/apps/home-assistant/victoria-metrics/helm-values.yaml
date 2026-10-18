@@ -1,0 +1,103 @@
+server:
+  retentionPeriod: 100y
+{% if get_var('app.victoria.node') %}
+  nodeSelector:
+    kubernetes.io/hostname: {{ app.victoria.node }}
+{% endif %}
+  persistentVolume:
+    annotations:
+{% if get_var('app.victoria.node') %}
+      volume.kubernetes.io/selected-node: {{ app.victoria.node }}
+{% endif %}
+{% if get_var('app.victoria.storage_class') %}
+    storageClassName: {{ app.victoria.storage_class }}
+{% endif %}
+    size: 10Gi
+{% if get_var('app.victoria.ingress.enabled') %}
+  ingress:
+    enabled: true
+{%   if get_var('app.victoria.ingress.issuer') or get_var('app.victoria.ingress.authentication.enabled') %}
+    annotations:
+{%     if get_var('app.victoria.ingress.issuer') %}
+      cert-manager.io/cluster-issuer: {{ app.victoria.ingress.issuer }}
+{%     endif %}
+{%     if get_var('app.victoria.ingress.authentication.enabled') %}
+      haproxy-ingress.github.io/auth-realm: Access Limited
+      haproxy-ingress.github.io/auth-secret: victoria-metrics-ingress-authentication
+{%     endif %}
+{%   endif %}
+    hosts:
+      - name: {{ app.victoria.ingress.hostname }}
+        path:
+          - /
+        port: http
+    tls:
+      - secretName: victoria-metrics-tls
+        hosts:
+          - {{ app.victoria.ingress.hostname }}
+{% endif %}
+  scrape:
+    enabled: true
+    config:
+      global:
+        scrape_interval: 60s
+      scrape_configs:
+      - job_name: home-assistant
+        kubernetes_sd_configs:
+        - role: endpoints
+          namespaces:
+            names:
+            - home-assistant-{{ app.name }}
+        metrics_path: /api/prometheus
+        relabel_configs:
+        - action: keep
+          source_labels:
+          - __meta_kubernetes_service_label_app_kubernetes_io_instance
+          regex: home-assistant
+        - action: keep
+          source_labels:
+          - __meta_kubernetes_service_label_app_kubernetes_io_name
+          regex: home-assistant
+        - action: keep
+          source_labels:
+          - __meta_kubernetes_endpoint_port_name
+          regex: http
+        - source_labels:
+          - __meta_kubernetes_endpoint_address_target_kind
+          - __meta_kubernetes_endpoint_address_target_name
+          separator: ;
+          regex: Node;(.*)
+          replacement: $${1}
+          target_label: node
+        - source_labels:
+          - __meta_kubernetes_endpoint_address_target_kind
+          - __meta_kubernetes_endpoint_address_target_name
+          separator: ;
+          regex: Pod;(.*)
+          replacement: $${1}
+          target_label: pod
+        - source_labels:
+          - __meta_kubernetes_pod_name
+          target_label: pod
+        - source_labels:
+          - __meta_kubernetes_pod_container_name
+          target_label: container
+        - source_labels:
+          - __meta_kubernetes_namespace
+          target_label: namespace
+        - source_labels:
+          - __meta_kubernetes_service_name
+          target_label: service
+        - source_labels:
+          - __meta_kubernetes_service_name
+          target_label: job
+          replacement: $${1}
+        - target_label: endpoint
+          replacement: http
+        metric_relabel_configs:
+        - action: keep
+          source_labels:
+          - __name__
+          - domain
+          separator: ;
+          regex: hass_sensor_.*;sensor

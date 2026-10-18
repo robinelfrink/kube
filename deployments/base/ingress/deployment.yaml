@@ -1,0 +1,5 @@
+deployments:
+  - path: namespace
+    waitReadiness: true
+  - include: haproxy-ingress
+  - include: cert-manager
