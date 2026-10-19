@@ -1,0 +1,46 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: gitea-pages2
+  namespace: flux
+spec:
+  interval: 1h
+  chart:
+    spec:
+      chart: application
+      version: 9.3.2
+      sourceRef:
+        kind: HelmRepository
+        name: gitea-pages2
+      interval: 1h
+  releaseName: gitea-pages2
+  targetNamespace: gitea
+  storageNamespace: gitea
+  valuesFrom:
+    - kind: ConfigMap
+      name: gitea-pages2
+    - kind: Secret
+      name: gitea-pages2
+      valuesKey: server
+      targetPath: deployment.env.GITEA_PAGES_SERVER.value
+    - kind: Secret
+      name: gitea-pages2
+      valuesKey: token
+      targetPath: deployment.env.GITEA_PAGES_TOKEN.value
+    - kind: Secret
+      name: gitea-pages2
+      valuesKey: branch
+      targetPath: deployment.env.GITEA_PAGES_BRANCH.value
+    - kind: Secret
+      name: gitea-pages2
+      valuesKey: repository
+      targetPath: ingress.annotations.haproxy-ingress\.github\.io/rewrite-target
+    - kind: Secret
+      name: gitea-pages2
+      valuesKey: hostname
+      targetPath: ingress.hosts[0].host
+    - kind: Secret
+      name: gitea-pages2
+      valuesKey: hostname
+      targetPath: ingress.tls[0].hosts[0]

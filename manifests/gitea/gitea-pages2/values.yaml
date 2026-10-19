@@ -1,0 +1,34 @@
+deployment:
+  env:
+    GITEA_PAGES_SERVER:
+      value: ${server}
+    GITEA_PAGES_TOKEN:
+      value: ${token}
+    GITEA_PAGES_BRANCH:
+      value: ${branch}
+  image:
+    repository: ghcr.io/deadnews/gitea-pages
+    tag: 1.0.3
+    command:
+      - pages
+      - serve
+service:
+  ports:
+    - port: 8000
+      name: http
+      protocol: TCP
+      targetPort: 8000
+ingress:
+  enabled: true
+  annotations:
+    haproxy-ingress.github.io/rewrite-target: /${repository}
+    cert-manager.io/cluster-issuer: letsencrypt
+  hosts:
+    - host: ${hostname}
+      paths:
+        - path: /
+          pathType: ImplementationSpecific
+  tls:
+    - secretName: gitea-pages-tls
+      hosts:
+        - ${hostname}

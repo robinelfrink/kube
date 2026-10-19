@@ -8,6 +8,7 @@ resources:
   - helmrelease.yaml
   - resources.yaml
   - gitea-pages1
+  - gitea-pages2
 configMapGenerator:
 - name: gitea
   namespace: flux
