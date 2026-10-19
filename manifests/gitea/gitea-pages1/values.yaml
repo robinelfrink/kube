@@ -22,6 +22,7 @@ ingress:
   enabled: true
   annotations:
     haproxy-ingress.github.io/rewrite-target: /${repository}
+    cert-manager.io/cluster-issuer: letsencrypt
   hosts:
     - host: ${hostname}
       paths:
