@@ -5,7 +5,6 @@ resources:
   - secrets.yaml
   - helmrepository.yaml
   - helmrelease.yaml
-  - resources.yaml
 configMapGenerator:
 - name: gitea-pages1
   namespace: flux
