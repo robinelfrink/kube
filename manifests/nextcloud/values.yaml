@@ -48,6 +48,7 @@ nextcloud:
   strategy:
     type: Recreate
     rollingUpdate: null
+  extraSidecarContainers:
     - name: website-two
       image: busybox:1.38
       args:
