@@ -29,6 +29,6 @@ ingress:
         - path: /
           pathType: ImplementationSpecific
   tls:
-    - secretName: gitea-pages-tls
+    - secretName: gitea-pages2-tls
       hosts:
         - ${hostname}
