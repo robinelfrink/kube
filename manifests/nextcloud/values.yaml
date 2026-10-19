@@ -48,21 +48,6 @@ nextcloud:
   strategy:
     type: Recreate
     rollingUpdate: null
-  extraSidecarContainers:
-    - name: website-one
-      image: busybox:1.38
-      args:
-        - sh
-        - -c
-        - cd /html; httpd -f -v -p 8081
-      workingDir: /html
-      ports:
-        - containerPort: 8081
-          name: http
-      volumeMounts:
-        - name: nextcloud-main
-          mountPath: /html
-          subPath: ${website_one_path}
     - name: website-two
       image: busybox:1.38
       args:
