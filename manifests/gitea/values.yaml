@@ -43,6 +43,10 @@ gitea:
     server:
       SSH_PORT: 2222
       SSH_SERVER_USE_PROXY_PROTOCOL: true
+      LFS_START_SERVER: true
+      LFS_ALLOW_PURE_SSH: true
+    lfs:
+      PATH: /data/lfs
     database:
       DB_TYPE: postgres
       HOST: postgresql-rw.gitea.svc.cluster.local
