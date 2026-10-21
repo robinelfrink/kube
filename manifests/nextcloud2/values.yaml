@@ -37,7 +37,7 @@ nextcloud:
     type: Recreate
     rollingUpdate: null
   phpConfigs:
-    session: |-
+    zz-session.ini: |-
       session.upload_progress.enabled = Off
       session.use_strict_mode = 1
 cronjob:
