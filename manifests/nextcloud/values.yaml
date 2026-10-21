@@ -48,6 +48,10 @@ nextcloud:
   strategy:
     type: Recreate
     rollingUpdate: null
+  phpConfigs:
+    session: |-
+      session.upload_progress.enabled = Off
+      session.use_strict_mode = 1
 cronjob:
   enabled: true
 persistence:
