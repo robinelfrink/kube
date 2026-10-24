@@ -1,7 +1,7 @@
 helmChart:
   repo: https://charts.jetstack.io
   chartName: cert-manager
-  chartVersion: v1.21.2
+  chartVersion: v1.21.3
   releaseName: cert-manager
   namespace: ingress
   skipPrePull: true
