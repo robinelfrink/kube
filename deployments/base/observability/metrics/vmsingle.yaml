@@ -12,7 +12,7 @@ spec:
   storage:
     resources:
       requests:
-        storage: 20Gi
+        storage: 30Gi
     storageClassName: {{ config.base.observability.metrics.storage_class }}
   storageMetadata:
 {% if get_var('config.base.observability.metrics.node') %}
