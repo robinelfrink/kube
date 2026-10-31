@@ -26,3 +26,11 @@ persistence:
   storageClass: ssd
 serviceMonitor:
   enabled: true
+service:
+  type: LoadBalancer
+  className: io.cilium/l2-announcer
+  annotations:
+    lbipam.cilium.io/ips: ${ip}
+    lbipam.cilium.io/sharing-cross-namespace: '*'
+    lbipam.cilium.io/sharing-key: share-${ip}
+  port: 8123

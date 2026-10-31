@@ -41,3 +41,7 @@ spec:
       name: home-assistant
       valuesKey: hostname
       targetPath: ingress.tls[0].hosts[0]
+    - kind: Secret
+      name: haproxy-ingress
+      valuesKey: ip
+      targetPath: service.annotations.lbipam\.cilium\.io/ips
