@@ -1,7 +1,7 @@
 helmChart:
   repo: https://seaweedfs.github.io/seaweedfs-csi-driver/helm
   chartName: seaweedfs-csi-driver
-  chartVersion: "0.2.40"
+  chartVersion: "0.2.44"
   releaseName: {{ storage.name }}-csi-driver
   namespace: storage
   skipPrePull: true
